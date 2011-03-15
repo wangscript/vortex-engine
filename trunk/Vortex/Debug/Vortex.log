@@ -1,0 +1,29 @@
+﻿Build started 2011-03-16 00:09:26.
+     1>Project "C:\Users\Emil\documents\visual studio 2010\Projects\Vortex\Vortex\Vortex.vcxproj" on node 3 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\vortex_core.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\vortex_core.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt datatypes\matrix.cpp datatypes\vector2.cpp datatypes\vector3.cpp datatypes\vector4.cpp math\math.cpp
+         math.cpp
+         vector4.cpp
+         vector3.cpp
+         vector2.cpp
+         matrix.cpp
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Emil\documents\visual studio 2010\Projects\Vortex\Debug\vortex_core.lib" /NOLOGO Debug\matrix.obj
+         Debug\vector2.obj
+         Debug\vector3.obj
+         Debug\vector4.obj
+         Debug\math.obj
+         Vortex.vcxproj -> C:\Users\Emil\documents\visual studio 2010\Projects\Vortex\Debug\vortex_core.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\vortex_core.unsuccessfulbuild".
+         Touching "Debug\vortex_core.lastbuildstate".
+     1>Done Building Project "C:\Users\Emil\documents\visual studio 2010\Projects\Vortex\Vortex\Vortex.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.57
