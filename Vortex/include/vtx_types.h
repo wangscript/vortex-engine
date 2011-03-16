@@ -70,15 +70,12 @@ namespace core
 	public:
 		Vector4();
 		Vector4( F32 x, F32 y, F32 z, F32 w );
-		void add( Vector4 &other, Vector4 &result );
-		void subtract( Vector4 &other, Vector4 &result );
-		void multiply( Vector4 &other, Vector4 &result );
-		void multiply( F32 value, Vector4 &result );
+		static void add( Vector4 &a, Vector4 &b, Vector4 &result );
+		static void subtract( Vector4 &a, Vector4 &b, Vector4 &result );
+		static void multiply( Vector4 &a, Vector4 &b, Vector4 &result );
+		static void multiply( Vector4 &a, F32 value, Vector4 &result );
+		static F32 dot( Vector4 &a, Vector4 &b );
 		__declspec(align(16)) F32 values[4];
-		//F32 x;
-		//F32 y;
-		//F32 z;
-		//F32 w;
 	private:
 	};
 }
