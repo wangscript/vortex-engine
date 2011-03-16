@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\google_test\gtest-1.6.0\include;C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\google_test\gtest-1.6.0;$(IncludePath)</IncludePath>
+    <IncludePath>gtest-1.6.0\include;gtest-1.6.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
