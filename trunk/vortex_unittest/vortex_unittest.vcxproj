@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Emil\Documents\visual studio 2010\Projects\Vortex\google_test\gtest-1.6.0\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Emil\Documents\visual studio 2010\Projects\Vortex\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\google_test\gtest-1.6.0\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
