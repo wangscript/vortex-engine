@@ -17,6 +17,8 @@
 #ifndef VTX_TYPES_H
 #define VTX_TYPES_H
 
+typedef unsigned char U8;
+typedef signed char I8;
 typedef unsigned int U32;
 typedef signed int I32;
 typedef float F32;
