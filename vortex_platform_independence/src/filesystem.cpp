@@ -46,4 +46,9 @@ int Device::getDevices(std::vector<Device*> **devices)
 
 	return deviceCount;
 }
+
+std::string Device::getName()
+{
+	return this->deviceName;
+}
 #endif
