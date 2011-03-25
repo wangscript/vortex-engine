@@ -22,7 +22,7 @@ public:
 	~Device();
 	static int getDevices(std::vector<Device*> **devices);
 	drive_type getDriveType();
-	std::string getString();
+	std::string getName();
 private:
 	drive_type type;
 	std::string *deviceName;
