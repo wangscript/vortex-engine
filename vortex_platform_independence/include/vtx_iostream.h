@@ -1,21 +1,50 @@
+//Copyright (C) 2011 Emil Nordén
+//
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//as published by the Free Software Foundation; either version 2
+//of the License, or (at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program; if not, write to the Free Software
+//Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 #ifndef VTX_IOSTREAM_H
 #define VTX_IOSTREAM_H
 
 #include "vtx_atomic.h"
 #include <xstring>
+#include <Windows.h>
 
-class IOStream
+namespace platform
 {
-public:
-	typedef void (*read_callback)(U8 *buffer, U32 bytesRead);
-	typedef void (*write_callback)(void);
-	
-	virtual void readBytes(U8 *buffer, U32 bufferSize);
-	virtual void readBytes_async(U8 *buffer, U32 bufferSize, read_callback callback);
-	virtual void writeBytes(U8 *buffer, U32 start, U32 length);
-	virtual void writeBytes_async(U8 *buffer, U32 start, U32 length, write_callback);
-	virtual void openStream(std::string path) = 0;
-	virtual void closeStream();
-};
+
+	class IOStream
+	{
+	protected:
+		DEVICE_HANDLE handle;
+		U32 position;
+	public:
+		enum ErrorCode { OK, UNKOWN_ERROR };
+		typedef void (*read_callback)(U8 *buffer, U32 bytesRead);
+		typedef void (*write_callback)(void);
+
+		void init(DEVICE_HANDLE handle);
+		U32 getPosition();
+		ErrorCode setPosition(U32 position);
+		ErrorCode readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesRead);
+		void readBytes_async(U8 *buffer, U32 bytesToRead, read_callback callback);
+		void writeBytes(U8 *buffer, U32 start, U32 length);
+		void writeBytes_async(U8 *buffer, U32 start, U32 length, write_callback);
+		virtual void openStream(std::wstring &path) = 0;
+		void closeStream();
+	};
+
+}
 
 #endif
