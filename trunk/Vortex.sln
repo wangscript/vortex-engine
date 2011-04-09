@@ -1,11 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_core", "Vortex\Vortex.vcxproj", "{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2} = {3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "google_test", "google_test\google_test.vcxproj", "{6D0E3609-6740-4EF3-84BF-48CD9A48E639}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_unittest", "vortex_unittest\vortex_unittest.vcxproj", "{D976F6E0-8D2B-4B98-BA8E-40D85D365DE2}"
@@ -16,16 +11,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_unittest", "vortex_u
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_platform_independence", "vortex_platform_independence\vortex_platform_independence.vcxproj", "{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_core", "vortex_core\vortex_core.vcxproj", "{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Debug|Win32.ActiveCfg = Debug|Win32
-		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Debug|Win32.Build.0 = Debug|Win32
-		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Release|Win32.ActiveCfg = Release|Win32
-		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Release|Win32.Build.0 = Release|Win32
 		{6D0E3609-6740-4EF3-84BF-48CD9A48E639}.Debug|Win32.ActiveCfg = Debug|Win32
 		{6D0E3609-6740-4EF3-84BF-48CD9A48E639}.Debug|Win32.Build.0 = Debug|Win32
 		{6D0E3609-6740-4EF3-84BF-48CD9A48E639}.Release|Win32.ActiveCfg = Release|Win32
@@ -38,6 +31,10 @@ Global
 		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}.Debug|Win32.Build.0 = Debug|Win32
 		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}.Release|Win32.ActiveCfg = Release|Win32
 		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}.Release|Win32.Build.0 = Release|Win32
+		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Debug|Win32.ActiveCfg = Debug|Win32
+		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Debug|Win32.Build.0 = Debug|Win32
+		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Release|Win32.ActiveCfg = Release|Win32
+		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
