@@ -14,7 +14,27 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef VTX_PLATFORM_H
-#define VTX_PLATFORM_H
+#include "vtx_filestream.h"
 
+using namespace platform;
+
+void FileStream::openStream(std::wstring &path)
+{
+	// Open file for reading and writing as binary.
+	DEVICE_HANDLE handle = CreateFileW(
+		(LPCWSTR)path.c_str(),
+		GENERIC_READ | GENERIC_WRITE,
+		0,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+	this->init(handle);
+}
+
+void FileStream::closeStream()
+{
+#ifdef WIN32
+	CloseHandle(this->handle);
 #endif
+}
