@@ -21,7 +21,7 @@ using namespace platform;
 void FileStream::openStream(std::wstring &path)
 {
 	// Open file for reading and writing as binary.
-	DEVICE_HANDLE handle = CreateFileW(
+	SYSTEM_HANDLE handle = CreateFileW(
 		(LPCWSTR)path.c_str(),
 		GENERIC_READ | GENERIC_WRITE,
 		0,

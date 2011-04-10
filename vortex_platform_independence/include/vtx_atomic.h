@@ -23,7 +23,7 @@ namespace platform
 
 #ifdef WIN32
 #include <Windows.h>
-	typedef HANDLE DEVICE_HANDLE;
+	typedef HANDLE SYSTEM_HANDLE;
 	//#define DEVICE_HANDLE HANDLE;
 #endif
 

@@ -27,14 +27,14 @@ namespace platform
 	class IOStream
 	{
 	protected:
-		DEVICE_HANDLE handle;
+		SYSTEM_HANDLE handle;
 		U32 position;
 	public:
 		enum ErrorCode { OK, UNKOWN_ERROR };
 		typedef void (*read_callback)(U8 *buffer, U32 bytesRead);
 		typedef void (*write_callback)(void);
 
-		void init(DEVICE_HANDLE handle);
+		void init(SYSTEM_HANDLE handle);
 		U32 getPosition();
 		ErrorCode setPosition(U32 position);
 		ErrorCode readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesRead);

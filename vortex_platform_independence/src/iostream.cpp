@@ -21,7 +21,7 @@
 
 using namespace platform;
 
-void IOStream::init(DEVICE_HANDLE handle)
+void IOStream::init(SYSTEM_HANDLE handle)
 {
 	this->position = 0;
 	this->handle = handle;
