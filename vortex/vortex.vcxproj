@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\vortex\include;$(IncludePath)</IncludePath>
+    <IncludePath>include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -74,12 +74,14 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\vtx_job.h" />
     <ClInclude Include="include\vtx_render.h" />
     <ClInclude Include="include\vtx_resource.h" />
     <ClInclude Include="include\vtx_simulation.h" />
     <ClInclude Include="include\vtx_vortex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\job.cpp" />
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\resource.cpp" />
     <ClCompile Include="src\simulation.cpp" />
