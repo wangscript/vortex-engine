@@ -33,15 +33,24 @@
     <ClInclude Include="include\vtx_filesystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\vtx_thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iostream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\filestream_win.cpp">
+    <ClCompile Include="src\filesystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\filesystem.cpp">
+    <ClCompile Include="file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filestream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

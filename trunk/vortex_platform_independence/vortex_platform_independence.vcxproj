@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files (x86)\boost\boost_1_44;C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\vortex_platform_independence\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files (x86)\boost\boost_1_44;C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine2\vortex_platform_independence\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,12 +80,14 @@
     <ClInclude Include="include\vtx_filesystem.h" />
     <ClInclude Include="include\vtx_iostream.h" />
     <ClInclude Include="include\vtx_platform.h" />
+    <ClInclude Include="include\vtx_thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="file.cpp" />
     <ClCompile Include="src\filestream.cpp" />
     <ClCompile Include="src\filesystem.cpp" />
     <ClCompile Include="src\iostream.cpp" />
+    <ClCompile Include="src\thread.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
