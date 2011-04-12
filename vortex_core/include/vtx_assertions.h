@@ -17,16 +17,17 @@
 #ifndef VTX_ASSERTIONS_H
 #define VTX_ASSERTIONS_H
 
+void reportAssertionFailure(const char *expr, const char *file, long line);
 #if ASSERTIONS_ENABLED
-	#define debugBreak() asm { int 3 }
+	#define debugBreak() __asm { int 3 }
 
 	#define ASSERT(expr) \
 		if(expr) { } \
 		else \
 		{ \
-			reportAssertionFailure(#expr \
-									__FILE__, \
-									__LINE__); \
+			reportAssertionFailure(#expr, \
+			__FILE__, \
+			__LINE__); \
 			debugBreak(); \
 		}
 #else
