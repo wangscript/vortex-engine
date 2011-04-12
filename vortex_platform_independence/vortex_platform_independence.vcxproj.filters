@@ -36,6 +36,9 @@
     <ClInclude Include="include\vtx_thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\vtx_signal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iostream.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\signal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
