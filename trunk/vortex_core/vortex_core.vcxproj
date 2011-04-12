@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\vortex_platform_independence\include\;include\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files (x86)\boost\boost_1_44;..\vortex_platform_independence\include\;include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,6 +76,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\vtx_concurrent_queue.h" />
     <ClInclude Include="include\vtx_assertions.h" />
     <ClInclude Include="include\vtx_double_stack_allocator.h" />
     <ClInclude Include="include\vtx_math.h" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\assertions.cpp" />
+    <ClCompile Include="src\concurrent_queue.cpp" />
     <ClCompile Include="src\math.cpp" />
     <ClCompile Include="src\matrix.cpp" />
     <ClCompile Include="src\stack_allocator.cpp" />
