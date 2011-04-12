@@ -40,7 +40,7 @@ Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 	{
 		// TODO: Check error codes here...
 		int err = GetLastError();
-		ret = Thread::ErrorCode::UNKNOWN_ERROR;
+		ret = Thread::UNKNOWN_ERROR;
 	}
 	else
 	{
@@ -48,11 +48,11 @@ Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 		{
 			// TODO: Check error codes here...
 			int err = GetLastError();
-			ret = Thread::ErrorCode::UNKNOWN_ERROR;
+			ret = Thread::UNKNOWN_ERROR;
 		}
 		else
 		{
-			ret = Thread::ErrorCode::OK;
+			ret = Thread::OK;
 		}
 	}
 #endif
@@ -75,11 +75,11 @@ Thread::ErrorCode Thread::start(void *threadData)
 	{
 		// TODO: Check error codes here...
 		int err = GetLastError();
-		ret = Thread::ErrorCode::UNKNOWN_ERROR;
+		ret = Thread::UNKNOWN_ERROR;
 	}
 	else
 	{
-		ret = Thread::ErrorCode::OK;
+		ret = Thread::OK;
 	}
 #endif
 	return ret;
