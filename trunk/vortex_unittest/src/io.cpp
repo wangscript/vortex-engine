@@ -51,8 +51,8 @@ TEST(File, Exists)
 	std::wstring p2(L"c:\\temp\\thisfiledoesnotexist.txt");
 	File file(&p);
 	File file2(&p2);
-	ASSERT_EQ(file.exists(), File::ErrorCode::OK);
-	ASSERT_EQ(file2.exists(), File::ErrorCode::FILE_DOES_NOT_EXIST);
+	ASSERT_EQ(file.exists(), File::OK);
+	ASSERT_EQ(file2.exists(), File::FILE_DOES_NOT_EXIST);
 
 }
 
@@ -60,11 +60,11 @@ TEST(File, CreateDelete)
 {
 	std::wstring path(L"c:\\temp\\unittest.txt");
 	File file(&path);
-	ASSERT_EQ(file.exists(), File::ErrorCode::FILE_DOES_NOT_EXIST);
-	ASSERT_EQ(file.create(false), File::ErrorCode::OK);
-	ASSERT_EQ(file.exists(), File::ErrorCode::OK);
-	ASSERT_EQ(file.deletefile(), File::ErrorCode::OK);
-	ASSERT_EQ(file.exists(), File::ErrorCode::FILE_DOES_NOT_EXIST);
+	ASSERT_EQ(file.exists(), File::FILE_DOES_NOT_EXIST);
+	ASSERT_EQ(file.create(false), File::OK);
+	ASSERT_EQ(file.exists(), File::OK);
+	ASSERT_EQ(file.deletefile(), File::OK);
+	ASSERT_EQ(file.exists(), File::FILE_DOES_NOT_EXIST);
 }
 
 TEST(IOStream, Read)
@@ -84,6 +84,24 @@ TEST(IOStream, Read)
 	destBuffer[12] = '\0';
 	ASSERT_EQ(strcmp((char*)destBuffer, "Hello world!"), 0);
 
+	stream.closeStream();
 	free(buffer);
 	free(destBuffer);	
+}
+
+TEST(IOStream, SetPosition)
+{
+	FileStream stream;
+	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
+
+	U8 *buffer = (U8*)malloc(7);
+	U32 bytesRead;
+	ASSERT_EQ(stream.setPosition(6), FileStream::OK);
+
+	ASSERT_EQ(stream.readBytes(buffer, 6, &bytesRead), FileStream::OK);
+	buffer[6] = 0;
+	ASSERT_EQ(strcmp((char*)buffer, "world!"), 0);
+
+	stream.closeStream();
+	free(buffer);
 }
