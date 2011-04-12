@@ -43,13 +43,13 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpac
 		((U32)this->data + this->stackSize))
 	{
 		// Insufficient stack space
-		err = StackAllocator::ErrorCode::NOT_ENOUGH_STACK_SPACE;
+		err = StackAllocator::NOT_ENOUGH_STACK_SPACE;
 	}
 	else
 	{
 		stackAllocation = (U8*)this->stackPosition;
 		this->stackPosition = newStackPosition;
-		err = StackAllocator::ErrorCode::OK;
+		err = StackAllocator::OK;
 	}
 	*allocatedSpace = stackAllocation;
 	return err;
