@@ -47,13 +47,13 @@ File::ErrorCode File::exists(std::wstring *path)
 	{
 		DWORD err = GetLastError();
 		if(err == ERROR_FILE_NOT_FOUND)
-			ret = File::ErrorCode::FILE_DOES_NOT_EXIST;
+			ret = File::FILE_DOES_NOT_EXIST;
 		else
-			ret = File::ErrorCode::UNKOWN_ERROR;
+			ret = File::UNKOWN_ERROR;
 	}
 	else
 	{
-		ret = File::ErrorCode::OK;
+		ret = File::OK;
 	}
 	return ret;
 #endif
@@ -81,13 +81,13 @@ File::ErrorCode File::create(std::wstring *path, bool overwrite)
 		DWORD err = GetLastError();
 		// TODO: What error codes does CreateFileW return?
 		if(err == ERROR_FILE_EXISTS)
-			ret = File::ErrorCode::FILE_EXISTS;
+			ret = File::FILE_EXISTS;
 		else
-			ret = File::ErrorCode::UNKOWN_ERROR;
+			ret = File::UNKOWN_ERROR;
 	}
 	else
 	{
-		ret = File::ErrorCode::OK;
+		ret = File::OK;
 		CloseHandle(handle);
 	}
 #endif
@@ -106,18 +106,18 @@ File::ErrorCode File::deletefile(std::wstring *path)
 	BOOL success = DeleteFile(path->c_str());
 	if(success)
 	{
-		ret = File::ErrorCode::OK;
+		ret = File::OK;
 	}
 	else
 	{
 		DWORD err = GetLastError();
 		if(err == ERROR_FILE_NOT_FOUND)
 		{
-			ret = File::ErrorCode::FILE_DOES_NOT_EXIST;
+			ret = File::FILE_DOES_NOT_EXIST;
 		}
 		else
 		{
-			ret = File::ErrorCode::UNKOWN_ERROR;
+			ret = File::UNKOWN_ERROR;
 		}
 	}
 #endif
