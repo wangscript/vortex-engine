@@ -18,7 +18,7 @@
 
 using namespace platform;
 
-void FileStream::openStream(std::wstring &path)
+IOStream::ErrorCode FileStream::openStream(std::wstring &path)
 {
 	// Open file for reading and writing as binary.
 	SYSTEM_HANDLE handle = CreateFileW(
@@ -29,7 +29,7 @@ void FileStream::openStream(std::wstring &path)
 		OPEN_EXISTING,
 		FILE_ATTRIBUTE_NORMAL,
 		NULL);
-	this->init(handle);
+	return this->init(handle);
 }
 
 void FileStream::closeStream()

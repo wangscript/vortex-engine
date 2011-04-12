@@ -34,14 +34,14 @@ namespace platform
 		typedef void (*read_callback)(U8 *buffer, U32 bytesRead);
 		typedef void (*write_callback)(void);
 
-		void init(SYSTEM_HANDLE handle);
+		ErrorCode init(SYSTEM_HANDLE handle);
 		U32 getPosition();
-		ErrorCode setPosition(U32 position);
+		ErrorCode setPosition(U64 position);
 		ErrorCode readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesRead);
 		void readBytes_async(U8 *buffer, U32 bytesToRead, read_callback callback);
 		void writeBytes(U8 *buffer, U32 start, U32 length);
 		void writeBytes_async(U8 *buffer, U32 start, U32 length, write_callback);
-		virtual void openStream(std::wstring &path) = 0;
+		virtual ErrorCode openStream(std::wstring &path) = 0;
 		void closeStream();
 	};
 

@@ -21,10 +21,27 @@
 
 using namespace platform;
 
-void IOStream::init(SYSTEM_HANDLE handle)
+IOStream::ErrorCode IOStream::init(SYSTEM_HANDLE handle)
 {
+	IOStream::ErrorCode ret;
+	// Should not use these preprocessor #ifs here but there is something wrong with my INVALID_SYSTEM_HANDLE define.
+#ifdef WIN32
+	if(handle == INVALID_HANDLE_VALUE)
+	{
+		int err = GetLastError();
+		//TODO: Find out what error codes we can expect here...
+		ret = IOStream::UNKOWN_ERROR;
+	}
+	else
+	{
+		ret = IOStream::OK;
+	}
+#endif
+
 	this->position = 0;
 	this->handle = handle;
+
+	return ret;
 }
 
 U32 IOStream::getPosition()
@@ -32,25 +49,29 @@ U32 IOStream::getPosition()
 	return this->position;
 }
 
-IOStream::ErrorCode IOStream::setPosition(U32 position)
+IOStream::ErrorCode IOStream::setPosition(U64 position)
 {
 	IOStream::ErrorCode ret;
-//#ifdef WIN32
-//	if(SetFilePointerEx(
-//		this->handle,
-//		a,
-//		NULL,
-//		FILE_BEGIN) != 0)
-//	{
-//		ret = IOStream::ErrorCode::OK;
-//	}
-//	else
-//	{
-//		// TODO: Find error codes.
-//		ret = IOStream::ErrorCode::UNKOWN_ERROR;
-//	}
-//
-//#endif
+#ifdef WIN32
+	LARGE_INTEGER pos;
+	pos.HighPart = (position & 0xFFFFFFFF00000000) >> 32;
+	pos.LowPart = (position & 0x00000000FFFFFFFFF);
+	if(SetFilePointerEx(
+		this->handle,
+		pos,
+		NULL,
+		FILE_BEGIN) != 0)
+	{
+		ret = IOStream::ErrorCode::OK;
+	}
+	else
+	{
+		// TODO: Find error codes.
+		int err = GetLastError();
+		ret = IOStream::ErrorCode::UNKOWN_ERROR;
+	}
+
+#endif
 
 	return ret;
 }
@@ -66,12 +87,12 @@ IOStream::ErrorCode IOStream::readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesR
 		(LPDWORD)bytesRead,
 		NULL))
 	{
-		ret = IOStream::ErrorCode::OK;
+		ret = IOStream::OK;
 		position += *bytesRead;
 	}
 	else
 	{
-		ret = IOStream::ErrorCode::UNKOWN_ERROR;
+		ret = IOStream::UNKOWN_ERROR;
 	}
 #endif
 	return ret;
