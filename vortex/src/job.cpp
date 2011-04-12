@@ -45,7 +45,7 @@ void JobManager::initJobProcessors(platform::U32 processAffinity)
 {
 	using namespace platform;
 	U32 bit = 1;
-	for(int i = 0; i < this->noJobProcessors; i++)
+	for(U32 i = 0; i < this->noJobProcessors; i++)
 	{
 		while(!(processAffinity & bit))
 			bit <<= 1;
@@ -68,7 +68,7 @@ platform::U32 JobManager::getCurrentProcessAffinityMask(void)
 		processHandle,
 		(PDWORD_PTR)&processAffinity,
 		(PDWORD_PTR)&systemAffinity);
-	ASSERT(success == true);
+	ASSERT(success == TRUE);
 #endif
 
 	return processAffinity;
