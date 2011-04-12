@@ -29,7 +29,7 @@ namespace platform
 	{
 	public:
 		void foo();
-		virtual void openStream(std::wstring &path);
+		virtual IOStream::ErrorCode openStream(std::wstring &path);
 		virtual void closeStream();
 	private:
 	};

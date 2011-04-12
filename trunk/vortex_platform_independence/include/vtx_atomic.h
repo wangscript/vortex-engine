@@ -22,9 +22,10 @@ namespace platform
 {
 
 #ifdef WIN32
-#include <Windows.h>
+	#include <Windows.h>
 	typedef HANDLE SYSTEM_HANDLE;
-	//#define DEVICE_HANDLE HANDLE;
+	//TODO: Figure out why this #define can not be used anywhere without compile errors...
+	#define INVALID_SYSTEM_HANDLE INVALID_HANDLE_VALUE;
 #endif
 
 #define U32_SIGNIFICANT_BIT 2147483648
