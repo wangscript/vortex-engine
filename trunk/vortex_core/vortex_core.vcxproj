@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\Vortex\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\vortex_platform_independence\include\;include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -47,7 +47,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;ASSERTIONS_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
@@ -81,11 +81,14 @@
     <ClInclude Include="include\vtx_math.h" />
     <ClInclude Include="include\vtx_stack_allocator.h" />
     <ClInclude Include="include\vtx_types.h" />
+    <ClInclude Include="include\vtx_util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\assertions.cpp" />
     <ClCompile Include="src\math.cpp" />
     <ClCompile Include="src\matrix.cpp" />
     <ClCompile Include="src\stack_allocator.cpp" />
+    <ClCompile Include="src\util.cpp" />
     <ClCompile Include="src\vector2.cpp" />
     <ClCompile Include="src\vector3.cpp" />
     <ClCompile Include="src\vector4.cpp" />
