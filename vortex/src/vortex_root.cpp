@@ -22,12 +22,14 @@ Root::Root()
 	this->resourceManager = new ResourceManager();
 	this->renderManager = new RenderManager();
 	this->simulationManager = new SimulationManager();
+	this->windowManager = new WindowManager();
 }
 
-void Root::Run()
+void Root::Run(WindowCreationParams &windowParams)
 {
 	this->jobManager->init();
 	this->resourceManager->init();
+	this->windowManager->init(windowParams);
 	this->renderManager->init();
 	this->simulationManager->init();
 

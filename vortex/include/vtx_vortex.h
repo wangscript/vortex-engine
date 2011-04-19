@@ -21,17 +21,19 @@
 #include "vtx_render.h"
 #include "vtx_resource.h"
 #include "vtx_simulation.h"
+#include "vtx_window.h"
 
 class Root
 {
 public:
 	Root(void);
-	void Run(void);
+	void Run(WindowCreationParams &windowParams);
 private:
 	JobManager			*jobManager;
 	SimulationManager	*simulationManager;
 	ResourceManager		*resourceManager;
 	RenderManager		*renderManager;
+	WindowManager		*windowManager;
 };
 
 #endif

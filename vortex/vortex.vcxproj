@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\vortex_platform_independence\include\;include\;..\vortex_core\include\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files (x86)\boost\boost_1_44;..\vortex_platform_independence\include\;include\;..\vortex_core\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,6 +79,7 @@
     <ClInclude Include="include\vtx_resource.h" />
     <ClInclude Include="include\vtx_simulation.h" />
     <ClInclude Include="include\vtx_vortex.h" />
+    <ClInclude Include="include\vtx_window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\job.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="src\resource.cpp" />
     <ClCompile Include="src\simulation.cpp" />
     <ClCompile Include="src\vortex_root.cpp" />
+    <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
