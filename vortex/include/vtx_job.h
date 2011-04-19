@@ -21,6 +21,17 @@
 #include "vtx_atomic.h"
 #include "vtx_signal.h"
 
+class Job
+{
+public:
+	typedef void (*complete_callback)(Job &job);
+	Job(platform::U32 priority, complete_callback callback);
+	virtual void performJob() = 0;
+private:
+	platform::U32 priority;
+	complete_callback callback;
+};
+
 class JobProcessor
 {
 public:
@@ -36,6 +47,7 @@ private:
 class JobManager
 {
 private:
+	platform::U32 promotionIncrement;
 	platform::U32 noJobProcessors;
 	platform::U32 getCurrentProcessAffinityMask(void);
 	platform::U32 getNumberOfProcessorsAvailable(void);
@@ -44,6 +56,8 @@ private:
 public:
 	void init(void);
 	void destroy(void);
+	void setPromotionIncrement(platform::U32 value);
+	platform::U32 getPromotionIncrement(void);
 };
 
 #endif
