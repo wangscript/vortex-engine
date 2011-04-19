@@ -83,8 +83,8 @@ TEST(StackAllocator, NoSpaceInStackTest)
 	U8 *data;
 	core::StackAllocator::ErrorCode err;
 	err = stack.allocate(STACKALLOCATOR_SIZE / 2, &data);
-	ASSERT_EQ(err, core::StackAllocator::ErrorCode::OK);
+	ASSERT_EQ(err, core::StackAllocator::OK);
 
 	err = stack.allocate(STACKALLOCATOR_SIZE, &data);
-	ASSERT_EQ(err, core::StackAllocator::ErrorCode::NOT_ENOUGH_STACK_SPACE);
+	ASSERT_EQ(err, core::StackAllocator::NOT_ENOUGH_STACK_SPACE);
 }
