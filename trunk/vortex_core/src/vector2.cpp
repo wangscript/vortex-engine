@@ -18,38 +18,38 @@
 
 using namespace core;
 
-Vector2::Vector2( F32 x, F32 y )
-{
-	this->x = x;
-	this->y = y;
-}
+//Vector2::Vector2( F32 x, F32 y )
+//{
+//	this->x = x;
+//	this->y = y;
+//}
 
-void Vector2::add( Vector2 &other, Vector2 &result )
-{
-	result.x = this->x + other.x;
-	result.y = this->y + other.y;
-}
+//void Vector2::add( Vector2 &other, Vector2 &result )
+//{
+//	result.x = this->x + other.x;
+//	result.y = this->y + other.y;
+//}
 
-void Vector2::subtract( Vector2 &other, Vector2 &result )
-{
-	result.x = this->x - other.x;
-	result.y = this->y - other.y;
-}
+//void Vector2::subtract( Vector2 &other, Vector2 &result )
+//{
+//	result.x = this->x - other.x;
+//	result.y = this->y - other.y;
+//}
 
-void Vector2::lerp( Vector2 &other, Vector2 &result, F32 amount )
-{
-	result.x = this->x + ((other.x - this->x) * amount);
-	result.y = this->y + ((other.y - this->y) * amount);
-}
+//void Vector2::lerp( Vector2 &other, Vector2 &result, F32 amount )
+//{
+//	result.x = this->x + ((other.x - this->x) * amount);
+//	result.y = this->y + ((other.y - this->y) * amount);
+//}
 
-void Vector2::multiply( Vector2 &other, Vector2 &result )
-{
-	result.x = this->x * other.x;
-	result.y = this->y * other.y;
-}
+//void Vector2::multiply( Vector2 &other, Vector2 &result )
+//{
+//	result.x = this->x * other.x;
+//	result.y = this->y * other.y;
+//}
 
-void Vector2::multiply( F32 value, Vector2 &result )
-{
-	result.x = this->x * value;
-	result.y = this->y * value;
-}
+//void Vector2::multiply( F32 value, Vector2 &result )
+//{
+//	result.x = this->x * value;
+//	result.y = this->y * value;
+//}

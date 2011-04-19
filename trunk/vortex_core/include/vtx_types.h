@@ -35,20 +35,50 @@ namespace core
 	private:
 	};
 
-
+	template <class T>
 	class Vector2
 	{
 	public:
 		Vector2();
-		Vector2( F32 x, F32 y );
-		void add( Vector2 &other, Vector2 &result );
-		void subtract( Vector2 &other, Vector2 &result );
-		void lerp( Vector2 &other, Vector2 &result, F32 amount );
-		void multiply( Vector2 &other, Vector2 &result );
-		void multiply( F32 value, Vector2 &result );
-		F32 x;
-		F32 y;
-	private:
+
+		Vector2( T x, T y )
+		{
+			this->x = x;
+			this->y = y;
+		}
+
+		void add( Vector2 &other, Vector2 &result )
+		{
+			result.x = this->x + other.x;
+			result.y = this->y + other.y;
+		}
+
+		void subtract( Vector2 &other, Vector2 &result )
+		{
+			result.x = this->x - other.x;
+			result.y = this->y - other.y;
+		}
+
+		void lerp( Vector2 &other, Vector2 &result, T amount )
+		{
+			result.x = this->x + ((other.x - this->x) * amount);
+			result.y = this->y + ((other.y - this->y) * amount);
+		}
+
+		void multiply( Vector2 &other, Vector2 &result )
+		{
+			result.x = this->x * other.x;
+			result.y = this->y * other.y;
+		}
+
+		void multiply( T value, Vector2 &result )
+		{
+			result.x = this->x * value;
+			result.y = this->y * value;
+		}
+
+		T x;
+		T y;
 	};
 
 	class Vector3

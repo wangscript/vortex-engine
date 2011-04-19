@@ -26,11 +26,11 @@ void Math::cross(Vector3 &a, Vector3 &b, Vector3 &result)
 	result.z = (a.x * b.y) - (a.y * b.x);
 }
 
-F32 Math::dot(Vector2 &a, Vector2 &b)
-{
-	return (a.x * b.x + 
-			a.y * b.y);
-}
+//F32 Math::dot(Vector2 &a, Vector2 &b)
+//{
+//	return (a.x * b.x + 
+//			a.y * b.y);
+//}
 
 F32 Math::dot(Vector3 &a, Vector3 &b)
 {

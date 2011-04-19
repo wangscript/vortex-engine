@@ -25,7 +25,12 @@ namespace core
 	{
 	public:
 		static void cross(Vector3 &a, Vector3 &b, Vector3 &result);
-		static F32 dot(Vector2 &a, Vector2 &b);
+		template <class T>
+		static F32 dot(T &a, T &b)
+		{
+			return (a.x * b.x + 
+				a.y * b.y);
+		}
 		static F32 dot(Vector3 &a, Vector3 &b);
 		static F32 dot(Vector4 &a, Vector4 &b);
 	};
