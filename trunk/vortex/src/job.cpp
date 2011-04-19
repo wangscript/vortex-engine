@@ -20,9 +20,10 @@
 #include "vtx_util.h"
 #include <Windows.h>
 
+using namespace platform;
+
 void JobManager::init()
 {
-	using namespace platform;
 	U32 affinity = this->getCurrentProcessAffinityMask();
 	this->noJobProcessors = Utilities::getSetBitCount(affinity);
 	// Can not use C++ dynamic array allocation since that requires a default parameterless constructor.
@@ -32,7 +33,6 @@ void JobManager::init()
 
 void JobManager::destroy()
 {
-	using namespace platform;
 	for(U32 i = 0; i < this->noJobProcessors; i++)
 	{
 		delete this->processors[i];
@@ -41,9 +41,8 @@ void JobManager::destroy()
 }
 
 
-void JobManager::initJobProcessors(platform::U32 processAffinity)
+void JobManager::initJobProcessors(U32 processAffinity)
 {
-	using namespace platform;
 	U32 bit = 1;
 	for(U32 i = 0; i < this->noJobProcessors; i++)
 	{
@@ -55,10 +54,8 @@ void JobManager::initJobProcessors(platform::U32 processAffinity)
 		bit <<= 1;
 	}
 }
-
-platform::U32 JobManager::getCurrentProcessAffinityMask(void)
+U32 JobManager::getCurrentProcessAffinityMask(void)
 {
-	using namespace platform;
 	U32 processAffinity;
 #ifdef WIN32
 	HANDLE processHandle = GetCurrentProcess();
@@ -74,9 +71,8 @@ platform::U32 JobManager::getCurrentProcessAffinityMask(void)
 	return processAffinity;
 }
 
-platform::U32 JobManager::getNumberOfProcessorsAvailable(void)
+U32 JobManager::getNumberOfProcessorsAvailable(void)
 {
-	using namespace platform;
 	U32 noProcessors;
 #ifdef WIN32	
 	HANDLE processHandle = GetCurrentProcess();
@@ -95,6 +91,16 @@ platform::U32 JobManager::getNumberOfProcessorsAvailable(void)
 	return noProcessors;
 }
 
+void JobManager::setPromotionIncrement(U32 value)
+{
+	this->promotionIncrement = value;
+}
+
+platform::U32 JobManager::getPromotionIncrement(void)
+{
+	return this->promotionIncrement;
+}
+
 void threadDelegate(void *data)
 {
 	JobProcessor *processor = (JobProcessor*)data;
@@ -103,7 +109,6 @@ void threadDelegate(void *data)
 
 JobProcessor::JobProcessor(platform::U32 affinity)
 {
-	using namespace platform;
 	this->affinity = affinity;
 	this->thread = new Thread((ThreadFunc)threadDelegate);
 	this->signal = new Signal(false);
@@ -126,4 +131,10 @@ void JobProcessor::process()
 
 		// Discard work item.
 	}
+}
+
+Job::Job(U32 priority, complete_callback callback)
+{
+	this->priority = priority;
+	this->callback = callback;
 }
