@@ -44,7 +44,7 @@ IOStream::ErrorCode IOStream::init(SYSTEM_HANDLE handle)
 	return ret;
 }
 
-U32 IOStream::getPosition()
+U64 IOStream::getPosition()
 {
 	return this->position;
 }
@@ -62,6 +62,7 @@ IOStream::ErrorCode IOStream::setPosition(U64 position)
 		NULL,
 		FILE_BEGIN) != 0)
 	{
+		this->position = position;
 		ret = IOStream::ErrorCode::OK;
 	}
 	else
