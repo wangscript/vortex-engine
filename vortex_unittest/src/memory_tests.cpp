@@ -16,6 +16,7 @@
 
 #include "vtx_stack_allocator.h"
 #include "gtest/gtest.h"
+#include "vtx_vortex.h"
 
 #define STACKALLOCATOR_SIZE		2048
 //h
