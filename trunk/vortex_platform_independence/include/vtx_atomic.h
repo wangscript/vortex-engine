@@ -25,6 +25,7 @@ namespace platform
 {
 
 #ifdef WIN32
+	typedef HWND WINDOW;
 	typedef HANDLE SYSTEM_HANDLE;
 	//TODO: Figure out why this #define can not be used anywhere without compile errors...
 	#define INVALID_SYSTEM_HANDLE INVALID_HANDLE_VALUE;
