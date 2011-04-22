@@ -16,8 +16,14 @@
 
 #include "..\include\vtx_types.h"
 #include <xmmintrin.h>
+#include <cstring>
 
 using namespace core;
+
+Vector4::Vector4()
+{
+	memset(this->values, 0, sizeof(this->values));
+}
 
 Vector4::Vector4( F32 x, F32 y, F32 z, F32 w )
 {
