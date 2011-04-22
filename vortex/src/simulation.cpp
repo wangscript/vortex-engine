@@ -14,10 +14,20 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_simulation.h"
 
-void SimulationManager::init()
+#include <ctime>
+#include <iostream>
+
+#if defined(VTX_PLATFORM_WIN32)
+#include <Windows.h>
+#endif
+
+void SimulationManager::init(RenderAPI *render)
 {
+	this->render = render;
+	srand(time(NULL));
 }
 
 void SimulationManager::destroy()
@@ -26,4 +36,32 @@ void SimulationManager::destroy()
 
 void SimulationManager::run()
 {
+	core::Vector4 color(1.0f, 0.0f, 0.0f, 1.0f);
+
+	while(true)
+	{
+		color.values[0] = (platform::F32)((rand() % 101) / 100.0f);
+		this->render->setClearColor(color);
+		// Message pump. Win32 only.
+#if defined(VTX_PLATFORM_WIN32)
+		MSG msg;
+		while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+#endif
+		this->runOneFrame();
+	};
+}
+
+void SimulationManager::runOneFrame(void)
+{
+	this->frames++;
+	//std::cout << "pre clear " << this->frames << std::endl;
+	this->render->clear();
+	//std::cout << "post clear " << this->frames << std::endl;
+	// DRAW
+
+	this->render->swap();
 }

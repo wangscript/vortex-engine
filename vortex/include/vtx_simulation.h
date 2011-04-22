@@ -16,13 +16,19 @@
 
 #ifndef VTX_SIMULATION_H
 #define VTX_SIMULATION_H
+#include "vtx_renderinternal.h"
+#include "vtx_atomic.h"
 
 class SimulationManager
 {
 public:
-	void init(void);
+	platform::U32 frames;
+	void init(RenderAPI *render);
 	void destroy(void);
 	void run(void);
+private:
+	RenderAPI *render;
+	void runOneFrame(void);
 };
 
 #endif
