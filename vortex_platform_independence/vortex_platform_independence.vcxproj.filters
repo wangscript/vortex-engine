@@ -39,6 +39,9 @@
     <ClInclude Include="include\vtx_signal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\vtx_defineconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iostream.cpp">
