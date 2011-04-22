@@ -48,6 +48,7 @@ enum E_RENDER_API
 class RenderCreationParams
 {
 public:
+	RenderCreationParams(void);
 	E_RENDER_API rapi;
 	core::Vector2<U32> backBufferSize;
 	U32 multisampleCount;
@@ -84,6 +85,7 @@ public:
 	void init(RenderCreationParams &params, WindowCreationParams &windowParams);
 	void destroy(void);
 	RenderAPI *getRenderObject(void);
+	platform::WINDOW getWindowHandle(void);
 private:
 	void createWindow(WindowCreationParams &params);
 	platform::WINDOW windowHandle;

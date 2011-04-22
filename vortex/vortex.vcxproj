@@ -88,6 +88,7 @@
     <ClCompile Include="src\job.cpp" />
     <ClCompile Include="src\openglrender.cpp" />
     <ClCompile Include="src\render.cpp" />
+    <ClCompile Include="src\rendercreationparams.cpp" />
     <ClCompile Include="src\renderinternal.cpp" />
     <ClCompile Include="src\resource.cpp" />
     <ClCompile Include="src\simulation.cpp" />
