@@ -17,23 +17,23 @@
 #ifndef VTX_VORTEX_H
 #define VTX_VORTEX_H
 
+#include "vtx_defineconfig.h"
 #include "vtx_job.h"
 #include "vtx_render.h"
 #include "vtx_resource.h"
 #include "vtx_simulation.h"
-#include "vtx_window.h"
+//#include "vtx_window.h"
 
 class Root
 {
 public:
 	Root(void);
-	void Run(WindowCreationParams &windowParams);
+	void Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
 private:
 	JobManager			*jobManager;
 	SimulationManager	*simulationManager;
 	ResourceManager		*resourceManager;
 	RenderManager		*renderManager;
-	WindowManager		*windowManager;
 };
 
 #endif

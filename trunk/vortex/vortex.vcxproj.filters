@@ -33,7 +33,10 @@
     <ClInclude Include="include\vtx_job.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\vtx_window.h">
+    <ClInclude Include="include\vtx_renderinternal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vtx_dx10render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +56,13 @@
     <ClCompile Include="src\job.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\window.cpp">
+    <ClCompile Include="src\dx10render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windowcreationparams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderinternal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

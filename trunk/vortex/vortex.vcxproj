@@ -76,18 +76,21 @@
   <ItemGroup>
     <ClInclude Include="include\vtx_job.h" />
     <ClInclude Include="include\vtx_render.h" />
+    <ClInclude Include="include\vtx_dx10render.h" />
+    <ClInclude Include="include\vtx_renderinternal.h" />
     <ClInclude Include="include\vtx_resource.h" />
     <ClInclude Include="include\vtx_simulation.h" />
     <ClInclude Include="include\vtx_vortex.h" />
-    <ClInclude Include="include\vtx_window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\dx10render.cpp" />
     <ClCompile Include="src\job.cpp" />
     <ClCompile Include="src\render.cpp" />
+    <ClCompile Include="src\renderinternal.cpp" />
     <ClCompile Include="src\resource.cpp" />
     <ClCompile Include="src\simulation.cpp" />
     <ClCompile Include="src\vortex_root.cpp" />
-    <ClCompile Include="src\window.cpp" />
+    <ClCompile Include="src\windowcreationparams.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
