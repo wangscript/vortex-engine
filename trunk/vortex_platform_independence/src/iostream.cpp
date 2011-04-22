@@ -55,7 +55,7 @@ IOStream::ErrorCode IOStream::setPosition(U64 position)
 #ifdef WIN32
 	LARGE_INTEGER pos;
 	pos.HighPart = (position & 0xFFFFFFFF00000000) >> 32;
-	pos.LowPart = (position & 0x00000000FFFFFFFFF);
+	pos.LowPart = (DWORD)(position & 0x00000000FFFFFFFFF);
 	if(SetFilePointerEx(
 		this->handle,
 		pos,
