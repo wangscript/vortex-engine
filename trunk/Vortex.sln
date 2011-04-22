@@ -5,17 +5,23 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "google_test", "google_test\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_unittest", "vortex_unittest\vortex_unittest.vcxproj", "{D976F6E0-8D2B-4B98-BA8E-40D85D365DE2}"
 	ProjectSection(ProjectDependencies) = postProject
+		{FAC34A02-E6BF-47EB-B6D4-CF32C034105C} = {FAC34A02-E6BF-47EB-B6D4-CF32C034105C}
 		{6D0E3609-6740-4EF3-84BF-48CD9A48E639} = {6D0E3609-6740-4EF3-84BF-48CD9A48E639}
 		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757} = {30D9BBC3-0EC3-4136-8C66-323E9C3DF757}
+		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2} = {3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_platform_independence", "vortex_platform_independence\vortex_platform_independence.vcxproj", "{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex_core", "vortex_core\vortex_core.vcxproj", "{30D9BBC3-0EC3-4136-8C66-323E9C3DF757}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2} = {3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vortex", "vortex\vortex.vcxproj", "{FAC34A02-E6BF-47EB-B6D4-CF32C034105C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{30D9BBC3-0EC3-4136-8C66-323E9C3DF757} = {30D9BBC3-0EC3-4136-8C66-323E9C3DF757}
+		{3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2} = {3B2494D1-7CC4-4175-8F2A-0BEF5C5571E2}
 	EndProjectSection
 EndProject
 Global
