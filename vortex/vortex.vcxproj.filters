@@ -39,6 +39,9 @@
     <ClInclude Include="include\vtx_dx10render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\vtx_openglrender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\resource.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\renderinternal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\openglrender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
