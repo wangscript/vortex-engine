@@ -80,9 +80,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix_tests.cpp" />
+    <ClCompile Include="src\concurrent_queue.cpp" />
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\jobmanager.cpp" />
     <ClCompile Include="src\memory_tests.cpp" />
+    <ClCompile Include="src\rendermanager_tests.cpp" />
+    <ClCompile Include="src\root.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
