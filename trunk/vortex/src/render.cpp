@@ -62,6 +62,11 @@ RenderAPI *RenderManager::getRenderObject(void)
 	return this->render;
 }
 
+platform::WINDOW RenderManager::getWindowHandle(void)
+{
+	return this->windowHandle;
+}
+
 void RenderManager::createWindow(WindowCreationParams &params)
 {
 		// Window does not exist and should be created.
