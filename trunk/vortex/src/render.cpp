@@ -15,7 +15,13 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vtx_render.h"
+#if defined(VTX_COMPILE_WITH_DX10)
 #include "vtx_dx10render.h"
+#endif
+#if defined(VTX_COMPILE_WITH_OPENGL)
+#include "vtx_openglrender.h"
+#endif
+
 #include "vtx_assertions.h"
 #ifdef WIN32
 #include <Windows.h>
@@ -33,6 +39,10 @@ void RenderManager::init(RenderCreationParams &params, WindowCreationParams &win
 	if(params.rapi == E_RAPI_DX10)
 	{
 		this->render = new DX10Render(params, this->windowHandle);
+	}
+	else if(params.rapi == E_RAPI_OPENGL)
+	{
+		this->render = new OpenGLRender(params, this->windowHandle);
 	}
 }
 
@@ -64,7 +74,7 @@ void RenderManager::createWindow(WindowCreationParams &params)
 
 		WNDCLASSEX wndclass;
 		wndclass.cbSize = sizeof(WNDCLASSEX);
-		wndclass.style = CS_HREDRAW | CS_VREDRAW; //Redraw on horizontal or vertical movement or size changes.
+		wndclass.style = CS_OWNDC; // CS_HREDRAW | CS_VREDRAW; //Redraw on horizontal or vertical movement or size changes.
 		wndclass.lpfnWndProc = params.wndProc;
 		wndclass.cbClsExtra = 0;
 		wndclass.cbWndExtra = 0;

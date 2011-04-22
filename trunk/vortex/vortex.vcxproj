@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\vtx_job.h" />
+    <ClInclude Include="include\vtx_openglrender.h" />
     <ClInclude Include="include\vtx_render.h" />
     <ClInclude Include="include\vtx_dx10render.h" />
     <ClInclude Include="include\vtx_renderinternal.h" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="src\dx10render.cpp" />
     <ClCompile Include="src\job.cpp" />
+    <ClCompile Include="src\openglrender.cpp" />
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\renderinternal.cpp" />
     <ClCompile Include="src\resource.cpp" />

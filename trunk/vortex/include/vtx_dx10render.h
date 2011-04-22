@@ -15,7 +15,7 @@ private:
 public:
 	DX10Render(RenderCreationParams &params, platform::WINDOW outputWindow);
 	virtual void swap(void);
-	virtual void clear();
+	virtual void clear(void);
 };
 
 #endif
