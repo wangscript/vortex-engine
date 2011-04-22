@@ -58,9 +58,9 @@ void SimulationManager::run()
 void SimulationManager::runOneFrame(void)
 {
 	this->frames++;
-	//std::cout << "pre clear " << this->frames << std::endl;
+	std::cout << "pre clear " << this->frames << std::endl;
 	this->render->clear();
-	//std::cout << "post clear " << this->frames << std::endl;
+	std::cout << "post clear " << this->frames << std::endl;
 	// DRAW
 
 	this->render->swap();
