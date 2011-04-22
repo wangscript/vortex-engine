@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\vtx_atomic.h" />
+    <ClInclude Include="include\vtx_defineconfig.h" />
     <ClInclude Include="include\vtx_filestream.h" />
     <ClInclude Include="include\vtx_filesystem.h" />
     <ClInclude Include="include\vtx_iostream.h" />
