@@ -26,6 +26,7 @@ private:
 public:
 	void reset(void);
 	platform::F32 getElapsedSeconds(void);
+	platform::F32 getElapsedSecondsAndReset(void);
 };
 
 #endif
