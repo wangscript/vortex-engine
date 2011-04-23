@@ -18,6 +18,8 @@
 #include "..\include\vtx_assertions.h"
 #include <stdlib.h>
 
+using namespace platform;
+
 using namespace core;
 
 StackAllocator::StackAllocator( U32 stackSize )

@@ -17,6 +17,8 @@
 #include "..\include\vtx_math.h"
 #include <xmmintrin.h>
 
+using namespace platform;
+
 using namespace core;
 
 void Math::cross(Vector3 &a, Vector3 &b, Vector3 &result)

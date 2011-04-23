@@ -17,11 +17,7 @@
 #ifndef VTX_TYPES_H
 #define VTX_TYPES_H
 
-typedef unsigned char U8;
-typedef signed char I8;
-typedef unsigned int U32;
-typedef signed int I32;
-typedef float F32;
+#include "vtx_atomic.h"
 
 namespace core
 {
@@ -29,9 +25,9 @@ namespace core
 	{
 	public:
 		Matrix4x4();
-		Matrix4x4( F32 m[4][4] );
+		Matrix4x4( platform::F32 m[4][4] );
 		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
-		__declspec(align(16)) F32 m[4][4];
+		__declspec(align(16)) platform::F32 m[4][4];
 	private:
 	};
 
@@ -87,15 +83,15 @@ namespace core
 	{
 	public:
 		Vector3();
-		Vector3( F32 x, F32 y, F32 z );
+		Vector3( platform::F32 x, platform::F32 y, platform::F32 z );
 		void add( Vector3 &other, Vector3 &result );
 		void subtract( Vector3 &other, Vector3 &result );
-		void lerp( Vector3 &other, Vector3 &result, F32 amount );
+		void lerp( Vector3 &other, Vector3 &result, platform::F32 amount );
 		void multiply( Vector3 &other, Vector3 &result );
-		void multiply( F32 value, Vector3 &result );
-		F32 x;
-		F32 y;
-		F32 z;
+		void multiply( platform::F32 value, Vector3 &result );
+		platform::F32 x;
+		platform::F32 y;
+		platform::F32 z;
 	private:
 	};
 
@@ -103,13 +99,13 @@ namespace core
 	{
 	public:
 		Vector4();
-		Vector4( F32 x, F32 y, F32 z, F32 w );
+		Vector4( platform::F32 x, platform::F32 y, platform::F32 z, platform::F32 w );
 		static void add( Vector4 &a, Vector4 &b, Vector4 &result );
 		static void subtract( Vector4 &a, Vector4 &b, Vector4 &result );
 		static void multiply( Vector4 &a, Vector4 &b, Vector4 &result );
-		static void multiply( Vector4 &a, F32 value, Vector4 &result );
-		static F32 dot( Vector4 &a, Vector4 &b );
-		__declspec(align(16)) F32 values[4];
+		static void multiply( Vector4 &a, platform::F32 value, Vector4 &result );
+		static platform::F32 dot( Vector4 &a, Vector4 &b );
+		__declspec(align(16)) platform::F32 values[4];
 	private:
 	};
 }
