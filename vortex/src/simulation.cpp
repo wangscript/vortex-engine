@@ -46,6 +46,8 @@ void SimulationManager::run()
 	while(true)
 	{
 		color.values[0] = (platform::F32)((rand() % 101) / 100.0f);
+		color.values[1] = (platform::F32)((rand() % 101) / 100.0f);
+		color.values[2] = (platform::F32)((rand() % 101) / 100.0f);
 		this->render->setClearColor(color);
 		// Message pump. Win32 only.
 #if defined(VTX_PLATFORM_WIN32)
@@ -56,7 +58,7 @@ void SimulationManager::run()
 			DispatchMessage(&msg);
 		}
 #endif
-		this->runOneFrame(frameClock.getElapsedSeconds());
+		this->runOneFrame(frameClock.getElapsedSecondsAndReset());
 		frameClock.reset();
 	};
 }
@@ -64,10 +66,10 @@ void SimulationManager::run()
 void SimulationManager::runOneFrame(F32 seconds)
 {
 	this->frames++;
-	std::cout << seconds << std::endl;
-	std::cout << "pre clear " << this->frames << std::endl;
+	//std::cout << seconds << std::endl;
+	//std::cout << "pre clear " << this->frames << std::endl;
 	this->render->clear();
-	std::cout << "post clear " << this->frames << std::endl;
+	//std::cout << "post clear " << this->frames << std::endl;
 	// DRAW
 
 	this->render->swap();
