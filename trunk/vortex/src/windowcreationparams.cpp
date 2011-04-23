@@ -25,6 +25,7 @@ WindowCreationParams::WindowCreationParams()
 {
 	this->windowHandle = 0;
 	this->isFullscreen = false;
+	this->styleFlags = (WindowCreationParams::E_WINDOWSTYLE)0;
 	this->windowPosition.x = VWIN_USEDEFAULT;
 	this->windowPosition.y = VWIN_USEDEFAULT;
 	this->windowSize.x = VWIN_USEDEFAULT;
