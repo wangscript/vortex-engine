@@ -14,21 +14,18 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef VTX_SIMULATION_H
-#define VTX_SIMULATION_H
-#include "vtx_renderinternal.h"
+#ifndef VTX_CLOCK_H
+#define VTX_CLOCK_H
+
 #include "vtx_atomic.h"
 
-class SimulationManager
+class Clock
 {
-public:
-	platform::U32 frames;
-	void init(RenderAPI *render);
-	void destroy(void);
-	void run(void);
 private:
-	RenderAPI *render;
-	void runOneFrame(platform::F32 seconds);
+	platform::U64 startTime;
+public:
+	void reset(void);
+	platform::F32 getElapsedSeconds(void);
 };
 
 #endif

@@ -74,6 +74,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\vtx_clock.h" />
     <ClInclude Include="include\vtx_job.h" />
     <ClInclude Include="include\vtx_openglrender.h" />
     <ClInclude Include="include\vtx_render.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="include\vtx_vortex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\clock.cpp" />
     <ClCompile Include="src\dx10render.cpp" />
     <ClCompile Include="src\job.cpp" />
     <ClCompile Include="src\openglrender.cpp" />

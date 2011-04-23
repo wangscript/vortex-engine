@@ -16,6 +16,7 @@
 
 #include "vtx_defineconfig.h"
 #include "vtx_simulation.h"
+#include "vtx_clock.h"
 
 #include <ctime>
 #include <iostream>
@@ -23,6 +24,8 @@
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
 #endif
+
+using namespace platform;
 
 void SimulationManager::init(RenderAPI *render)
 {
@@ -37,7 +40,9 @@ void SimulationManager::destroy()
 void SimulationManager::run()
 {
 	core::Vector4 color(1.0f, 0.0f, 0.0f, 1.0f);
-
+	Clock gameClock, frameClock;
+	gameClock.reset();
+	frameClock.reset();
 	while(true)
 	{
 		color.values[0] = (platform::F32)((rand() % 101) / 100.0f);
@@ -51,13 +56,15 @@ void SimulationManager::run()
 			DispatchMessage(&msg);
 		}
 #endif
-		this->runOneFrame();
+		this->runOneFrame(frameClock.getElapsedSeconds());
+		frameClock.reset();
 	};
 }
 
-void SimulationManager::runOneFrame(void)
+void SimulationManager::runOneFrame(F32 seconds)
 {
 	this->frames++;
+	std::cout << seconds << std::endl;
 	std::cout << "pre clear " << this->frames << std::endl;
 	this->render->clear();
 	std::cout << "post clear " << this->frames << std::endl;
