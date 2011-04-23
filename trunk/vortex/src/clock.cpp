@@ -28,6 +28,16 @@ F32 Clock::getElapsedSeconds(void)
 {
 	U64 now = Timer::readHighResolutionTimer();
 	U64 freq = Timer::readHighResolutionTimerFrequency();
-	return ((F32)(now - this->startTime)) * (F32)freq;
+	return ((F32)(now - this->startTime)) / (F32)freq;
 }
+
+F32 Clock::getElapsedSecondsAndReset(void)
+{
+	U64 now = Timer::readHighResolutionTimer();
+	U64 start = this->startTime;
+	this->startTime = now;
+	U64 freq = Timer::readHighResolutionTimerFrequency();
+	return ((F32)(now - start)) / (F32)freq;
+}
+
 
