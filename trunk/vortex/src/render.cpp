@@ -51,8 +51,10 @@ void RenderManager::destroy(void)
 	if(this->manageWindow)
 	{
 #if defined(VTX_PLATFORM_WIN32)
+		HINSTANCE instance = GetModuleHandle(NULL);
 		CloseWindow(this->windowHandle);
 		DestroyWindow(this->windowHandle);
+		UnregisterClass(__TEXT("VortexWin32"), instance);
 #endif
 	}
 }
@@ -96,10 +98,10 @@ void RenderManager::createWindow(WindowCreationParams &params)
 			style = WS_POPUP;
 		else
 		{
-			style = WS_BORDER | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+			style = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 			if(params.styleFlags & WindowCreationParams::STYLE_MENU)
 				style |= WS_SYSMENU;
-			if(~(params.styleFlags & WindowCreationParams::STYLE_NOCAPTION))
+			if((params.styleFlags & WindowCreationParams::STYLE_NOCAPTION))
 				style |= WS_CAPTION;
 			if(params.styleFlags & WindowCreationParams::STYLE_MAXIMIZEBUTTON)
 				style |= WS_MAXIMIZEBOX;
@@ -109,10 +111,12 @@ void RenderManager::createWindow(WindowCreationParams &params)
 				style |= WS_SIZEBOX;
 		}
 
-		ATOM a = RegisterClassEx(&wndclass);
-		if(a == 0)
+		ATOM atom = RegisterClassEx(&wndclass);
+		if(atom == 0)
 		{
 			int err = GetLastError();
+			if(err != ERROR_CLASS_ALREADY_EXISTS)
+				return;
 		}
 
 		this->windowHandle = CreateWindow(
