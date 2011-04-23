@@ -50,9 +50,9 @@ class RenderCreationParams
 public:
 	RenderCreationParams(void);
 	E_RENDER_API rapi;
-	core::Vector2<U32> backBufferSize;
-	U32 multisampleCount;
-	U32 multisampleQuality;
+	core::Vector2<platform::U32> backBufferSize;
+	platform::U32 multisampleCount;
+	platform::U32 multisampleQuality;
 };
 
 class WindowCreationParams
@@ -68,8 +68,8 @@ public:
 		STYLE_MENU				= 16
 	};
 	bool isFullscreen;
-	core::Vector2<U32> windowPosition;
-	core::Vector2<U32> windowSize;
+	core::Vector2<platform::U32> windowPosition;
+	core::Vector2<platform::U32> windowSize;
 	std::wstring windowTitle;
 	E_WINDOWSTYLE styleFlags;
 	platform::WINDOW windowHandle;
