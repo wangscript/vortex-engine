@@ -83,6 +83,7 @@
     <ClInclude Include="include\vtx_platform.h" />
     <ClInclude Include="include\vtx_signal.h" />
     <ClInclude Include="include\vtx_thread.h" />
+    <ClInclude Include="include\vtx_timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="file.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="src\iostream.cpp" />
     <ClCompile Include="src\signal.cpp" />
     <ClCompile Include="src\thread.cpp" />
+    <ClCompile Include="src\timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
