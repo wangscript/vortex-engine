@@ -14,21 +14,20 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef VTX_SIMULATION_H
-#define VTX_SIMULATION_H
-#include "vtx_renderinternal.h"
-#include "vtx_atomic.h"
+#include "vtx_clock.h"
+#include "vtx_timer.h"
 
-class SimulationManager
+using namespace platform;
+
+void Clock::reset(void)
 {
-public:
-	platform::U32 frames;
-	void init(RenderAPI *render);
-	void destroy(void);
-	void run(void);
-private:
-	RenderAPI *render;
-	void runOneFrame(platform::F32 seconds);
-};
+	this->startTime = Timer::readHighResolutionTimer();
+}
 
-#endif
+F32 Clock::getElapsedSeconds(void)
+{
+	U64 now = Timer::readHighResolutionTimer();
+	U64 freq = Timer::readHighResolutionTimerFrequency();
+	return ((F32)(now - this->startTime)) * (F32)freq;
+}
+

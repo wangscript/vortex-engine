@@ -42,6 +42,9 @@
     <ClInclude Include="include\vtx_openglrender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\vtx_clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\resource.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendercreationparams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
