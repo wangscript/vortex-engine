@@ -19,6 +19,7 @@
 #include <cstring>
 
 using namespace core;
+using namespace platform;
 
 Vector4::Vector4()
 {

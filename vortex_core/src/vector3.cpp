@@ -17,6 +17,7 @@
 #include "..\include\vtx_types.h"
 
 using namespace core;
+using namespace platform;
 
 Vector3::Vector3( F32 x, F32 y, F32 z )
 {

@@ -20,6 +20,7 @@
 #include <cstring>
 
 using namespace core;
+using namespace platform;
 
 Matrix4x4::Matrix4x4( F32 m[4][4] )
 {
