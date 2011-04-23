@@ -63,13 +63,13 @@ IOStream::ErrorCode IOStream::setPosition(U64 position)
 		FILE_BEGIN) != 0)
 	{
 		this->position = position;
-		ret = IOStream::ErrorCode::OK;
+		ret = OK;
 	}
 	else
 	{
 		// TODO: Find error codes.
 		int err = GetLastError();
-		ret = IOStream::ErrorCode::UNKOWN_ERROR;
+		ret = UNKOWN_ERROR;
 	}
 
 #endif
