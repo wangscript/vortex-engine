@@ -14,8 +14,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_thread.h"
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
 #endif
 
@@ -29,7 +30,7 @@ Thread::Thread(ThreadFunc func)
 Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 {
 	Thread::ErrorCode ret;
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WIN32)
 	this->handle = CreateThread(
 		NULL,
 		0,
@@ -57,6 +58,9 @@ Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 			ret = Thread::OK;
 		}
 	}
+#elif defined(VTX_PLATFORM_LINUX)
+	// TODO: IMPLEMENT LINUX VERSION
+	ret = Thread::UNKNOWN_ERROR;
 #endif
 	return ret;
 }
@@ -64,7 +68,7 @@ Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 Thread::ErrorCode Thread::start(void *threadData)
 {
 	Thread::ErrorCode ret;
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WIN32)
 	this->handle = CreateThread(
 		NULL,
 		0,
@@ -83,6 +87,9 @@ Thread::ErrorCode Thread::start(void *threadData)
 	{
 		ret = Thread::OK;
 	}
+#elif defined(VTX_PLATFORM_LINUX)
+	// TODO: IMPLEMENT LINUX VERSION
+	ret = Thread::UNKNOWN_ERROR;
 #endif
 	return ret;
 }
