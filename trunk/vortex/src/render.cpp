@@ -36,14 +36,18 @@ RenderManager::RenderManager(void)
 void RenderManager::init(RenderCreationParams &params, WindowCreationParams &windowParams)
 {
 	this->createWindow(windowParams);
+#if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
 		this->render = new DX10Render(params, this->windowHandle);
 	}
-	else if(params.rapi == E_RAPI_OPENGL)
+#endif
+#if defined(VTX_COMPILE_WITH_OPENGL)
+	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
 		this->render = new OpenGLRender(params, this->windowHandle);
 	}
+#endif
 }
 
 void RenderManager::destroy(void)
@@ -135,6 +139,7 @@ void RenderManager::createWindow(WindowCreationParams &params)
 		{
 			int err = GetLastError();
 		}
+		ShowWindow(this->windowHandle, SW_SHOW);
 #endif
 	}
 	// Window already exists.
@@ -143,7 +148,5 @@ void RenderManager::createWindow(WindowCreationParams &params)
 		this->manageWindow = false;
 	}
 	ASSERT(this->windowHandle != NULL);
-	
-	ShowWindow(this->windowHandle, SW_SHOW);
 
 }

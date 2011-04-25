@@ -14,8 +14,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_dx10render.h"
 #include "vtx_assertions.h"
+
+#if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
 using namespace platform;
 
@@ -75,3 +78,5 @@ void DX10Render::swap(void)
 {
 	this->swapChain->Present(0, 0);
 }
+
+#endif

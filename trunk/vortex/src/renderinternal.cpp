@@ -20,7 +20,7 @@
 
 void RenderAPI::setClearColor(core::Vector4 &color)
 {
-	memcpy_s(this->clearColor.values, sizeof(this->clearColor.values), color.values, sizeof(color.values));
+	memcpy(this->clearColor.values, color.values, sizeof(this->clearColor.values));
 }
 
 core::Vector4 *RenderAPI::getClearColor()

@@ -14,6 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+// TODO: REMOVE THIS and implement OpenGl for linux
+#if defined(VTX_PLATFORM_WIN32)
+
+
 #include "vtx_openglrender.h"
 #include <gl\GL.h>
 
@@ -78,3 +82,5 @@ void OpenGLRender::clear(void)
 	glClearColor(this->clearColor.values[0], this->clearColor.values[1], this->clearColor.values[2], this->clearColor.values[3]);
 		
 }
+
+#endif
