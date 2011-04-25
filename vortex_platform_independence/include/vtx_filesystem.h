@@ -18,7 +18,7 @@
 #define VTX_FILESYSTEM_H
 
 #include <vtx_atomic.h>
-#include <boost\intrusive\list.hpp>
+#include <boost/intrusive/list.hpp>
 #include <vector>
 
 namespace platform

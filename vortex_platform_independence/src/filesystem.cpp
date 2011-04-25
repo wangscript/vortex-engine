@@ -28,7 +28,6 @@ Device::Device()
 
 Device::~Device()
 {
-	printf("DELETING %s", *this->deviceName);
 	delete this->deviceName;
 }
 

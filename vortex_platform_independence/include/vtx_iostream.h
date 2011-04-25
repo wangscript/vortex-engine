@@ -18,8 +18,10 @@
 #define VTX_IOSTREAM_H
 
 #include "vtx_atomic.h"
-#include <xstring>
+#include <string>
+#ifdef WIN32
 #include <Windows.h>
+#endif
 
 namespace platform
 {
