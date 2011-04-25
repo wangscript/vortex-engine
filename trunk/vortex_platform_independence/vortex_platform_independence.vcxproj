@@ -86,7 +86,7 @@
     <ClInclude Include="include\vtx_timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="file.cpp" />
+    <ClCompile Include="src\file.cpp" />
     <ClCompile Include="src\filestream.cpp" />
     <ClCompile Include="src\filesystem.cpp" />
     <ClCompile Include="src\iostream.cpp" />
