@@ -16,6 +16,7 @@
 
 #include "..\include\vtx_math.h"
 #include <xmmintrin.h>
+#include <intrin.h>
 
 using namespace platform;
 
@@ -49,15 +50,20 @@ F32 Math::dot(Vector4 &a, Vector4 &b)
 	ma = _mm_load_ps(&a.values[0]);
 	mb = _mm_load_ps(&b.values[0]);
 	__declspec(align(16)) F32 res[4];
-	__asm
-	{
-		movaps xmm0, xmmword ptr [ma]
-		movaps xmm1, xmmword ptr [mb]
-		mulps xmm0, xmm1
-		haddps xmm0, xmm0
-		haddps xmm0, xmm0
-		movaps xmmword ptr [mr], xmm0
-	}
-	_mm_store_ps(&res[0], mr);
+	ma = _mm_mul_ps(ma, mb);
+	ma = _mm_hadd_ps(ma, ma);
+	ma = _mm_hadd_ps(ma, ma);
+	
+	//__asm
+	//{
+	//	movaps xmm0, xmmword ptr [ma]
+	//	movaps xmm1, xmmword ptr [mb]
+	//	mulps xmm0, xmm1
+	//	haddps xmm0, xmm0
+	//	haddps xmm0, xmm0
+	//	movaps xmmword ptr [mr], xmm0
+	//}
+	//_mm_store_ps(&res[0], mr);
+	_mm_store_ps(&res[0], ma);
 	return res[0];
 }
