@@ -16,6 +16,7 @@
 
 #include "..\include\vtx_types.h"
 #include <xmmintrin.h>
+#include <intrin.h>
 #include <cstring>
 
 using namespace core;
@@ -76,16 +77,21 @@ F32 Vector4::dot( Vector4 &a, Vector4 &b )
 	mb = _mm_load_ps(&b.values[0]);
 	__declspec(align(16)) F32 res[4];
 
+	ma = _mm_mul_ps(ma, mb);
+	ma = _mm_hadd_ps(ma, ma);
+	ma = _mm_hadd_ps(ma, ma);
 	// TODO: Replace this with intrinsics, even if the assembly code is awesome.
-	__asm
-	{
-		movaps xmm0, xmmword ptr [ma]
-		movaps xmm1, xmmword ptr [mb]
-		mulps xmm0, xmm1
-		haddps xmm0, xmm0
-		haddps xmm0, xmm0
-		movaps xmmword ptr [mr], xmm0
-	}
-	_mm_store_ps(&res[0], mr);
+	// DONE!
+	//__asm
+	//{
+	//	movaps xmm0, xmmword ptr [ma]
+	//	movaps xmm1, xmmword ptr [mb]
+	//	mulps xmm0, xmm1
+	//	haddps xmm0, xmm0
+	//	haddps xmm0, xmm0
+	//	movaps xmmword ptr [mr], xmm0
+	//}
+	//_mm_store_ps(&res[0], mr);
+	_mm_store_ps(&res[0], ma);
 	return res[0];
 }
