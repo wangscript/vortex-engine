@@ -17,7 +17,7 @@
 #ifndef VTX_MATH_H
 #define VTX_MATH_H
 
-#include "..\include\vtx_types.h"
+#include "vtx_types.h"
 
 namespace core
 {

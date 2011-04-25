@@ -14,9 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "..\include\vtx_math.h"
+#include "vtx_defineconfig.h"
+#include "vtx_math.h"
 #include <xmmintrin.h>
-#include <intrin.h>
+#include <pmmintrin.h>
 
 using namespace platform;
 
@@ -49,7 +50,8 @@ F32 Math::dot(Vector4 &a, Vector4 &b)
 	__m128 mr;
 	ma = _mm_load_ps(&a.values[0]);
 	mb = _mm_load_ps(&b.values[0]);
-	__declspec(align(16)) F32 res[4];
+	ALIGNED_16 F32 res[4];
+	// TODO: Write asm macro.
 	ma = _mm_mul_ps(ma, mb);
 	ma = _mm_hadd_ps(ma, ma);
 	ma = _mm_hadd_ps(ma, ma);
