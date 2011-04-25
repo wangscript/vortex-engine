@@ -14,9 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "..\include\vtx_types.h"
+#include "vtx_defineconfig.h"
+#include "vtx_types.h"
 #include <xmmintrin.h>
-#include <intrin.h>
+#include <pmmintrin.h>
 #include <cstring>
 
 using namespace core;
@@ -61,7 +62,7 @@ void Vector4::multiply( Vector4 &a, Vector4 &b, Vector4 &result )
 
 void Vector4::multiply( Vector4 &a, F32 value, Vector4 &result )
 {
-	__declspec(align(16)) F32 values[] = {value, value, value, value};
+	ALIGNED_16 F32 values[] = {value, value, value, value};
 	__m128 mA = _mm_load_ps(a.values);
 	__m128 mB = _mm_load_ps(values);
 	__m128 mRes = _mm_mul_ps(mA, mB);
@@ -72,10 +73,10 @@ F32 Vector4::dot( Vector4 &a, Vector4 &b )
 {
 	__m128 ma;
 	__m128 mb;
-	__m128 mr;
+	//__m128 mr;
 	ma = _mm_load_ps(&a.values[0]);
 	mb = _mm_load_ps(&b.values[0]);
-	__declspec(align(16)) F32 res[4];
+	ALIGNED_16 F32 res[4];
 
 	ma = _mm_mul_ps(ma, mb);
 	ma = _mm_hadd_ps(ma, ma);

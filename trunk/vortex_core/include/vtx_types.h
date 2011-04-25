@@ -17,6 +17,7 @@
 #ifndef VTX_TYPES_H
 #define VTX_TYPES_H
 
+#include "vtx_defineconfig.h"
 #include "vtx_atomic.h"
 
 namespace core
@@ -27,7 +28,7 @@ namespace core
 		Matrix4x4();
 		Matrix4x4( platform::F32 m[4][4] );
 		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
-		__declspec(align(16)) platform::F32 m[4][4];
+		ALIGNED_16 platform::F32 m[4][4];
 	private:
 	};
 
@@ -105,7 +106,7 @@ namespace core
 		static void multiply( Vector4 &a, Vector4 &b, Vector4 &result );
 		static void multiply( Vector4 &a, platform::F32 value, Vector4 &result );
 		static platform::F32 dot( Vector4 &a, Vector4 &b );
-		__declspec(align(16)) platform::F32 values[4];
+		ALIGNED_16 platform::F32 values[4];
 	private:
 	};
 }

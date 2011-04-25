@@ -16,7 +16,7 @@
 
 #include "vtx_concurrent_queue.h"
 
-template <class T, class Sequence>
+/*template <class T, class Sequence>
 ConcurrentQueue<T, Sequence>::ConcurrentQueue()
 {
-}
+}*/

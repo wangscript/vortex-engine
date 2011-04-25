@@ -14,9 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "..\include\vtx_types.h"
-#include "..\include\vtx_math.h"
+#include "vtx_types.h"
+#include "vtx_math.h"
 #include <xmmintrin.h>
+#include <pmmintrin.h>
 #include <cstring>
 
 using namespace core;
@@ -35,10 +36,15 @@ void Matrix4x4::multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result )
 {
 	__m128 b0, b1, b2, b3;
 	__m128 row, res;
-	b0.m128_i64[0] = b0.m128_i64[1] = 1;
+	/*b0.m128_i64[0] = b0.m128_i64[1] = 1;
 	b1.m128_i64[0] = b1.m128_i64[1] = 1;
 	b2.m128_i64[0] = b2.m128_i64[1] = 1;
-	b3.m128_i64[0] = b3.m128_i64[1] = 1;
+	b3.m128_i64[0] = b3.m128_i64[1] = 1;*/
+	// Can not assign 1 as above when compiling using g++. memset works better.
+	memset(&b0, 0, sizeof(b0));
+	memset(&b1, 0, sizeof(b1));
+	memset(&b2, 0, sizeof(b2));
+	memset(&b3, 0, sizeof(b3));
 	
 	// Load all 4 columns.
 	b0 = _mm_loadh_pi(_mm_loadl_pi(b0, (__m64*)&b.m[0][0]), (__m64*)&b.m[0][2]);

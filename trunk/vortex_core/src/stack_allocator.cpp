@@ -14,8 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "..\include\vtx_stack_allocator.h"
-#include "..\include\vtx_assertions.h"
+#include "vtx_stack_allocator.h"
+#include "vtx_assertions.h"
 #include <stdlib.h>
 
 using namespace platform;
@@ -24,9 +24,9 @@ using namespace core;
 
 StackAllocator::StackAllocator( U32 stackSize )
 {
-	this->stackSize = stackSize;
+	/*this->stackSize = stackSize;
 	this->data = (U8*)malloc(this->stackSize);
-	this->stackPosition = (U32)this->data;
+	this->stackPosition = reinterpret_cast<__UINT64>(this->data);*/
 }
 
 StackAllocator::~StackAllocator()
@@ -37,7 +37,7 @@ StackAllocator::~StackAllocator()
 
 StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpace )
 {
-	ASSERT(size > 0);
+	/*ASSERT(size > 0);
 	StackAllocator::ErrorCode err;
 	U32 newStackPosition = this->stackPosition + size;
 	U8 *stackAllocation = NULL;
@@ -54,13 +54,13 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpac
 		err = StackAllocator::OK;
 	}
 	*allocatedSpace = stackAllocation;
-	return err;
+	return err;*/
 }
 
 void StackAllocator::freeToMarker( U32 marker )
 {
-	ASSERT(marker > (U32)this->data);
-	this->stackPosition = marker;
+	/*ASSERT(marker > (U32)this->data);
+	this->stackPosition = marker;*/
 }
 
 U32 StackAllocator::getMarker()

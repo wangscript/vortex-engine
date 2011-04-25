@@ -18,9 +18,9 @@
 #define VTX_CONCURRENT_QUEUE_H
 
 #include <queue>
-#include <boost\pending\queue.hpp>
+#include <boost/pending/queue.hpp>
 
-template <class T, class Container = std::queue<T>>
+template <class T, class Container = std::queue<T> >
 class ConcurrentQueue
 {
 private:
