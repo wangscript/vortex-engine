@@ -17,21 +17,31 @@
 #ifndef VTX_THREAD_H
 #define VTX_THREAD_H
 
+#include "vtx_defineconfig.h"
 #include "vtx_atomic.h"
+
+#if defined(VTX_PLATFORM_WIN32)
+typedef HANDLE THREAD_HANDLE;
+typedef U32 (*ThreadFunc)(void*);
+#elif defined(VTX_PLATFORM_LINUX)
+#include <pthread.h>
+typedef pthread_t THREAD_HANDLE;
+typedef void *(*ThreadFunc)(void*);
+#endif
+
 
 namespace platform
 {
-	typedef U32 (*ThreadFunc)(void*);
 
 	class Thread
 	{
 	public:
-		enum ErrorCode { OK, UNKNOWN_ERROR };
+		enum ErrorCode { OK, UNKNOWN_ERROR, NOPERMISSION, SYSTEMFAIL };
 		explicit Thread(ThreadFunc func);
 		ErrorCode start(void *threadData);
 		ErrorCode start(void *threadData, U32 affinityMask);
 	private:
-		SYSTEM_HANDLE handle;
+		THREAD_HANDLE handle;
 		ThreadFunc func;
 	};
 }

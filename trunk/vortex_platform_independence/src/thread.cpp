@@ -18,6 +18,8 @@
 #include "vtx_thread.h"
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
+#elif defined(VTX_PLATFORM_LINUX)
+#include <errno.h>
 #endif
 
 using namespace platform;
@@ -59,7 +61,7 @@ Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
 		}
 	}
 #elif defined(VTX_PLATFORM_LINUX)
-	// TODO: IMPLEMENT LINUX VERSION
+	
 	ret = Thread::UNKNOWN_ERROR;
 #endif
 	return ret;
@@ -88,8 +90,26 @@ Thread::ErrorCode Thread::start(void *threadData)
 		ret = Thread::OK;
 	}
 #elif defined(VTX_PLATFORM_LINUX)
-	// TODO: IMPLEMENT LINUX VERSION
-	ret = Thread::UNKNOWN_ERROR;
+	U32 errcode = pthread_create(&this->handle, NULL, this->func, threadData);
+	if(errcode != 0)
+	{
+		switch(errcode)
+		{
+			case EAGAIN:
+				errcode = Thread::SYSTEMFAIL;
+				break;
+			case EINVAL:
+				errcode = Thread::UNKNOWN_ERROR;
+				break;
+			case EPERM:
+				errcode = Thread::NOPERMISSION;
+				break;
+		}
+	}
+	else
+	{
+		ret = Thread::OK;
+	}
 #endif
 	return ret;
 }
