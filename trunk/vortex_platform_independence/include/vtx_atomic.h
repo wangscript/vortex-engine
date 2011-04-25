@@ -29,6 +29,10 @@ namespace platform
 	typedef HANDLE SYSTEM_HANDLE;
 	//TODO: Figure out why this #define can not be used anywhere without compile errors...
 	#define INVALID_SYSTEM_HANDLE INVALID_HANDLE_VALUE;
+#else
+	//TODO: get this fixed.
+	typedef void *WINDOW;
+	typedef void *SYSTEM_HANDLE;
 #endif
 
 #define U32_SIGNIFICANT_BIT 2147483648
@@ -39,8 +43,12 @@ namespace platform
 	typedef signed short I16;
 	typedef unsigned int U32;
 	typedef signed int I32;
-	typedef signed long long I64;
+#ifdef WIN32
 	typedef unsigned long long U64;
+#else
+	// Workaround until I find out how to get 64 bit integers on unix with g++.
+	typedef unsigned long U64;
+#endif
 	typedef float F32;
 
 }

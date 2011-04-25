@@ -15,8 +15,10 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vtx_timer.h"
-#include <Windows.h>
 #include "vtx_defineconfig.h"
+#if defined(VTX_PLATFORM_WIN32)
+#include <Windows.h>
+#endif
 
 using namespace platform;
 
@@ -28,6 +30,8 @@ U64 Timer::readHighResolutionTimer(void)
 	BOOL res = QueryPerformanceCounter(&value);
 	//TODO: Handle res here.
 	result = value.QuadPart;
+#elif defined(VTX_PLATFORM_LINUX)
+	result = 0; // PLACEHOLDER FOR LINUX VARIANT
 #endif
 	return result;
 }
@@ -40,6 +44,8 @@ U64 Timer::readHighResolutionTimerFrequency(void)
 	BOOL res = QueryPerformanceFrequency(&value);
 	//TODO: Handle res here.
 	result = value.QuadPart;
+#elif defined(VTX_PLATFORM_LINUX)
+	result = 0; // PLACEHOLDER FOR LINUX VARIANT
 #endif
 	return result;
 }

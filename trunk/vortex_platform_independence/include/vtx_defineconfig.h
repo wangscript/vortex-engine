@@ -19,6 +19,8 @@
 
 #if defined(WIN32)
 #define VTX_PLATFORM_WIN32
+#elif defined(__linux)
+#define VTX_PLATFORM_LINUX
 #endif
 
 /*	Render API defines
@@ -37,6 +39,12 @@
 
 #if defined(VTX_COMPILE_WITH_OPENGL) && defined(VTX_PLATFORM_WIN32)
 #pragma comment(lib, "opengl32.lib")
+#endif
+
+#if defined(VTX_PLATFORM_WIN32)
+#define ALIGNED_16 __declspec(align(16))
+#elif defined(VTX_PLATFORM_LINUX)
+#define ALIGNED_16 __attribute__((aligned(16)))
 #endif
 
 #endif
