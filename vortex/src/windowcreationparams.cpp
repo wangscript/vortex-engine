@@ -14,12 +14,15 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_render.h"
 
+#if defined(VTX_PLATFORM_WIN32)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
+#endif
 
 WindowCreationParams::WindowCreationParams()
 {
@@ -30,5 +33,7 @@ WindowCreationParams::WindowCreationParams()
 	this->windowPosition.y = VWIN_USEDEFAULT;
 	this->windowSize.x = VWIN_USEDEFAULT;
 	this->windowSize.y = VWIN_USEDEFAULT;
+#if defined(VTX_PLATFORM_WIN32)
 	this->wndProc = WndProc;
+#endif
 }

@@ -17,7 +17,7 @@
 #include "vtx_defineconfig.h"
 #include "vtx_simulation.h"
 #include "vtx_clock.h"
-
+#include <stdlib.h>
 #include <ctime>
 #include <iostream>
 

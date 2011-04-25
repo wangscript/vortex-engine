@@ -14,11 +14,15 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_job.h"
 #include "vtx_atomic.h"
 #include "vtx_assertions.h"
 #include "vtx_util.h"
+#include <stdlib.h>
+#if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
+#endif
 
 using namespace platform;
 
@@ -57,7 +61,7 @@ void JobManager::initJobProcessors(U32 processAffinity)
 U32 JobManager::getCurrentProcessAffinityMask(void)
 {
 	U32 processAffinity;
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WIN32)
 	HANDLE processHandle = GetCurrentProcess();
 	U32 systemAffinity;
 
@@ -66,6 +70,9 @@ U32 JobManager::getCurrentProcessAffinityMask(void)
 		(PDWORD_PTR)&processAffinity,
 		(PDWORD_PTR)&systemAffinity);
 	ASSERT(success == TRUE);
+#elif defined(VTX_PLATFORM_LINUX)
+	// TODO: Find process affinity here.
+	processAffinity = 0;
 #endif
 
 	return processAffinity;
@@ -74,7 +81,7 @@ U32 JobManager::getCurrentProcessAffinityMask(void)
 U32 JobManager::getNumberOfProcessorsAvailable(void)
 {
 	U32 noProcessors;
-#ifdef WIN32	
+#if defined(VTX_PLATFORM_WIN32)
 	HANDLE processHandle = GetCurrentProcess();
 	U32 systemAffinity;
 	U32 processAffinity;
@@ -85,8 +92,10 @@ U32 JobManager::getNumberOfProcessorsAvailable(void)
 		(PDWORD_PTR)&systemAffinity);
 	ASSERT(b);
 
-
 	noProcessors = Utilities::getSetBitCount(processAffinity);
+#elif defined(VTX_PLATFORM_LINUX)
+	// TODO: Implement linux version
+	noProcessors = 0;
 #endif
 	return noProcessors;
 }
@@ -94,7 +103,7 @@ U32 JobManager::getNumberOfProcessorsAvailable(void)
 void JobManager::setPromotionIncrement(U32 value)
 {
 	this->promotionIncrement = value;
-}
+} 
 
 platform::U32 JobManager::getPromotionIncrement(void)
 {

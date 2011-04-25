@@ -17,6 +17,10 @@
 #ifndef VTX_RENDERDX10_H
 #define VTX_RENDERDX10_H
 
+#include "vtx_defineconfig.h"
+
+#if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
+
 #include "vtx_renderinternal.h"
 #include "vtx_render.h"
 #include "vtx_atomic.h"
@@ -33,5 +37,7 @@ public:
 	virtual void swap(void);
 	virtual void clear(void);
 };
+
+#endif
 
 #endif
