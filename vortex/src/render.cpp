@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "vtx_defineconfig.h"
 #include "vtx_render.h"
 #if defined(VTX_COMPILE_WITH_DX10)
 #include "vtx_dx10render.h"
