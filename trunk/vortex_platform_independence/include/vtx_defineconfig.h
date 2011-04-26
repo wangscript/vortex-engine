@@ -30,6 +30,8 @@
 //#define VTX_COMPILE_WITH_DX11
 #define VTX_COMPILE_WITH_OPENGL
 
+#elif defined(VTX_PLATFORM_LINUX)
+#define VTX_COMPILE_WITH_OPENGL
 #endif
 
 #if defined(VTX_COMPILE_WITH_DX10)
