@@ -24,19 +24,21 @@
 #endif
 
 #include "vtx_assertions.h"
-#ifdef WIN32
-#include <Windows.h>
-#endif
+//#if defined(VTX_PLATFORM_WIN32)
+//#include <Windows.h>
+//#endif
 
 using namespace platform;
 
 RenderManager::RenderManager(void)
 {
+	this->render = NULL;
 }
 
 void RenderManager::init(RenderCreationParams &params, WindowCreationParams &windowParams)
 {
-	this->createWindow(windowParams);
+	this->window = NativeWindow::create(windowParams);
+	//this->createWindow(windowParams);
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
@@ -76,78 +78,5 @@ platform::WINDOW RenderManager::getWindowHandle(void)
 
 void RenderManager::createWindow(WindowCreationParams &params)
 {
-		// Window does not exist and should be created.
-	if(params.windowHandle == 0)
-	{
-		this->manageWindow = true;
-#if defined(VTX_PLATFORM_WIN32)
-		HINSTANCE instance = GetModuleHandle(NULL);
-		LPCWSTR className = __TEXT("VortexWin32");
-
-		WNDCLASSEX wndclass;
-		wndclass.cbSize = sizeof(WNDCLASSEX);
-		wndclass.style = CS_OWNDC; // CS_HREDRAW | CS_VREDRAW; //Redraw on horizontal or vertical movement or size changes.
-		wndclass.lpfnWndProc = params.wndProc;
-		wndclass.cbClsExtra = 0;
-		wndclass.cbWndExtra = 0;
-		wndclass.hInstance = instance;
-		wndclass.hIcon = NULL; // TODO: Fix properly?
-		wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
-		wndclass.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
-		wndclass.lpszMenuName = NULL;
-		wndclass.lpszClassName = className;
-		wndclass.hIconSm = NULL; // TODO: Fix properly?
-
-		DWORD style;
-		if(params.isFullscreen)
-			style = WS_POPUP;
-		else
-		{
-			style = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
-			if(params.styleFlags & WindowCreationParams::STYLE_MENU)
-				style |= WS_SYSMENU;
-			if((params.styleFlags & WindowCreationParams::STYLE_NOCAPTION))
-				style |= WS_CAPTION;
-			if(params.styleFlags & WindowCreationParams::STYLE_MAXIMIZEBUTTON)
-				style |= WS_MAXIMIZEBOX;
-			if(params.styleFlags & WindowCreationParams::STYLE_MAXIMIZED)
-				style |= WS_MAXIMIZE;
-			if(params.styleFlags & WindowCreationParams::STYLE_SIZEABLE)
-				style |= WS_SIZEBOX;
-		}
-
-		ATOM atom = RegisterClassEx(&wndclass);
-		if(atom == 0)
-		{
-			int err = GetLastError();
-			if(err != ERROR_CLASS_ALREADY_EXISTS)
-				return;
-		}
-
-		this->windowHandle = CreateWindow(
-			className,
-			params.windowTitle.c_str(),
-			style,
-			params.windowPosition.x,
-			params.windowPosition.y,
-			params.windowSize.x,
-			params.windowSize.y,
-			NULL,
-			NULL,
-			instance,
-			NULL);
-		if(this->windowHandle == NULL)
-		{
-			int err = GetLastError();
-		}
-		ShowWindow(this->windowHandle, SW_SHOW);
-#endif
-	}
-	// Window already exists.
-	else
-	{
-		this->manageWindow = false;
-	}
-	ASSERT(this->windowHandle != NULL);
 
 }
