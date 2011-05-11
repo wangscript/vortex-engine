@@ -55,6 +55,8 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpac
 	}
 	*allocatedSpace = stackAllocation;
 	return err;*/
+	// TODO: Uncomment this.
+	return ErrorCode::OK;
 }
 
 void StackAllocator::freeToMarker( U32 marker )
