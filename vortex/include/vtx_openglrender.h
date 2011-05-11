@@ -23,13 +23,13 @@
 class OpenGLRender : public RenderAPI
 {
 private:
-	platform::WINDOW windowHandle;
+	NativeWindow *window;
 #if defined(VTX_PLATFORM_WIN32)
 	HDC hDC;
 	HGLRC renderContext;
 #endif
 public:
-	OpenGLRender(RenderCreationParams &params, platform::WINDOW outputWindow);
+	OpenGLRender(RenderCreationParams &params, NativeWindow *outputWindow);
 	~OpenGLRender(void);
 	virtual void swap(void);
 	virtual void clear(void);

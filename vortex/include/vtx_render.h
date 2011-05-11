@@ -21,6 +21,7 @@
 #include "vtx_renderinternal.h"
 #include "vtx_types.h"
 #include "vtx_atomic.h"
+#include "vtx_window.h"
 
 #if defined(VTX_PLATFORM_WIN32)
 #define VWIN_USEDEFAULT		CW_USEDEFAULT
@@ -55,29 +56,6 @@ public:
 	platform::U32 multisampleQuality;
 };
 
-class WindowCreationParams
-{
-public:
-	WindowCreationParams();
-	enum E_WINDOWSTYLE
-	{
-		STYLE_MAXIMIZED			= 1,
-		STYLE_MAXIMIZEBUTTON	= 2,
-		STYLE_NOCAPTION			= 4,
-		STYLE_SIZEABLE			= 8,
-		STYLE_MENU				= 16
-	};
-	bool isFullscreen;
-	core::Vector2<platform::U32> windowPosition;
-	core::Vector2<platform::U32> windowSize;
-	std::wstring windowTitle;
-	E_WINDOWSTYLE styleFlags;
-	platform::WINDOW windowHandle;
-#if defined(VTX_PLATFORM_WIN32)
-	WNDPROC wndProc;
-#endif
-};
-
 class RenderManager
 {
 public:
@@ -85,10 +63,9 @@ public:
 	void init(RenderCreationParams &params, WindowCreationParams &windowParams);
 	void destroy(void);
 	RenderAPI *getRenderObject(void);
-	platform::WINDOW getWindowHandle(void);
 private:
 	void createWindow(WindowCreationParams &params);
-	platform::WINDOW windowHandle;
+	NativeWindow *window;
 	bool manageWindow;
 	RenderAPI *render;
 };

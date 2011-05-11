@@ -25,11 +25,11 @@
 #include "GL/glx.h"
 #endif
 
-OpenGLRender::OpenGLRender(RenderCreationParams &params, platform::WINDOW outputWindow)
+OpenGLRender::OpenGLRender(RenderCreationParams &params, NativeWindow *outputWindow)
 {
-	this->windowHandle = outputWindow;
+	this->window = outputWindow;
 #if defined(VTX_PLATFORM_WIN32)
-	this->hDC = GetDC(outputWindow);
+	this->hDC = GetDC(outputWindow->getHandle());
 	BOOL b;
 	PIXELFORMATDESCRIPTOR pixelDesc = {
                 sizeof(PIXELFORMATDESCRIPTOR),          //size of structure
@@ -77,7 +77,7 @@ OpenGLRender::~OpenGLRender(void)
 {
 #if defined(VTX_PLATFORM_WIN32)
 	wglDeleteContext(this->renderContext);
-	ReleaseDC(this->windowHandle, this->hDC);
+	ReleaseDC(this->window->getHandle(), this->hDC);
 #endif
 }
 
