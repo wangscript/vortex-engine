@@ -22,7 +22,7 @@
 
 #if defined(VTX_PLATFORM_WIN32)
 typedef HANDLE THREAD_HANDLE;
-typedef U32 (*ThreadFunc)(void*);
+typedef platform::U32 (*ThreadFunc)(void*);
 #elif defined(VTX_PLATFORM_LINUX)
 #include <pthread.h>
 typedef pthread_t THREAD_HANDLE;
