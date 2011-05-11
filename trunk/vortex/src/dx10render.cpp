@@ -22,7 +22,7 @@
 
 using namespace platform;
 
-DX10Render::DX10Render(RenderCreationParams &params, WINDOW outputWindow)
+DX10Render::DX10Render(RenderCreationParams &params, NativeWindow *outputWindow)
 {
 	HRESULT result;
 	DXGI_SWAP_CHAIN_DESC swapChainDesc;
@@ -41,7 +41,7 @@ DX10Render::DX10Render(RenderCreationParams &params, WINDOW outputWindow)
 	swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // TODO: RenderCreationParams enum!
-	swapChainDesc.OutputWindow = outputWindow;
+	swapChainDesc.OutputWindow = outputWindow->getHandle();
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.SampleDesc.Count = params.multisampleCount;
 	swapChainDesc.SampleDesc.Quality = params.multisampleQuality;

@@ -47,20 +47,21 @@ class NativeWindow
 {
 private:
 #if defined(VTX_PLATFORM_LINUX)
-Display *display;
-Window win;
+	Display *display;
+	Window win;
 #endif
 
 #if defined(VTX_PLATFORM_LINUX) && defined(VTX_COMPILE_WITH_OPENGL)
-GLXContext context;
+	GLXContext context;
 #endif
-platform::WINDOW handle;
-bool manageWindow;
-WindowCreationParams *params;
-NativeWindow(void);
+	platform::WINDOW handle;
+	bool manageWindow;
+	WindowCreationParams *params;
+	NativeWindow(void);
 public:
-~NativeWindow(void);
-static NativeWindow *create(WindowCreationParams &params);
+	void destroy(void);
+	platform::WINDOW getHandle(void);
+	static NativeWindow *create(WindowCreationParams &params);
 };
 
 #endif

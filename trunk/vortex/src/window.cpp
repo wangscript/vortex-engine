@@ -61,7 +61,7 @@ NativeWindow *NativeWindow::create(WindowCreationParams &params)
 		{
 			int err = GetLastError();
 			if(err != ERROR_CLASS_ALREADY_EXISTS)
-				return;
+				return 0;
 		}
 
 		window->handle = CreateWindow(
@@ -132,4 +132,22 @@ NativeWindow *NativeWindow::create(WindowCreationParams &params)
 
 return window;
 
+}
+
+void NativeWindow::destroy(void)
+{
+#if defined(VTX_PLATFORM_WIN32)
+	HINSTANCE instance = GetModuleHandle(NULL);
+	CloseWindow(this->handle);
+	DestroyWindow(this->handle);
+	UnregisterClass(__TEXT("VortexWin32"), instance);
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+	// TODO: Do it!
+#endif
+}
+
+platform::WINDOW NativeWindow::getHandle(void)
+{
+	return this->handle;
 }

@@ -42,38 +42,25 @@ void RenderManager::init(RenderCreationParams &params, WindowCreationParams &win
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		this->render = new DX10Render(params, this->windowHandle);
+		this->render = new DX10Render(params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
-		this->render = new OpenGLRender(params, this->windowHandle);
+		this->render = new OpenGLRender(params, this->window);
 	}
 #endif
 }
 
 void RenderManager::destroy(void)
 {
-	if(this->manageWindow)
-	{
-#if defined(VTX_PLATFORM_WIN32)
-		HINSTANCE instance = GetModuleHandle(NULL);
-		CloseWindow(this->windowHandle);
-		DestroyWindow(this->windowHandle);
-		UnregisterClass(__TEXT("VortexWin32"), instance);
-#endif
-	}
+	this->window->destroy();
 }
 
 RenderAPI *RenderManager::getRenderObject(void)
 {
 	return this->render;
-}
-
-platform::WINDOW RenderManager::getWindowHandle(void)
-{
-	return this->windowHandle;
 }
 
 void RenderManager::createWindow(WindowCreationParams &params)
