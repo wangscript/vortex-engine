@@ -17,7 +17,7 @@
 #ifndef VTX_FILESTREAM_H
 #define VTX_FILESTREAM_H
 
-#include "vtx_iostream.h"
+#include <platform/vtx_iostream.h>
 #ifdef WIN32
 #include <Windows.h>
 #endif

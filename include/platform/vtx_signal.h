@@ -17,7 +17,7 @@
 #ifndef VTX_SIGNAL_H
 #define VTX_SIGNAL_H
 
-#include "vtx_atomic.h"
+#include <platform/vtx_atomic.h>
 
 namespace platform
 {

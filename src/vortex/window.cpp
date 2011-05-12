@@ -1,5 +1,5 @@
-#include <vortex\vtx_window.h>
-#include <core\vtx_assertions.h>
+#include <vortex/vtx_window.h>
+#include <core/vtx_assertions.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>

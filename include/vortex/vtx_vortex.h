@@ -17,11 +17,11 @@
 #ifndef VTX_VORTEX_H
 #define VTX_VORTEX_H
 
-#include <platform\vtx_defineconfig.h>
-#include <vortex\vtx_job.h>
-#include <vortex\vtx_render.h>
-#include <vortex\vtx_resource.h>
-#include <vortex\vtx_simulation.h>
+#include <platform/vtx_defineconfig.h>
+#include <vortex/vtx_job.h>
+#include <vortex/vtx_render.h>
+#include <vortex/vtx_resource.h>
+#include <vortex/vtx_simulation.h>
 //#include "vtx_window.h"
 
 class Root

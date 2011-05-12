@@ -18,7 +18,7 @@
 #ifndef VTX_STACK_ALLOCATOR_H
 #define VTX_STACK_ALLOCATOR_H
 
-#include "vtx_types.h"
+#include <core/vtx_types.h>
 
 //
 namespace core

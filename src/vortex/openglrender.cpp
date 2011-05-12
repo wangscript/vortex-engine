@@ -17,8 +17,8 @@
 // TODO: REMOVE THIS and implement OpenGl for linux
 
 
-#include <platform\vtx_defineconfig.h>
-#include <vortex\vtx_openglrender.h>
+#include <platform/vtx_defineconfig.h>
+#include <vortex/vtx_openglrender.h>
 #include <GL/gl.h>
 
 #if defined(VTX_PLATFORM_LINUX)

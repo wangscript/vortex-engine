@@ -17,11 +17,11 @@
 #ifndef VTX_RENDER_H
 #define VTX_RENDER_H
 
-#include <platform\vtx_defineconfig.h>
-#include <vortex\vtx_renderinternal.h>
-#include <core\vtx_types.h>
-#include <platform\vtx_atomic.h>
-#include <vortex\vtx_window.h>
+#include <platform/vtx_defineconfig.h>
+#include <vortex/vtx_renderinternal.h>
+#include <core/vtx_types.h>
+#include <platform/vtx_atomic.h>
+#include <vortex/vtx_window.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 #define VWIN_USEDEFAULT		CW_USEDEFAULT

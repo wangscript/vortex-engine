@@ -17,7 +17,7 @@
 #ifndef VTX_RENDERDRIVER_H
 #define VTX_RENDERDRIVER_H
 
-#include <core\vtx_types.h>
+#include <core/vtx_types.h>
 
 class RenderAPI
 {

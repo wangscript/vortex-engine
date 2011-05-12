@@ -17,7 +17,7 @@
 #ifndef VTX_IOSTREAM_H
 #define VTX_IOSTREAM_H
 
-#include "vtx_atomic.h"
+#include <platform/vtx_atomic.h>
 #include <string>
 #ifdef WIN32
 #include <Windows.h>

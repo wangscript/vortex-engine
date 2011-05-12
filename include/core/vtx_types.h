@@ -17,8 +17,8 @@
 #ifndef VTX_TYPES_H
 #define VTX_TYPES_H
 
-#include <platform\vtx_defineconfig.h>
-#include <platform\vtx_atomic.h>
+#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_atomic.h>
 
 namespace core
 {

@@ -16,8 +16,8 @@
 
 #ifndef VTX_SIMULATION_H
 #define VTX_SIMULATION_H
-#include <vortex\vtx_renderinternal.h>
-#include <platform\vtx_atomic.h>
+#include <vortex/vtx_renderinternal.h>
+#include <platform/vtx_atomic.h>
 
 class SimulationManager
 {

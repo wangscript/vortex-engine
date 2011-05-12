@@ -17,9 +17,9 @@
 #ifndef VTX_JOB_H
 #define VTX_JOB_H
 
-#include <platform\vtx_thread.h>
-#include <platform\vtx_atomic.h>
-#include <platform\vtx_signal.h>
+#include <platform/vtx_thread.h>
+#include <platform/vtx_atomic.h>
+#include <platform/vtx_signal.h>
 
 class Job
 {

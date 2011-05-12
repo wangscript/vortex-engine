@@ -17,7 +17,7 @@
 #ifndef VTX_CLOCK_H
 #define VTX_CLOCK_H
 
-#include <platform\vtx_atomic.h>
+#include <platform/vtx_atomic.h>
 
 class Clock
 {
