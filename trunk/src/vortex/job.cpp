@@ -14,11 +14,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform\vtx_defineconfig.h>
-#include <vortex\vtx_job.h>
-#include <platform\vtx_atomic.h>
-#include <core\vtx_assertions.h>
-#include <core\vtx_util.h>
+#include <platform/vtx_defineconfig.h>
+#include <vortex/vtx_job.h>
+#include <platform/vtx_atomic.h>
+#include <core/vtx_assertions.h>
+#include <core/vtx_util.h>
 #include <stdlib.h>
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>

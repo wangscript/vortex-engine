@@ -14,8 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <vortex\vtx_renderinternal.h>
-#include <platform\vtx_atomic.h>
+#include <vortex/vtx_renderinternal.h>
+#include <platform/vtx_atomic.h>
 #include <cstring>
 
 void RenderAPI::setClearColor(core::Vector4 &color)

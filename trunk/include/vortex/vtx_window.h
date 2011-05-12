@@ -1,9 +1,9 @@
 #ifndef VTX_WINDOW_H
 #define VTX_WINDOW_H
 
-#include <platform\vtx_defineconfig.h>
-#include <platform\vtx_atomic.h>
-#include <core\vtx_types.h>
+#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_atomic.h>
+#include <core/vtx_types.h>
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <X11/Xlib.h>

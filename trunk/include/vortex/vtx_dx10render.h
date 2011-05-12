@@ -17,13 +17,13 @@
 #ifndef VTX_RENDERDX10_H
 #define VTX_RENDERDX10_H
 
-#include <platform\vtx_defineconfig.h>
+#include <platform/vtx_defineconfig.h>
 
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
-#include <vortex\vtx_renderinternal.h>
-#include <vortex\vtx_render.h>
-#include <platform\vtx_atomic.h>
+#include <vortex/vtx_renderinternal.h>
+#include <vortex/vtx_render.h>
+#include <platform/vtx_atomic.h>
 #include <d3d10.h>
 
 class DX10Render : public RenderAPI

@@ -14,16 +14,16 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform\vtx_defineconfig.h>
-#include <vortex\vtx_render.h>
+#include <platform/vtx_defineconfig.h>
+#include <vortex/vtx_render.h>
 #if defined(VTX_COMPILE_WITH_DX10)
-#include <vortex\vtx_dx10render.h>
+#include <vortex/vtx_dx10render.h>
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
-#include <vortex\vtx_openglrender.h>
+#include <vortex/vtx_openglrender.h>
 #endif
 
-#include <core\vtx_assertions.h>
+#include <core/vtx_assertions.h>
 //#if defined(VTX_PLATFORM_WIN32)
 //#include <Windows.h>
 //#endif

@@ -17,7 +17,7 @@
 #ifndef VTX_FILESYSTEM_H
 #define VTX_FILESYSTEM_H
 
-#include <platform\vtx_atomic.h>
+#include <platform/vtx_atomic.h>
 #include <boost/intrusive/list.hpp>
 #include <vector>
 

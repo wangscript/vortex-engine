@@ -17,7 +17,7 @@
 #ifndef VTX_TIMER_H
 #define VTX_TIMER_H
 
-#include "vtx_atomic.h"
+#include <platform/vtx_atomic.h>
 
 namespace platform
 {

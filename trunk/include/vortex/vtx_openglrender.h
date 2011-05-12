@@ -17,8 +17,8 @@
 #ifndef VTX_OPENGLRENDER_H
 #define VTX_OPENGLRENDER_H
 
-#include "vtx_renderinternal.h"
-#include "vtx_render.h"
+#include <vortex/vtx_renderinternal.h>
+#include <vortex/vtx_render.h>
 
 class OpenGLRender : public RenderAPI
 {

@@ -17,8 +17,8 @@
 #ifndef VTX_THREAD_H
 #define VTX_THREAD_H
 
-#include "vtx_defineconfig.h"
-#include "vtx_atomic.h"
+#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_atomic.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 typedef HANDLE THREAD_HANDLE;

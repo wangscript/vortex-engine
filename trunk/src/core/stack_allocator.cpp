@@ -14,8 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundaion, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <core\vtx_stack_allocator.h>
-#include <core\vtx_assertions.h>
+#include <core/vtx_stack_allocator.h>
+#include <core/vtx_assertions.h>
 #include <stdlib.h>
 
 using namespace platform;
@@ -37,9 +37,10 @@ StackAllocator::~StackAllocator()
 
 StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpace )
 {
-	/*ASSERT(size > 0);
+	//ASSERT(size > 0);
 	StackAllocator::ErrorCode err;
-	U32 newStackPosition = this->stackPosition + size;
+	err = StackAllocator::OK;
+	/*U32 newStackPosition = this->stackPosition + size;
 	U8 *stackAllocation = NULL;
 	if(newStackPosition >
 		((U32)this->data + this->stackSize))
@@ -56,7 +57,7 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpac
 	*allocatedSpace = stackAllocation;
 	return err;*/
 	// TODO: Uncomment this.
-	return ErrorCode::OK;
+	return err;
 }
 
 void StackAllocator::freeToMarker( U32 marker )

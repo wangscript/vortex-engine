@@ -17,7 +17,7 @@
 #ifndef VTX_UTIL_H
 #define VTX_UTIL_H
 
-#include <platform\vtx_atomic.h>
+#include <platform/vtx_atomic.h>
 
 class Utilities
 {
