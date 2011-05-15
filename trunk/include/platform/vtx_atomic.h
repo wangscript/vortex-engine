@@ -16,6 +16,7 @@
 
 #ifndef VTX_ATOMIC_H
 #define VTX_ATOMIC_H
+#include <platform/vtx_defineconfig.h>
 #include <string>
 #ifdef WIN32
 #include <Windows.h>
@@ -24,18 +25,19 @@
 namespace platform
 {
 
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WINDOW)
 	typedef HWND WINDOW;
 	typedef HANDLE SYSTEM_HANDLE;
 	//TODO: Figure out why this #define can not be used anywhere without compile errors...
 	#define INVALID_SYSTEM_HANDLE INVALID_HANDLE_VALUE;
-#else
+#endif
+#if defined(VTX_PLATFORM_LINUX)
 	//TODO: get this fixed.
 	typedef void *WINDOW;
 	typedef void *SYSTEM_HANDLE;
 #endif
 
-#define U32_SIGNIFICANT_BIT 2147483648
+#define U32_SIGNIFICANT_BIT (1 << 31)
 
 	typedef unsigned char U8;
 	typedef signed char I8;
@@ -43,11 +45,12 @@ namespace platform
 	typedef signed short I16;
 	typedef unsigned int U32;
 	typedef signed int I32;
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WINDOWS)
 	typedef unsigned long long U64;
-#else
+#endif
+#if defined(VTX_PLATFORM_LINUX)
 	// Workaround until I find out how to get 64 bit integers on unix with g++.
-	typedef unsigned long U64;
+	typedef unsigned long long U64;
 #endif
 	typedef float F32;
 
