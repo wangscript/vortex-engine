@@ -15,8 +15,8 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gtest/gtest.h"
-#include "vtx_filesystem.h"
-#include "vtx_filestream.h"
+#include <platform/vtx_filesystem.h>
+#include <platform/vtx_filestream.h>
 #include <vector>
 
 using namespace boost::intrusive;
