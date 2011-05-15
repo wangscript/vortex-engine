@@ -15,7 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gtest/gtest.h"
-#include "vtx_job.h"
+#include <vortex/vtx_job.h>
 
 TEST(JobManager, Init)
 {
