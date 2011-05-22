@@ -22,13 +22,18 @@
 #include <vortex/vtx_render.h>
 #include <vortex/vtx_resource.h>
 #include <vortex/vtx_simulation.h>
-//#include "vtx_window.h"
+#include <vortex/vtx_window.h>
 
 class Root
 {
 public:
 	Root(void);
 	void Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
+#if defined(VTX_TOOL_BUILD)
+	void toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
+	void toolStep(platform::F32 elapsed);
+	void toolDestroy(void);
+#endif
 private:
 	JobManager			*jobManager;
 	SimulationManager	*simulationManager;

@@ -26,6 +26,7 @@ public:
 	void init(RenderAPI *render);
 	void destroy(void);
 	void run(void);
+	void step(platform::F32 elapsed);
 private:
 	RenderAPI *render;
 	void runOneFrame(platform::F32 seconds);
