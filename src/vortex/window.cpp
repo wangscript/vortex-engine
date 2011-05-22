@@ -126,6 +126,7 @@ NativeWindow *NativeWindow::create(WindowCreationParams &params)
 	// Window already exists.
 	else
 	{
+		window->handle = params.windowHandle;
 		window->manageWindow = false;
 	}
 	ASSERT(window->handle != NULL);
