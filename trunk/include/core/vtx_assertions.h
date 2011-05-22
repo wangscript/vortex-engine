@@ -18,7 +18,7 @@
 #define VTX_ASSERTIONS_H
 
 void reportAssertionFailure(const char *expr, const char *file, long line);
-#if ASSERTIONS_ENABLED
+#if defined(ASSERTIONS_ENABLED) && ASSERTIONS_ENABLED > 0
 	#define debugBreak() __asm { int 3 }
 
 	#define ASSERT(expr) \
