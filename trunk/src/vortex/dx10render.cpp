@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#define ASSERTIONS_ENABLED 1
 #include <platform/vtx_defineconfig.h>
 #include <vortex/vtx_dx10render.h>
 #include <core/vtx_assertions.h>
@@ -30,9 +31,9 @@ DX10Render::DX10Render(RenderCreationParams &params, NativeWindow *outputWindow)
 	ID3D10Texture2D *backBuffer;
 
 	HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&dxfactory);
-	
-	result = (D3D10CreateDevice(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &this->device));
-	ASSERT(result == S_OK);
+
+	//result = (D3D10CreateDevice(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &this->device));
+	//ASSERT(result == S_OK);
 
 	ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapChainDesc.BufferCount = 1;
@@ -47,7 +48,8 @@ DX10Render::DX10Render(RenderCreationParams &params, NativeWindow *outputWindow)
 	swapChainDesc.SampleDesc.Quality = params.multisampleQuality;
 	swapChainDesc.Windowed = TRUE;
 
-	result = dxfactory->CreateSwapChain(this->device, &swapChainDesc, &this->swapChain);
+	result = D3D10CreateDeviceAndSwapChain(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &swapChainDesc, &this->swapChain, &this->device);
+	//result = dxfactory->CreateSwapChain(this->device, &swapChainDesc, &this->swapChain);
 	ASSERT(result == S_OK);
 
 	result = this->swapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), (void**)&backBuffer);
@@ -76,7 +78,8 @@ void DX10Render::clear()
 
 void DX10Render::swap(void)
 {
-	this->swapChain->Present(0, 0);
+	HRESULT result = this->swapChain->Present(0, 0);
+	ASSERT(result == S_OK);
 }
 
 #endif
