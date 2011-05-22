@@ -25,7 +25,7 @@
 namespace platform
 {
 
-#if defined(VTX_PLATFORM_WINDOW)
+#if defined(VTX_PLATFORM_WIN32)
 	typedef HWND WINDOW;
 	typedef HANDLE SYSTEM_HANDLE;
 	//TODO: Figure out why this #define can not be used anywhere without compile errors...
