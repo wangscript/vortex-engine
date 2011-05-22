@@ -22,16 +22,13 @@ Root::Root()
 	this->resourceManager = new ResourceManager();
 	this->renderManager = new RenderManager();
 	this->simulationManager = new SimulationManager();
-	//this->windowManager = new WindowManager();
 }
 
 void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
 {
 	this->jobManager->init();
 	this->resourceManager->init();
-	//this->windowManager->init(windowParams);
 	this->renderManager->init(renderParams, windowParams);
-	
 	this->simulationManager->init(this->renderManager->getRenderObject());
 
 	this->simulationManager->run();
@@ -39,7 +36,27 @@ void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderP
 	this->jobManager->destroy();
 	this->simulationManager->destroy();
 	this->renderManager->destroy();
-	//this->windowManager->destroy();
 	this->resourceManager->destroy();
 
+}
+
+void Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+{
+	this->jobManager->init();
+	this->resourceManager->init();
+	this->renderManager->init(renderParams, windowParams);
+	this->simulationManager->init(this->renderManager->getRenderObject());
+}
+
+void Root::toolStep(platform::F32 elapsed)
+{
+	this->simulationManager->step(elapsed);
+}
+
+void Root::toolDestroy(void)
+{
+	this->jobManager->destroy();
+	this->simulationManager->destroy();
+	this->renderManager->destroy();
+	this->resourceManager->destroy();
 }
