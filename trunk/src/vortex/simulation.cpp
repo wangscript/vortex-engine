@@ -17,10 +17,9 @@
 #include <platform/vtx_defineconfig.h>
 #include <vortex/vtx_simulation.h>
 #include <vortex/vtx_clock.h>
-#include <stdlib.h>
-#include <ctime>
 #include <iostream>
-
+#include <ctime>
+#include <stdlib.h>
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
 #endif
@@ -30,7 +29,6 @@ using namespace platform;
 void SimulationManager::init(RenderAPI *render)
 {
 	this->render = render;
-	srand(time(NULL));
 }
 
 void SimulationManager::destroy()
@@ -39,16 +37,15 @@ void SimulationManager::destroy()
 
 void SimulationManager::run()
 {
-	core::Vector4 color(1.0f, 0.0f, 0.0f, 1.0f);
 	Clock gameClock, frameClock;
+	core::Vector4 color(0.0f, 0.0f, 0.5f, 1.0f);
+	this->render->setClearColor(color);
 	gameClock.reset();
 	frameClock.reset();
+	F32 elapsed;
 	while(true)
 	{
-		color.values[0] = (platform::F32)((rand() % 101) / 100.0f);
-		color.values[1] = (platform::F32)((rand() % 101) / 100.0f);
-		color.values[2] = (platform::F32)((rand() % 101) / 100.0f);
-		this->render->setClearColor(color);
+		
 		// Message pump. Win32 only.
 #if defined(VTX_PLATFORM_WIN32)
 		MSG msg;
@@ -58,9 +55,22 @@ void SimulationManager::run()
 			DispatchMessage(&msg);
 		}
 #endif
-		this->runOneFrame(frameClock.getElapsedSecondsAndReset());
-		frameClock.reset();
+		elapsed = frameClock.getElapsedSeconds();
+		if(elapsed > (1.0f / 60.0f))
+		{
+			//this->runOneFrame(frameClock.getElapsedSecondsAndReset());
+			this->runOneFrame(elapsed);
+			frameClock.reset();
+		}
+		
 	};
+}
+
+void SimulationManager::step(F32 elapsed)
+{
+	core::Vector4 color(0.25f, elapsed, 1.0f, 1.0f);
+	this->render->setClearColor(color);
+	this->runOneFrame(elapsed);
 }
 
 void SimulationManager::runOneFrame(F32 seconds)
