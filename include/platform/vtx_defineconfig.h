@@ -17,6 +17,8 @@
 #ifndef VTX_DEFINECONFIG_H
 #define VTX_DEFINECONFIG_H
 
+#define VTX_VER		"0.1"
+
 #if defined(WIN32)
 #define VTX_PLATFORM_WIN32
 #elif defined(__linux)
