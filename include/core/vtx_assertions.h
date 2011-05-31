@@ -17,9 +17,16 @@
 #ifndef VTX_ASSERTIONS_H
 #define VTX_ASSERTIONS_H
 
+#include <platform/vtx_defineconfig.h>
+
 void reportAssertionFailure(const char *expr, const char *file, long line);
-#if defined(ASSERTIONS_ENABLED) && ASSERTIONS_ENABLED > 0
+#if defined(ASSERTIONS_ENABLED)
+#if defined(VTX_PLATFORM_WIN32)
 	#define debugBreak() __asm { int 3 }
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+	#define debugBreak() asm("int $3")
+#endif
 
 	#define ASSERT(expr) \
 		if(expr) { } \
