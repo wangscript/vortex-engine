@@ -59,17 +59,19 @@ OpenGLRender::OpenGLRender(RenderCreationParams &params, NativeWindow *outputWin
 	b = wglMakeCurrent(this->hDC, this->renderContext);
 	glViewport(0, 0, 400, 400);
 #elif defined(VTX_PLATFORM_LINUX)
-	int visualAttribs[12] = { GLX_RGBA, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 16, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_ALPHA_SIZE, 8 };
-	Display *display = glXGetCurrentDisplay();
+	/*int visualAttribs[12] = { GLX_RGBA, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 16, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_ALPHA_SIZE, 8 };
+	this->display = glXGetCurrentDisplay();
 	XVisualInfo *visualInfo = glXChooseVisual(
-					display,
+					this->display,
 					0, 			//TODO: This should probably not be hard-coded to 0.
 					visualAttribs); 	//TODO: Fix attributes!
 	GLXContext context = glXCreateContext(
 					display,
 					visualInfo,
 					NULL,
-					true);
+					true);*/
+	//glXMakeContextCurrent(outputWindow->display, outputWindow->getHandle(), outputWindow->getHandle(), outputWindow->context);
+	glXMakeContextCurrent(outputWindow->display, outputWindow->win, outputWindow->win, outputWindow->context);
 #endif
 }
 
@@ -86,6 +88,8 @@ void OpenGLRender::swap(void)
 #if defined(VTX_PLATFORM_WIN32)
 	glFlush();
 	BOOL b = SwapBuffers(this->hDC);
+#elif defined(VTX_PLATFORM_LINUX)
+	glXSwapBuffers(this->window->display, this->window->win);
 #endif
 }
 
@@ -93,9 +97,9 @@ void OpenGLRender::clear(void)
 {
 	// TODO: Do we need Begin/End methods?
 	// This method call shouldnt really be here.
-#if defined(VTX_PLATFORM_WIN32)
+//#if defined(VTX_PLATFORM_WIN32)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(this->clearColor.values[0], this->clearColor.values[1], this->clearColor.values[2], this->clearColor.values[3]);
-#endif
+//#endif
 		
 }
