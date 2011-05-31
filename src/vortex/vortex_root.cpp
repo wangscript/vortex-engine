@@ -40,6 +40,7 @@ void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderP
 
 }
 
+#if defined(VTX_TOOL_BUILD)
 void Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
 {
 	this->jobManager->init();
@@ -60,3 +61,4 @@ void Root::toolDestroy(void)
 	this->renderManager->destroy();
 	this->resourceManager->destroy();
 }
+#endif
