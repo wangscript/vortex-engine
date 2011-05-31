@@ -20,7 +20,10 @@
 
 void RenderAPI::setClearColor(core::Vector4 &color)
 {
-	memcpy(this->clearColor.values, color.values, sizeof(this->clearColor.values));
+	this->clearColor.values[0] = color.values[0];
+	this->clearColor.values[1] = color.values[1];
+	this->clearColor.values[2] = color.values[2];
+	this->clearColor.values[3] = color.values[3];
 }
 
 core::Vector4 *RenderAPI::getClearColor()
