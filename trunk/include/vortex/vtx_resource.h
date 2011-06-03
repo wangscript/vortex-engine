@@ -17,9 +17,13 @@
 #ifndef VTX_RESOURCE_H
 #define VTX_RESOURCE_H
 
-class ResourceManager
+#include <vortex/vtx_vortexbase.h>
+class Root;
+
+class ResourceManager : VortexBase
 {
 public:
+	ResourceManager(Root& parent) : VortexBase(parent) {}
 	void init(void);
 	void destroy(void);
 };

@@ -20,12 +20,14 @@
 #include <platform/vtx_defineconfig.h>
 #include <vortex/vtx_openglrender.h>
 #include <GL/gl.h>
+#include <GL/glxproto.h>
+#include <vortex/vtx_vortex.h>
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <GL/glx.h>
 #endif
 
-OpenGLRender::OpenGLRender(RenderCreationParams &params, NativeWindow *outputWindow)
+OpenGLRender::OpenGLRender(Root& parent, RenderCreationParams &params, NativeWindow *outputWindow) : RenderAPI(parent)
 {
 	this->window = outputWindow;
 #if defined(VTX_PLATFORM_WIN32)
@@ -59,19 +61,25 @@ OpenGLRender::OpenGLRender(RenderCreationParams &params, NativeWindow *outputWin
 	b = wglMakeCurrent(this->hDC, this->renderContext);
 	glViewport(0, 0, 400, 400);
 #elif defined(VTX_PLATFORM_LINUX)
-	/*int visualAttribs[12] = { GLX_RGBA, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 16, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_ALPHA_SIZE, 8 };
-	this->display = glXGetCurrentDisplay();
-	XVisualInfo *visualInfo = glXChooseVisual(
-					this->display,
-					0, 			//TODO: This should probably not be hard-coded to 0.
-					visualAttribs); 	//TODO: Fix attributes!
-	GLXContext context = glXCreateContext(
-					display,
-					visualInfo,
-					NULL,
-					true);*/
-	//glXMakeContextCurrent(outputWindow->display, outputWindow->getHandle(), outputWindow->getHandle(), outputWindow->context);
-	glXMakeContextCurrent(outputWindow->display, outputWindow->win, outputWindow->win, outputWindow->context);
+	XEvent event;
+	int c = BadRequest;
+	Bool b = glXMakeCurrent(outputWindow->display, outputWindow->win, outputWindow->context);
+	//Bool b = glXMakeContextCurrent(outputWindow->display, outputWindow->win, outputWindow->win, outputWindow->context);
+	if(!b)
+	{
+		XErrorEvent *event = NativeWindow::getLastXError(outputWindow->win);
+		if(event == NULL)
+		{
+			std::wstring message(L"glXMakeContextCurrent failed with no XErrorEvent");
+			VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+		}
+		else
+		{
+			std::wstring message(L"glXMakeContextCurrent");
+			VortexBase::engineParent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
+		}
+		
+	}
 #endif
 }
 

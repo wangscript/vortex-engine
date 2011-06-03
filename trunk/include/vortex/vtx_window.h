@@ -4,13 +4,17 @@
 #include <platform/vtx_defineconfig.h>
 #include <platform/vtx_atomic.h>
 #include <core/vtx_types.h>
+#include <vortex/vtx_vortexbase.h>
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <X11/Xlib.h>
+#include <map>
 #endif
 
 #if defined(VTX_PLATFORM_LINUX) && defined(VTX_COMPILE_WITH_OPENGL)
 #include <GL/glx.h>
+#include <X11/Xmd.h>
+#include <GL/glxproto.h>
 #endif
 
 #if defined(VTX_PLATFORM_WIN32)
@@ -43,25 +47,32 @@ public:
 #endif
 };
 
-class NativeWindow
+class NativeWindow : VortexBase
 {
 private:
+	platform::WINDOW handle;
+	bool manageWindow;
+	WindowCreationParams *params;
+	NativeWindow(Root &parent);
+public:
+	void destroy(void);
+	platform::WINDOW getHandle(void);
+	static NativeWindow *create(Root &parent, WindowCreationParams &params);
+
 #if defined(VTX_PLATFORM_LINUX)
 	Display *display;
 	Window win;
+
+	// X Error handling
+	static bool isHandlingXErrors;
+	static XErrorEvent *getLastXError(platform::WINDOW);
+	static std::map<platform::WINDOW, XErrorEvent*> *lastErrorMap;
+	static int xErrorHandler(Display*, XErrorEvent*);
 #endif
 
 #if defined(VTX_PLATFORM_LINUX) && defined(VTX_COMPILE_WITH_OPENGL)
 	GLXContext context;
 #endif
-	platform::WINDOW handle;
-	bool manageWindow;
-	WindowCreationParams *params;
-	NativeWindow(void);
-public:
-	void destroy(void);
-	platform::WINDOW getHandle(void);
-	static NativeWindow *create(WindowCreationParams &params);
 };
 
 #endif

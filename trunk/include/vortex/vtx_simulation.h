@@ -16,8 +16,10 @@
 
 #ifndef VTX_SIMULATION_H
 #define VTX_SIMULATION_H
+//#include <vortex/vtx_vortexbase.h>
 #include <vortex/vtx_renderinternal.h>
 #include <platform/vtx_atomic.h>
+#include <vortex/vtx_clock.h>
 
 class SimulationManager
 {
@@ -26,10 +28,11 @@ public:
 	void init(RenderAPI *render);
 	void destroy(void);
 	void run(void);
-	void step(platform::F32 elapsed);
+	void step(/*platform::F32*/ float elapsed);
 private:
+	Clock gameClock;
 	RenderAPI *render;
-	void runOneFrame(platform::F32 seconds);
+	void runOneFrame(/*platform::F32*/ float seconds);
 };
 
 #endif

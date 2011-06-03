@@ -17,23 +17,18 @@
 #ifndef VTX_RENDER_H
 #define VTX_RENDER_H
 
+#include <vortex/vtx_vortexbase.h>
 #include <platform/vtx_defineconfig.h>
 #include <vortex/vtx_renderinternal.h>
 #include <core/vtx_types.h>
 #include <platform/vtx_atomic.h>
 #include <vortex/vtx_window.h>
 
-#if defined(VTX_PLATFORM_WIN32)
-#define VWIN_USEDEFAULT		CW_USEDEFAULT
-#endif
-#if defined(VTX_PLATFORM_LINUX)
-#define VWIN_USEDEFAULT		0xF0000000
-#endif
-
 enum E_RENDER_API
 {
 	// TODO: Should all enum members be included despite an undefined directive?
 	// The check could be performed in init()
+	// It would provide a more stable interface, less confusion on the developer.
 #ifdef VTX_COMPILE_WITH_DX10
 	E_RAPI_DX10,
 #endif
@@ -56,10 +51,10 @@ public:
 	platform::U32 multisampleQuality;
 };
 
-class RenderManager
+class RenderManager : VortexBase
 {
 public:
-	RenderManager();
+	RenderManager(Root&);
 	void init(RenderCreationParams &params, WindowCreationParams &windowParams);
 	void destroy(void);
 	RenderAPI *getRenderObject(void);

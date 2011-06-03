@@ -1,5 +1,5 @@
-lib_LIBRARIES = libvortex.a
-libvortex_a_SOURCES =	../include/platform/vtx_atomic.h \
+
+SOURCES =	../include/platform/vtx_atomic.h \
 			../include/platform/vtx_defineconfig.h \
 			../include/platform/vtx_filestream.h \
 			../include/platform/vtx_filesystem.h \
@@ -11,6 +11,7 @@ libvortex_a_SOURCES =	../include/platform/vtx_atomic.h \
 			../include/core/vtx_assertions.h \
 			../include/core/vtx_concurrent_queue.h \
 			../include/core/vtx_double_stack_allocator.h \
+			../include/core/vtx_eventoutput.h \
 			../include/core/vtx_math.h \
 			../include/core/vtx_stack_allocator.h \
 			../include/core/vtx_types.h \
@@ -23,6 +24,7 @@ libvortex_a_SOURCES =	../include/platform/vtx_atomic.h \
 			../include/vortex/vtx_renderinternal.h \
 			../include/vortex/vtx_resource.h \
 			../include/vortex/vtx_simulation.h \
+			../include/vortex/vtx_vortexbase.h \
 			../include/vortex/vtx_vortex.h \
 			../include/vortex/vtx_window.h \
 			platform/file.cpp \
@@ -34,7 +36,9 @@ libvortex_a_SOURCES =	../include/platform/vtx_atomic.h \
 			platform/timer.cpp \
 			core/assertions.cpp \
 			core/concurrent_queue.cpp \
-			core/math.cpp core/matrix.cpp \
+			core/eventoutput.cpp \
+			core/math.cpp \
+			core/matrix.cpp \
 			core/stack_allocator.cpp \
 			core/util.cpp \
 			core/vector2.cpp \
@@ -52,5 +56,12 @@ libvortex_a_SOURCES =	../include/platform/vtx_atomic.h \
 			vortex/vortex_root.cpp \
 			vortex/window.cpp \
 			vortex/windowcreationparams.cpp
+CPPFLAGS = -I../include -I/usr/include -msse3 -O0
 
-libvortex_a_CPPFLAGS = -I../include -msse3
+lib_LIBRARIES = libvortex.a
+libvortex_a_SOURCES = $(SOURCES)
+libvortex_a_CPPFLAGS = $(CPPFLAGS)
+
+noinst_LIBRARIES = libvortex-tool.a
+libvortex_tool_a_SOURCES = $(SOURCES)
+libvortex_tool_a_CPPFLAGS = $(CPPFLAGS) -DVTX_TOOL_BUILD
