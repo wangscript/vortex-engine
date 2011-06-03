@@ -18,12 +18,13 @@
 #define VTX_RENDERDRIVER_H
 
 #include <core/vtx_types.h>
+#include <vortex/vtx_vortexbase.h>
 
-class RenderAPI
+class RenderAPI : protected VortexBase
 {
 protected:
 	core::Vector4 clearColor;
-	RenderAPI(void) {} //Empty constructor
+	RenderAPI(Root& parent) : VortexBase(parent) {} //Empty constructor
 public:
 	static RenderAPI *createDX10(void);
 	virtual void swap(void) = 0;

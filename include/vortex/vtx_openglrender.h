@@ -29,7 +29,7 @@ private:
 	HGLRC renderContext;
 #endif
 public:
-	OpenGLRender(RenderCreationParams &params, NativeWindow *outputWindow);
+	OpenGLRender(Root& parent, RenderCreationParams &params, NativeWindow *outputWindow);
 	~OpenGLRender(void);
 	virtual void swap(void);
 	virtual void clear(void);

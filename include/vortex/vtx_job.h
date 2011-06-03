@@ -17,6 +17,7 @@
 #ifndef VTX_JOB_H
 #define VTX_JOB_H
 
+//#include <vortex/vtx_vortexbase.h>
 #include <platform/vtx_thread.h>
 #include <platform/vtx_atomic.h>
 #include <platform/vtx_signal.h>

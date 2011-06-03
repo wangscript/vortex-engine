@@ -4190,6 +4190,8 @@ fi
 
 
 
+CXXFLAGS="-g"
+
 # Checks for libraries.
 
 # Checks for header files.

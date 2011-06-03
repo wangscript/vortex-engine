@@ -18,6 +18,7 @@
 #define VTX_VORTEX_H
 
 #include <platform/vtx_defineconfig.h>
+#include <core/vtx_eventoutput.h>
 #include <vortex/vtx_job.h>
 #include <vortex/vtx_render.h>
 #include <vortex/vtx_resource.h>
@@ -31,11 +32,19 @@ public:
 	void Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
 #if defined(VTX_TOOL_BUILD)
 	void toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
-	void toolStep(platform::F32 elapsed);
+	void toolStep(/*platform::F32*/float elapsed);
 	void toolDestroy(void);
 #endif
 private:
-	JobManager			*jobManager;
+	friend class JobManager;
+	friend class SimulationManager;
+	friend class ResourceManager;
+	friend class RenderManager;
+	friend class NativeWindow;
+	friend class OpenGLRender;
+
+	EventOutput		*output;
+	JobManager		*jobManager;
 	SimulationManager	*simulationManager;
 	ResourceManager		*resourceManager;
 	RenderManager		*renderManager;

@@ -15,13 +15,17 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <vortex/vtx_vortex.h>
+#include <iostream>
 
 Root::Root()
 {
-	this->jobManager = new JobManager();
-	this->resourceManager = new ResourceManager();
-	this->renderManager = new RenderManager();
-	this->simulationManager = new SimulationManager();
+	std::wstring msg(L"Standard error output!!");
+	this->output = new EventOutput(EventOutput::E_LEVEL_INFO);
+	this->output->reportEvent(EventOutput::E_LEVEL_FATAL, msg);
+	this->jobManager = new JobManager;
+	this->resourceManager = new ResourceManager(*this);
+	this->renderManager = new RenderManager(*this);
+	this->simulationManager = new SimulationManager;
 }
 
 void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
@@ -49,7 +53,7 @@ void Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &re
 	this->simulationManager->init(this->renderManager->getRenderObject());
 }
 
-void Root::toolStep(platform::F32 elapsed)
+void Root::toolStep(/*platform::F32*/float elapsed)
 {
 	this->simulationManager->step(elapsed);
 }

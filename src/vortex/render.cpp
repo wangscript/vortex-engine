@@ -30,25 +30,25 @@
 
 using namespace platform;
 
-RenderManager::RenderManager(void)
+RenderManager::RenderManager(Root& parent) : VortexBase(parent)
 {
 	this->render = NULL;
 }
 
 void RenderManager::init(RenderCreationParams &params, WindowCreationParams &windowParams)
 {
-	this->window = NativeWindow::create(windowParams);
+	this->window = NativeWindow::create(VortexBase::engineParent, windowParams);
 	//this->createWindow(windowParams);
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		this->render = new DX10Render(params, this->window);
+		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
-		this->render = new OpenGLRender(params, this->window);
+		this->render = new OpenGLRender(VortexBase::engineParent, params, this->window);
 	}
 #endif
 }

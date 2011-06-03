@@ -25,8 +25,8 @@ private:
 	platform::U64 startTime;
 public:
 	void reset(void);
-	platform::F32 getElapsedSeconds(void);
-	platform::F32 getElapsedSecondsAndReset(void);
+	float /*platform::F32*/ getElapsedSeconds(void);
+	float /*platform::F32*/ getElapsedSecondsAndReset(void);
 };
 
 #endif

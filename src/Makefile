@@ -64,19 +64,53 @@ am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
 am__installdirs = "$(DESTDIR)$(libdir)"
-LIBRARIES = $(lib_LIBRARIES)
+LIBRARIES = $(lib_LIBRARIES) $(noinst_LIBRARIES)
 AR = ar
 ARFLAGS = cru
+libvortex_tool_a_AR = $(AR) $(ARFLAGS)
+libvortex_tool_a_LIBADD =
+am__objects_1 = libvortex_tool_a-file.$(OBJEXT) \
+	libvortex_tool_a-filestream.$(OBJEXT) \
+	libvortex_tool_a-filesystem.$(OBJEXT) \
+	libvortex_tool_a-iostream.$(OBJEXT) \
+	libvortex_tool_a-signal.$(OBJEXT) \
+	libvortex_tool_a-thread.$(OBJEXT) \
+	libvortex_tool_a-timer.$(OBJEXT) \
+	libvortex_tool_a-assertions.$(OBJEXT) \
+	libvortex_tool_a-concurrent_queue.$(OBJEXT) \
+	libvortex_tool_a-eventoutput.$(OBJEXT) \
+	libvortex_tool_a-math.$(OBJEXT) \
+	libvortex_tool_a-matrix.$(OBJEXT) \
+	libvortex_tool_a-stack_allocator.$(OBJEXT) \
+	libvortex_tool_a-util.$(OBJEXT) \
+	libvortex_tool_a-vector2.$(OBJEXT) \
+	libvortex_tool_a-vector3.$(OBJEXT) \
+	libvortex_tool_a-vector4.$(OBJEXT) \
+	libvortex_tool_a-clock.$(OBJEXT) \
+	libvortex_tool_a-dx10render.$(OBJEXT) \
+	libvortex_tool_a-job.$(OBJEXT) \
+	libvortex_tool_a-openglrender.$(OBJEXT) \
+	libvortex_tool_a-render.$(OBJEXT) \
+	libvortex_tool_a-rendercreationparams.$(OBJEXT) \
+	libvortex_tool_a-renderinternal.$(OBJEXT) \
+	libvortex_tool_a-resource.$(OBJEXT) \
+	libvortex_tool_a-simulation.$(OBJEXT) \
+	libvortex_tool_a-vortex_root.$(OBJEXT) \
+	libvortex_tool_a-window.$(OBJEXT) \
+	libvortex_tool_a-windowcreationparams.$(OBJEXT)
+am_libvortex_tool_a_OBJECTS = $(am__objects_1)
+libvortex_tool_a_OBJECTS = $(am_libvortex_tool_a_OBJECTS)
 libvortex_a_AR = $(AR) $(ARFLAGS)
 libvortex_a_LIBADD =
-am_libvortex_a_OBJECTS = libvortex_a-file.$(OBJEXT) \
+am__objects_2 = libvortex_a-file.$(OBJEXT) \
 	libvortex_a-filestream.$(OBJEXT) \
 	libvortex_a-filesystem.$(OBJEXT) \
 	libvortex_a-iostream.$(OBJEXT) libvortex_a-signal.$(OBJEXT) \
 	libvortex_a-thread.$(OBJEXT) libvortex_a-timer.$(OBJEXT) \
 	libvortex_a-assertions.$(OBJEXT) \
 	libvortex_a-concurrent_queue.$(OBJEXT) \
-	libvortex_a-math.$(OBJEXT) libvortex_a-matrix.$(OBJEXT) \
+	libvortex_a-eventoutput.$(OBJEXT) libvortex_a-math.$(OBJEXT) \
+	libvortex_a-matrix.$(OBJEXT) \
 	libvortex_a-stack_allocator.$(OBJEXT) \
 	libvortex_a-util.$(OBJEXT) libvortex_a-vector2.$(OBJEXT) \
 	libvortex_a-vector3.$(OBJEXT) libvortex_a-vector4.$(OBJEXT) \
@@ -89,6 +123,7 @@ am_libvortex_a_OBJECTS = libvortex_a-file.$(OBJEXT) \
 	libvortex_a-simulation.$(OBJEXT) \
 	libvortex_a-vortex_root.$(OBJEXT) libvortex_a-window.$(OBJEXT) \
 	libvortex_a-windowcreationparams.$(OBJEXT)
+am_libvortex_a_OBJECTS = $(am__objects_2)
 libvortex_a_OBJECTS = $(am_libvortex_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -103,8 +138,7 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libvortex_a_SOURCES)
-DIST_SOURCES = $(libvortex_a_SOURCES)
+DIST_SOURCES = $(libvortex_tool_a_SOURCES) $(libvortex_a_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -118,10 +152,10 @@ CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
-CPPFLAGS = 
+CPPFLAGS = -I../include -I/usr/include -msse3 -O0
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -g
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -201,8 +235,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-lib_LIBRARIES = libvortex.a
-libvortex_a_SOURCES = ../include/platform/vtx_atomic.h \
+SOURCES = ../include/platform/vtx_atomic.h \
 			../include/platform/vtx_defineconfig.h \
 			../include/platform/vtx_filestream.h \
 			../include/platform/vtx_filesystem.h \
@@ -214,6 +247,7 @@ libvortex_a_SOURCES = ../include/platform/vtx_atomic.h \
 			../include/core/vtx_assertions.h \
 			../include/core/vtx_concurrent_queue.h \
 			../include/core/vtx_double_stack_allocator.h \
+			../include/core/vtx_eventoutput.h \
 			../include/core/vtx_math.h \
 			../include/core/vtx_stack_allocator.h \
 			../include/core/vtx_types.h \
@@ -226,6 +260,7 @@ libvortex_a_SOURCES = ../include/platform/vtx_atomic.h \
 			../include/vortex/vtx_renderinternal.h \
 			../include/vortex/vtx_resource.h \
 			../include/vortex/vtx_simulation.h \
+			../include/vortex/vtx_vortexbase.h \
 			../include/vortex/vtx_vortex.h \
 			../include/vortex/vtx_window.h \
 			platform/file.cpp \
@@ -237,7 +272,9 @@ libvortex_a_SOURCES = ../include/platform/vtx_atomic.h \
 			platform/timer.cpp \
 			core/assertions.cpp \
 			core/concurrent_queue.cpp \
-			core/math.cpp core/matrix.cpp \
+			core/eventoutput.cpp \
+			core/math.cpp \
+			core/matrix.cpp \
 			core/stack_allocator.cpp \
 			core/util.cpp \
 			core/vector2.cpp \
@@ -256,7 +293,12 @@ libvortex_a_SOURCES = ../include/platform/vtx_atomic.h \
 			vortex/window.cpp \
 			vortex/windowcreationparams.cpp
 
-libvortex_a_CPPFLAGS = -I../include -msse3
+lib_LIBRARIES = libvortex.a
+libvortex_a_SOURCES = $(SOURCES)
+libvortex_a_CPPFLAGS = $(CPPFLAGS)
+noinst_LIBRARIES = libvortex-tool.a
+libvortex_tool_a_SOURCES = $(SOURCES)
+libvortex_tool_a_CPPFLAGS = $(CPPFLAGS) -DVTX_TOOL_BUILD
 all: all-am
 
 .SUFFIXES:
@@ -323,6 +365,13 @@ uninstall-libLIBRARIES:
 
 clean-libLIBRARIES:
 	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+libvortex-tool.a: $(libvortex_tool_a_OBJECTS) $(libvortex_tool_a_DEPENDENCIES) 
+	-rm -f libvortex-tool.a
+	$(libvortex_tool_a_AR) libvortex-tool.a $(libvortex_tool_a_OBJECTS) $(libvortex_tool_a_LIBADD)
+	$(RANLIB) libvortex-tool.a
 libvortex.a: $(libvortex_a_OBJECTS) $(libvortex_a_DEPENDENCIES) 
 	-rm -f libvortex.a
 	$(libvortex_a_AR) libvortex.a $(libvortex_a_OBJECTS) $(libvortex_a_LIBADD)
@@ -338,6 +387,7 @@ include ./$(DEPDIR)/libvortex_a-assertions.Po
 include ./$(DEPDIR)/libvortex_a-clock.Po
 include ./$(DEPDIR)/libvortex_a-concurrent_queue.Po
 include ./$(DEPDIR)/libvortex_a-dx10render.Po
+include ./$(DEPDIR)/libvortex_a-eventoutput.Po
 include ./$(DEPDIR)/libvortex_a-file.Po
 include ./$(DEPDIR)/libvortex_a-filestream.Po
 include ./$(DEPDIR)/libvortex_a-filesystem.Po
@@ -362,6 +412,35 @@ include ./$(DEPDIR)/libvortex_a-vector4.Po
 include ./$(DEPDIR)/libvortex_a-vortex_root.Po
 include ./$(DEPDIR)/libvortex_a-window.Po
 include ./$(DEPDIR)/libvortex_a-windowcreationparams.Po
+include ./$(DEPDIR)/libvortex_tool_a-assertions.Po
+include ./$(DEPDIR)/libvortex_tool_a-clock.Po
+include ./$(DEPDIR)/libvortex_tool_a-concurrent_queue.Po
+include ./$(DEPDIR)/libvortex_tool_a-dx10render.Po
+include ./$(DEPDIR)/libvortex_tool_a-eventoutput.Po
+include ./$(DEPDIR)/libvortex_tool_a-file.Po
+include ./$(DEPDIR)/libvortex_tool_a-filestream.Po
+include ./$(DEPDIR)/libvortex_tool_a-filesystem.Po
+include ./$(DEPDIR)/libvortex_tool_a-iostream.Po
+include ./$(DEPDIR)/libvortex_tool_a-job.Po
+include ./$(DEPDIR)/libvortex_tool_a-math.Po
+include ./$(DEPDIR)/libvortex_tool_a-matrix.Po
+include ./$(DEPDIR)/libvortex_tool_a-openglrender.Po
+include ./$(DEPDIR)/libvortex_tool_a-render.Po
+include ./$(DEPDIR)/libvortex_tool_a-rendercreationparams.Po
+include ./$(DEPDIR)/libvortex_tool_a-renderinternal.Po
+include ./$(DEPDIR)/libvortex_tool_a-resource.Po
+include ./$(DEPDIR)/libvortex_tool_a-signal.Po
+include ./$(DEPDIR)/libvortex_tool_a-simulation.Po
+include ./$(DEPDIR)/libvortex_tool_a-stack_allocator.Po
+include ./$(DEPDIR)/libvortex_tool_a-thread.Po
+include ./$(DEPDIR)/libvortex_tool_a-timer.Po
+include ./$(DEPDIR)/libvortex_tool_a-util.Po
+include ./$(DEPDIR)/libvortex_tool_a-vector2.Po
+include ./$(DEPDIR)/libvortex_tool_a-vector3.Po
+include ./$(DEPDIR)/libvortex_tool_a-vector4.Po
+include ./$(DEPDIR)/libvortex_tool_a-vortex_root.Po
+include ./$(DEPDIR)/libvortex_tool_a-window.Po
+include ./$(DEPDIR)/libvortex_tool_a-windowcreationparams.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -376,6 +455,412 @@ include ./$(DEPDIR)/libvortex_a-windowcreationparams.Po
 #	source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+libvortex_tool_a-file.o: platform/file.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-file.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-file.Tpo -c -o libvortex_tool_a-file.o `test -f 'platform/file.cpp' || echo '$(srcdir)/'`platform/file.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-file.Tpo $(DEPDIR)/libvortex_tool_a-file.Po
+#	source='platform/file.cpp' object='libvortex_tool_a-file.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-file.o `test -f 'platform/file.cpp' || echo '$(srcdir)/'`platform/file.cpp
+
+libvortex_tool_a-file.obj: platform/file.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-file.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-file.Tpo -c -o libvortex_tool_a-file.obj `if test -f 'platform/file.cpp'; then $(CYGPATH_W) 'platform/file.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/file.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-file.Tpo $(DEPDIR)/libvortex_tool_a-file.Po
+#	source='platform/file.cpp' object='libvortex_tool_a-file.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-file.obj `if test -f 'platform/file.cpp'; then $(CYGPATH_W) 'platform/file.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/file.cpp'; fi`
+
+libvortex_tool_a-filestream.o: platform/filestream.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-filestream.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-filestream.Tpo -c -o libvortex_tool_a-filestream.o `test -f 'platform/filestream.cpp' || echo '$(srcdir)/'`platform/filestream.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-filestream.Tpo $(DEPDIR)/libvortex_tool_a-filestream.Po
+#	source='platform/filestream.cpp' object='libvortex_tool_a-filestream.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-filestream.o `test -f 'platform/filestream.cpp' || echo '$(srcdir)/'`platform/filestream.cpp
+
+libvortex_tool_a-filestream.obj: platform/filestream.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-filestream.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-filestream.Tpo -c -o libvortex_tool_a-filestream.obj `if test -f 'platform/filestream.cpp'; then $(CYGPATH_W) 'platform/filestream.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/filestream.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-filestream.Tpo $(DEPDIR)/libvortex_tool_a-filestream.Po
+#	source='platform/filestream.cpp' object='libvortex_tool_a-filestream.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-filestream.obj `if test -f 'platform/filestream.cpp'; then $(CYGPATH_W) 'platform/filestream.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/filestream.cpp'; fi`
+
+libvortex_tool_a-filesystem.o: platform/filesystem.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-filesystem.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-filesystem.Tpo -c -o libvortex_tool_a-filesystem.o `test -f 'platform/filesystem.cpp' || echo '$(srcdir)/'`platform/filesystem.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-filesystem.Tpo $(DEPDIR)/libvortex_tool_a-filesystem.Po
+#	source='platform/filesystem.cpp' object='libvortex_tool_a-filesystem.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-filesystem.o `test -f 'platform/filesystem.cpp' || echo '$(srcdir)/'`platform/filesystem.cpp
+
+libvortex_tool_a-filesystem.obj: platform/filesystem.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-filesystem.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-filesystem.Tpo -c -o libvortex_tool_a-filesystem.obj `if test -f 'platform/filesystem.cpp'; then $(CYGPATH_W) 'platform/filesystem.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/filesystem.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-filesystem.Tpo $(DEPDIR)/libvortex_tool_a-filesystem.Po
+#	source='platform/filesystem.cpp' object='libvortex_tool_a-filesystem.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-filesystem.obj `if test -f 'platform/filesystem.cpp'; then $(CYGPATH_W) 'platform/filesystem.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/filesystem.cpp'; fi`
+
+libvortex_tool_a-iostream.o: platform/iostream.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-iostream.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-iostream.Tpo -c -o libvortex_tool_a-iostream.o `test -f 'platform/iostream.cpp' || echo '$(srcdir)/'`platform/iostream.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-iostream.Tpo $(DEPDIR)/libvortex_tool_a-iostream.Po
+#	source='platform/iostream.cpp' object='libvortex_tool_a-iostream.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-iostream.o `test -f 'platform/iostream.cpp' || echo '$(srcdir)/'`platform/iostream.cpp
+
+libvortex_tool_a-iostream.obj: platform/iostream.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-iostream.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-iostream.Tpo -c -o libvortex_tool_a-iostream.obj `if test -f 'platform/iostream.cpp'; then $(CYGPATH_W) 'platform/iostream.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/iostream.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-iostream.Tpo $(DEPDIR)/libvortex_tool_a-iostream.Po
+#	source='platform/iostream.cpp' object='libvortex_tool_a-iostream.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-iostream.obj `if test -f 'platform/iostream.cpp'; then $(CYGPATH_W) 'platform/iostream.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/iostream.cpp'; fi`
+
+libvortex_tool_a-signal.o: platform/signal.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-signal.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-signal.Tpo -c -o libvortex_tool_a-signal.o `test -f 'platform/signal.cpp' || echo '$(srcdir)/'`platform/signal.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-signal.Tpo $(DEPDIR)/libvortex_tool_a-signal.Po
+#	source='platform/signal.cpp' object='libvortex_tool_a-signal.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-signal.o `test -f 'platform/signal.cpp' || echo '$(srcdir)/'`platform/signal.cpp
+
+libvortex_tool_a-signal.obj: platform/signal.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-signal.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-signal.Tpo -c -o libvortex_tool_a-signal.obj `if test -f 'platform/signal.cpp'; then $(CYGPATH_W) 'platform/signal.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/signal.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-signal.Tpo $(DEPDIR)/libvortex_tool_a-signal.Po
+#	source='platform/signal.cpp' object='libvortex_tool_a-signal.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-signal.obj `if test -f 'platform/signal.cpp'; then $(CYGPATH_W) 'platform/signal.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/signal.cpp'; fi`
+
+libvortex_tool_a-thread.o: platform/thread.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-thread.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-thread.Tpo -c -o libvortex_tool_a-thread.o `test -f 'platform/thread.cpp' || echo '$(srcdir)/'`platform/thread.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-thread.Tpo $(DEPDIR)/libvortex_tool_a-thread.Po
+#	source='platform/thread.cpp' object='libvortex_tool_a-thread.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-thread.o `test -f 'platform/thread.cpp' || echo '$(srcdir)/'`platform/thread.cpp
+
+libvortex_tool_a-thread.obj: platform/thread.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-thread.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-thread.Tpo -c -o libvortex_tool_a-thread.obj `if test -f 'platform/thread.cpp'; then $(CYGPATH_W) 'platform/thread.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/thread.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-thread.Tpo $(DEPDIR)/libvortex_tool_a-thread.Po
+#	source='platform/thread.cpp' object='libvortex_tool_a-thread.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-thread.obj `if test -f 'platform/thread.cpp'; then $(CYGPATH_W) 'platform/thread.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/thread.cpp'; fi`
+
+libvortex_tool_a-timer.o: platform/timer.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-timer.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-timer.Tpo -c -o libvortex_tool_a-timer.o `test -f 'platform/timer.cpp' || echo '$(srcdir)/'`platform/timer.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-timer.Tpo $(DEPDIR)/libvortex_tool_a-timer.Po
+#	source='platform/timer.cpp' object='libvortex_tool_a-timer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-timer.o `test -f 'platform/timer.cpp' || echo '$(srcdir)/'`platform/timer.cpp
+
+libvortex_tool_a-timer.obj: platform/timer.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-timer.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-timer.Tpo -c -o libvortex_tool_a-timer.obj `if test -f 'platform/timer.cpp'; then $(CYGPATH_W) 'platform/timer.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/timer.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-timer.Tpo $(DEPDIR)/libvortex_tool_a-timer.Po
+#	source='platform/timer.cpp' object='libvortex_tool_a-timer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-timer.obj `if test -f 'platform/timer.cpp'; then $(CYGPATH_W) 'platform/timer.cpp'; else $(CYGPATH_W) '$(srcdir)/platform/timer.cpp'; fi`
+
+libvortex_tool_a-assertions.o: core/assertions.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-assertions.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-assertions.Tpo -c -o libvortex_tool_a-assertions.o `test -f 'core/assertions.cpp' || echo '$(srcdir)/'`core/assertions.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-assertions.Tpo $(DEPDIR)/libvortex_tool_a-assertions.Po
+#	source='core/assertions.cpp' object='libvortex_tool_a-assertions.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-assertions.o `test -f 'core/assertions.cpp' || echo '$(srcdir)/'`core/assertions.cpp
+
+libvortex_tool_a-assertions.obj: core/assertions.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-assertions.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-assertions.Tpo -c -o libvortex_tool_a-assertions.obj `if test -f 'core/assertions.cpp'; then $(CYGPATH_W) 'core/assertions.cpp'; else $(CYGPATH_W) '$(srcdir)/core/assertions.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-assertions.Tpo $(DEPDIR)/libvortex_tool_a-assertions.Po
+#	source='core/assertions.cpp' object='libvortex_tool_a-assertions.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-assertions.obj `if test -f 'core/assertions.cpp'; then $(CYGPATH_W) 'core/assertions.cpp'; else $(CYGPATH_W) '$(srcdir)/core/assertions.cpp'; fi`
+
+libvortex_tool_a-concurrent_queue.o: core/concurrent_queue.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-concurrent_queue.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-concurrent_queue.Tpo -c -o libvortex_tool_a-concurrent_queue.o `test -f 'core/concurrent_queue.cpp' || echo '$(srcdir)/'`core/concurrent_queue.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-concurrent_queue.Tpo $(DEPDIR)/libvortex_tool_a-concurrent_queue.Po
+#	source='core/concurrent_queue.cpp' object='libvortex_tool_a-concurrent_queue.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-concurrent_queue.o `test -f 'core/concurrent_queue.cpp' || echo '$(srcdir)/'`core/concurrent_queue.cpp
+
+libvortex_tool_a-concurrent_queue.obj: core/concurrent_queue.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-concurrent_queue.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-concurrent_queue.Tpo -c -o libvortex_tool_a-concurrent_queue.obj `if test -f 'core/concurrent_queue.cpp'; then $(CYGPATH_W) 'core/concurrent_queue.cpp'; else $(CYGPATH_W) '$(srcdir)/core/concurrent_queue.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-concurrent_queue.Tpo $(DEPDIR)/libvortex_tool_a-concurrent_queue.Po
+#	source='core/concurrent_queue.cpp' object='libvortex_tool_a-concurrent_queue.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-concurrent_queue.obj `if test -f 'core/concurrent_queue.cpp'; then $(CYGPATH_W) 'core/concurrent_queue.cpp'; else $(CYGPATH_W) '$(srcdir)/core/concurrent_queue.cpp'; fi`
+
+libvortex_tool_a-eventoutput.o: core/eventoutput.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-eventoutput.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-eventoutput.Tpo -c -o libvortex_tool_a-eventoutput.o `test -f 'core/eventoutput.cpp' || echo '$(srcdir)/'`core/eventoutput.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-eventoutput.Tpo $(DEPDIR)/libvortex_tool_a-eventoutput.Po
+#	source='core/eventoutput.cpp' object='libvortex_tool_a-eventoutput.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-eventoutput.o `test -f 'core/eventoutput.cpp' || echo '$(srcdir)/'`core/eventoutput.cpp
+
+libvortex_tool_a-eventoutput.obj: core/eventoutput.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-eventoutput.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-eventoutput.Tpo -c -o libvortex_tool_a-eventoutput.obj `if test -f 'core/eventoutput.cpp'; then $(CYGPATH_W) 'core/eventoutput.cpp'; else $(CYGPATH_W) '$(srcdir)/core/eventoutput.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-eventoutput.Tpo $(DEPDIR)/libvortex_tool_a-eventoutput.Po
+#	source='core/eventoutput.cpp' object='libvortex_tool_a-eventoutput.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-eventoutput.obj `if test -f 'core/eventoutput.cpp'; then $(CYGPATH_W) 'core/eventoutput.cpp'; else $(CYGPATH_W) '$(srcdir)/core/eventoutput.cpp'; fi`
+
+libvortex_tool_a-math.o: core/math.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-math.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-math.Tpo -c -o libvortex_tool_a-math.o `test -f 'core/math.cpp' || echo '$(srcdir)/'`core/math.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-math.Tpo $(DEPDIR)/libvortex_tool_a-math.Po
+#	source='core/math.cpp' object='libvortex_tool_a-math.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-math.o `test -f 'core/math.cpp' || echo '$(srcdir)/'`core/math.cpp
+
+libvortex_tool_a-math.obj: core/math.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-math.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-math.Tpo -c -o libvortex_tool_a-math.obj `if test -f 'core/math.cpp'; then $(CYGPATH_W) 'core/math.cpp'; else $(CYGPATH_W) '$(srcdir)/core/math.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-math.Tpo $(DEPDIR)/libvortex_tool_a-math.Po
+#	source='core/math.cpp' object='libvortex_tool_a-math.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-math.obj `if test -f 'core/math.cpp'; then $(CYGPATH_W) 'core/math.cpp'; else $(CYGPATH_W) '$(srcdir)/core/math.cpp'; fi`
+
+libvortex_tool_a-matrix.o: core/matrix.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-matrix.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-matrix.Tpo -c -o libvortex_tool_a-matrix.o `test -f 'core/matrix.cpp' || echo '$(srcdir)/'`core/matrix.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-matrix.Tpo $(DEPDIR)/libvortex_tool_a-matrix.Po
+#	source='core/matrix.cpp' object='libvortex_tool_a-matrix.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-matrix.o `test -f 'core/matrix.cpp' || echo '$(srcdir)/'`core/matrix.cpp
+
+libvortex_tool_a-matrix.obj: core/matrix.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-matrix.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-matrix.Tpo -c -o libvortex_tool_a-matrix.obj `if test -f 'core/matrix.cpp'; then $(CYGPATH_W) 'core/matrix.cpp'; else $(CYGPATH_W) '$(srcdir)/core/matrix.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-matrix.Tpo $(DEPDIR)/libvortex_tool_a-matrix.Po
+#	source='core/matrix.cpp' object='libvortex_tool_a-matrix.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-matrix.obj `if test -f 'core/matrix.cpp'; then $(CYGPATH_W) 'core/matrix.cpp'; else $(CYGPATH_W) '$(srcdir)/core/matrix.cpp'; fi`
+
+libvortex_tool_a-stack_allocator.o: core/stack_allocator.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-stack_allocator.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-stack_allocator.Tpo -c -o libvortex_tool_a-stack_allocator.o `test -f 'core/stack_allocator.cpp' || echo '$(srcdir)/'`core/stack_allocator.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-stack_allocator.Tpo $(DEPDIR)/libvortex_tool_a-stack_allocator.Po
+#	source='core/stack_allocator.cpp' object='libvortex_tool_a-stack_allocator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-stack_allocator.o `test -f 'core/stack_allocator.cpp' || echo '$(srcdir)/'`core/stack_allocator.cpp
+
+libvortex_tool_a-stack_allocator.obj: core/stack_allocator.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-stack_allocator.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-stack_allocator.Tpo -c -o libvortex_tool_a-stack_allocator.obj `if test -f 'core/stack_allocator.cpp'; then $(CYGPATH_W) 'core/stack_allocator.cpp'; else $(CYGPATH_W) '$(srcdir)/core/stack_allocator.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-stack_allocator.Tpo $(DEPDIR)/libvortex_tool_a-stack_allocator.Po
+#	source='core/stack_allocator.cpp' object='libvortex_tool_a-stack_allocator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-stack_allocator.obj `if test -f 'core/stack_allocator.cpp'; then $(CYGPATH_W) 'core/stack_allocator.cpp'; else $(CYGPATH_W) '$(srcdir)/core/stack_allocator.cpp'; fi`
+
+libvortex_tool_a-util.o: core/util.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-util.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-util.Tpo -c -o libvortex_tool_a-util.o `test -f 'core/util.cpp' || echo '$(srcdir)/'`core/util.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-util.Tpo $(DEPDIR)/libvortex_tool_a-util.Po
+#	source='core/util.cpp' object='libvortex_tool_a-util.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-util.o `test -f 'core/util.cpp' || echo '$(srcdir)/'`core/util.cpp
+
+libvortex_tool_a-util.obj: core/util.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-util.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-util.Tpo -c -o libvortex_tool_a-util.obj `if test -f 'core/util.cpp'; then $(CYGPATH_W) 'core/util.cpp'; else $(CYGPATH_W) '$(srcdir)/core/util.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-util.Tpo $(DEPDIR)/libvortex_tool_a-util.Po
+#	source='core/util.cpp' object='libvortex_tool_a-util.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-util.obj `if test -f 'core/util.cpp'; then $(CYGPATH_W) 'core/util.cpp'; else $(CYGPATH_W) '$(srcdir)/core/util.cpp'; fi`
+
+libvortex_tool_a-vector2.o: core/vector2.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector2.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector2.Tpo -c -o libvortex_tool_a-vector2.o `test -f 'core/vector2.cpp' || echo '$(srcdir)/'`core/vector2.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector2.Tpo $(DEPDIR)/libvortex_tool_a-vector2.Po
+#	source='core/vector2.cpp' object='libvortex_tool_a-vector2.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector2.o `test -f 'core/vector2.cpp' || echo '$(srcdir)/'`core/vector2.cpp
+
+libvortex_tool_a-vector2.obj: core/vector2.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector2.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector2.Tpo -c -o libvortex_tool_a-vector2.obj `if test -f 'core/vector2.cpp'; then $(CYGPATH_W) 'core/vector2.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector2.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector2.Tpo $(DEPDIR)/libvortex_tool_a-vector2.Po
+#	source='core/vector2.cpp' object='libvortex_tool_a-vector2.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector2.obj `if test -f 'core/vector2.cpp'; then $(CYGPATH_W) 'core/vector2.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector2.cpp'; fi`
+
+libvortex_tool_a-vector3.o: core/vector3.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector3.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector3.Tpo -c -o libvortex_tool_a-vector3.o `test -f 'core/vector3.cpp' || echo '$(srcdir)/'`core/vector3.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector3.Tpo $(DEPDIR)/libvortex_tool_a-vector3.Po
+#	source='core/vector3.cpp' object='libvortex_tool_a-vector3.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector3.o `test -f 'core/vector3.cpp' || echo '$(srcdir)/'`core/vector3.cpp
+
+libvortex_tool_a-vector3.obj: core/vector3.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector3.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector3.Tpo -c -o libvortex_tool_a-vector3.obj `if test -f 'core/vector3.cpp'; then $(CYGPATH_W) 'core/vector3.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector3.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector3.Tpo $(DEPDIR)/libvortex_tool_a-vector3.Po
+#	source='core/vector3.cpp' object='libvortex_tool_a-vector3.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector3.obj `if test -f 'core/vector3.cpp'; then $(CYGPATH_W) 'core/vector3.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector3.cpp'; fi`
+
+libvortex_tool_a-vector4.o: core/vector4.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector4.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector4.Tpo -c -o libvortex_tool_a-vector4.o `test -f 'core/vector4.cpp' || echo '$(srcdir)/'`core/vector4.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector4.Tpo $(DEPDIR)/libvortex_tool_a-vector4.Po
+#	source='core/vector4.cpp' object='libvortex_tool_a-vector4.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector4.o `test -f 'core/vector4.cpp' || echo '$(srcdir)/'`core/vector4.cpp
+
+libvortex_tool_a-vector4.obj: core/vector4.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vector4.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vector4.Tpo -c -o libvortex_tool_a-vector4.obj `if test -f 'core/vector4.cpp'; then $(CYGPATH_W) 'core/vector4.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector4.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vector4.Tpo $(DEPDIR)/libvortex_tool_a-vector4.Po
+#	source='core/vector4.cpp' object='libvortex_tool_a-vector4.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vector4.obj `if test -f 'core/vector4.cpp'; then $(CYGPATH_W) 'core/vector4.cpp'; else $(CYGPATH_W) '$(srcdir)/core/vector4.cpp'; fi`
+
+libvortex_tool_a-clock.o: vortex/clock.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-clock.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-clock.Tpo -c -o libvortex_tool_a-clock.o `test -f 'vortex/clock.cpp' || echo '$(srcdir)/'`vortex/clock.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-clock.Tpo $(DEPDIR)/libvortex_tool_a-clock.Po
+#	source='vortex/clock.cpp' object='libvortex_tool_a-clock.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-clock.o `test -f 'vortex/clock.cpp' || echo '$(srcdir)/'`vortex/clock.cpp
+
+libvortex_tool_a-clock.obj: vortex/clock.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-clock.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-clock.Tpo -c -o libvortex_tool_a-clock.obj `if test -f 'vortex/clock.cpp'; then $(CYGPATH_W) 'vortex/clock.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/clock.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-clock.Tpo $(DEPDIR)/libvortex_tool_a-clock.Po
+#	source='vortex/clock.cpp' object='libvortex_tool_a-clock.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-clock.obj `if test -f 'vortex/clock.cpp'; then $(CYGPATH_W) 'vortex/clock.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/clock.cpp'; fi`
+
+libvortex_tool_a-dx10render.o: vortex/dx10render.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-dx10render.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-dx10render.Tpo -c -o libvortex_tool_a-dx10render.o `test -f 'vortex/dx10render.cpp' || echo '$(srcdir)/'`vortex/dx10render.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-dx10render.Tpo $(DEPDIR)/libvortex_tool_a-dx10render.Po
+#	source='vortex/dx10render.cpp' object='libvortex_tool_a-dx10render.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-dx10render.o `test -f 'vortex/dx10render.cpp' || echo '$(srcdir)/'`vortex/dx10render.cpp
+
+libvortex_tool_a-dx10render.obj: vortex/dx10render.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-dx10render.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-dx10render.Tpo -c -o libvortex_tool_a-dx10render.obj `if test -f 'vortex/dx10render.cpp'; then $(CYGPATH_W) 'vortex/dx10render.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/dx10render.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-dx10render.Tpo $(DEPDIR)/libvortex_tool_a-dx10render.Po
+#	source='vortex/dx10render.cpp' object='libvortex_tool_a-dx10render.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-dx10render.obj `if test -f 'vortex/dx10render.cpp'; then $(CYGPATH_W) 'vortex/dx10render.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/dx10render.cpp'; fi`
+
+libvortex_tool_a-job.o: vortex/job.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-job.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-job.Tpo -c -o libvortex_tool_a-job.o `test -f 'vortex/job.cpp' || echo '$(srcdir)/'`vortex/job.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-job.Tpo $(DEPDIR)/libvortex_tool_a-job.Po
+#	source='vortex/job.cpp' object='libvortex_tool_a-job.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-job.o `test -f 'vortex/job.cpp' || echo '$(srcdir)/'`vortex/job.cpp
+
+libvortex_tool_a-job.obj: vortex/job.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-job.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-job.Tpo -c -o libvortex_tool_a-job.obj `if test -f 'vortex/job.cpp'; then $(CYGPATH_W) 'vortex/job.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/job.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-job.Tpo $(DEPDIR)/libvortex_tool_a-job.Po
+#	source='vortex/job.cpp' object='libvortex_tool_a-job.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-job.obj `if test -f 'vortex/job.cpp'; then $(CYGPATH_W) 'vortex/job.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/job.cpp'; fi`
+
+libvortex_tool_a-openglrender.o: vortex/openglrender.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-openglrender.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-openglrender.Tpo -c -o libvortex_tool_a-openglrender.o `test -f 'vortex/openglrender.cpp' || echo '$(srcdir)/'`vortex/openglrender.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-openglrender.Tpo $(DEPDIR)/libvortex_tool_a-openglrender.Po
+#	source='vortex/openglrender.cpp' object='libvortex_tool_a-openglrender.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-openglrender.o `test -f 'vortex/openglrender.cpp' || echo '$(srcdir)/'`vortex/openglrender.cpp
+
+libvortex_tool_a-openglrender.obj: vortex/openglrender.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-openglrender.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-openglrender.Tpo -c -o libvortex_tool_a-openglrender.obj `if test -f 'vortex/openglrender.cpp'; then $(CYGPATH_W) 'vortex/openglrender.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/openglrender.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-openglrender.Tpo $(DEPDIR)/libvortex_tool_a-openglrender.Po
+#	source='vortex/openglrender.cpp' object='libvortex_tool_a-openglrender.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-openglrender.obj `if test -f 'vortex/openglrender.cpp'; then $(CYGPATH_W) 'vortex/openglrender.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/openglrender.cpp'; fi`
+
+libvortex_tool_a-render.o: vortex/render.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-render.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-render.Tpo -c -o libvortex_tool_a-render.o `test -f 'vortex/render.cpp' || echo '$(srcdir)/'`vortex/render.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-render.Tpo $(DEPDIR)/libvortex_tool_a-render.Po
+#	source='vortex/render.cpp' object='libvortex_tool_a-render.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-render.o `test -f 'vortex/render.cpp' || echo '$(srcdir)/'`vortex/render.cpp
+
+libvortex_tool_a-render.obj: vortex/render.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-render.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-render.Tpo -c -o libvortex_tool_a-render.obj `if test -f 'vortex/render.cpp'; then $(CYGPATH_W) 'vortex/render.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/render.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-render.Tpo $(DEPDIR)/libvortex_tool_a-render.Po
+#	source='vortex/render.cpp' object='libvortex_tool_a-render.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-render.obj `if test -f 'vortex/render.cpp'; then $(CYGPATH_W) 'vortex/render.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/render.cpp'; fi`
+
+libvortex_tool_a-rendercreationparams.o: vortex/rendercreationparams.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-rendercreationparams.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-rendercreationparams.Tpo -c -o libvortex_tool_a-rendercreationparams.o `test -f 'vortex/rendercreationparams.cpp' || echo '$(srcdir)/'`vortex/rendercreationparams.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-rendercreationparams.Tpo $(DEPDIR)/libvortex_tool_a-rendercreationparams.Po
+#	source='vortex/rendercreationparams.cpp' object='libvortex_tool_a-rendercreationparams.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-rendercreationparams.o `test -f 'vortex/rendercreationparams.cpp' || echo '$(srcdir)/'`vortex/rendercreationparams.cpp
+
+libvortex_tool_a-rendercreationparams.obj: vortex/rendercreationparams.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-rendercreationparams.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-rendercreationparams.Tpo -c -o libvortex_tool_a-rendercreationparams.obj `if test -f 'vortex/rendercreationparams.cpp'; then $(CYGPATH_W) 'vortex/rendercreationparams.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/rendercreationparams.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-rendercreationparams.Tpo $(DEPDIR)/libvortex_tool_a-rendercreationparams.Po
+#	source='vortex/rendercreationparams.cpp' object='libvortex_tool_a-rendercreationparams.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-rendercreationparams.obj `if test -f 'vortex/rendercreationparams.cpp'; then $(CYGPATH_W) 'vortex/rendercreationparams.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/rendercreationparams.cpp'; fi`
+
+libvortex_tool_a-renderinternal.o: vortex/renderinternal.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-renderinternal.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-renderinternal.Tpo -c -o libvortex_tool_a-renderinternal.o `test -f 'vortex/renderinternal.cpp' || echo '$(srcdir)/'`vortex/renderinternal.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-renderinternal.Tpo $(DEPDIR)/libvortex_tool_a-renderinternal.Po
+#	source='vortex/renderinternal.cpp' object='libvortex_tool_a-renderinternal.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-renderinternal.o `test -f 'vortex/renderinternal.cpp' || echo '$(srcdir)/'`vortex/renderinternal.cpp
+
+libvortex_tool_a-renderinternal.obj: vortex/renderinternal.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-renderinternal.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-renderinternal.Tpo -c -o libvortex_tool_a-renderinternal.obj `if test -f 'vortex/renderinternal.cpp'; then $(CYGPATH_W) 'vortex/renderinternal.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/renderinternal.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-renderinternal.Tpo $(DEPDIR)/libvortex_tool_a-renderinternal.Po
+#	source='vortex/renderinternal.cpp' object='libvortex_tool_a-renderinternal.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-renderinternal.obj `if test -f 'vortex/renderinternal.cpp'; then $(CYGPATH_W) 'vortex/renderinternal.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/renderinternal.cpp'; fi`
+
+libvortex_tool_a-resource.o: vortex/resource.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-resource.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-resource.Tpo -c -o libvortex_tool_a-resource.o `test -f 'vortex/resource.cpp' || echo '$(srcdir)/'`vortex/resource.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-resource.Tpo $(DEPDIR)/libvortex_tool_a-resource.Po
+#	source='vortex/resource.cpp' object='libvortex_tool_a-resource.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-resource.o `test -f 'vortex/resource.cpp' || echo '$(srcdir)/'`vortex/resource.cpp
+
+libvortex_tool_a-resource.obj: vortex/resource.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-resource.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-resource.Tpo -c -o libvortex_tool_a-resource.obj `if test -f 'vortex/resource.cpp'; then $(CYGPATH_W) 'vortex/resource.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/resource.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-resource.Tpo $(DEPDIR)/libvortex_tool_a-resource.Po
+#	source='vortex/resource.cpp' object='libvortex_tool_a-resource.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-resource.obj `if test -f 'vortex/resource.cpp'; then $(CYGPATH_W) 'vortex/resource.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/resource.cpp'; fi`
+
+libvortex_tool_a-simulation.o: vortex/simulation.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-simulation.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-simulation.Tpo -c -o libvortex_tool_a-simulation.o `test -f 'vortex/simulation.cpp' || echo '$(srcdir)/'`vortex/simulation.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-simulation.Tpo $(DEPDIR)/libvortex_tool_a-simulation.Po
+#	source='vortex/simulation.cpp' object='libvortex_tool_a-simulation.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-simulation.o `test -f 'vortex/simulation.cpp' || echo '$(srcdir)/'`vortex/simulation.cpp
+
+libvortex_tool_a-simulation.obj: vortex/simulation.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-simulation.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-simulation.Tpo -c -o libvortex_tool_a-simulation.obj `if test -f 'vortex/simulation.cpp'; then $(CYGPATH_W) 'vortex/simulation.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/simulation.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-simulation.Tpo $(DEPDIR)/libvortex_tool_a-simulation.Po
+#	source='vortex/simulation.cpp' object='libvortex_tool_a-simulation.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-simulation.obj `if test -f 'vortex/simulation.cpp'; then $(CYGPATH_W) 'vortex/simulation.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/simulation.cpp'; fi`
+
+libvortex_tool_a-vortex_root.o: vortex/vortex_root.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vortex_root.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vortex_root.Tpo -c -o libvortex_tool_a-vortex_root.o `test -f 'vortex/vortex_root.cpp' || echo '$(srcdir)/'`vortex/vortex_root.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vortex_root.Tpo $(DEPDIR)/libvortex_tool_a-vortex_root.Po
+#	source='vortex/vortex_root.cpp' object='libvortex_tool_a-vortex_root.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vortex_root.o `test -f 'vortex/vortex_root.cpp' || echo '$(srcdir)/'`vortex/vortex_root.cpp
+
+libvortex_tool_a-vortex_root.obj: vortex/vortex_root.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-vortex_root.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-vortex_root.Tpo -c -o libvortex_tool_a-vortex_root.obj `if test -f 'vortex/vortex_root.cpp'; then $(CYGPATH_W) 'vortex/vortex_root.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/vortex_root.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-vortex_root.Tpo $(DEPDIR)/libvortex_tool_a-vortex_root.Po
+#	source='vortex/vortex_root.cpp' object='libvortex_tool_a-vortex_root.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-vortex_root.obj `if test -f 'vortex/vortex_root.cpp'; then $(CYGPATH_W) 'vortex/vortex_root.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/vortex_root.cpp'; fi`
+
+libvortex_tool_a-window.o: vortex/window.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-window.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-window.Tpo -c -o libvortex_tool_a-window.o `test -f 'vortex/window.cpp' || echo '$(srcdir)/'`vortex/window.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-window.Tpo $(DEPDIR)/libvortex_tool_a-window.Po
+#	source='vortex/window.cpp' object='libvortex_tool_a-window.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-window.o `test -f 'vortex/window.cpp' || echo '$(srcdir)/'`vortex/window.cpp
+
+libvortex_tool_a-window.obj: vortex/window.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-window.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-window.Tpo -c -o libvortex_tool_a-window.obj `if test -f 'vortex/window.cpp'; then $(CYGPATH_W) 'vortex/window.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/window.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-window.Tpo $(DEPDIR)/libvortex_tool_a-window.Po
+#	source='vortex/window.cpp' object='libvortex_tool_a-window.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-window.obj `if test -f 'vortex/window.cpp'; then $(CYGPATH_W) 'vortex/window.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/window.cpp'; fi`
+
+libvortex_tool_a-windowcreationparams.o: vortex/windowcreationparams.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-windowcreationparams.o -MD -MP -MF $(DEPDIR)/libvortex_tool_a-windowcreationparams.Tpo -c -o libvortex_tool_a-windowcreationparams.o `test -f 'vortex/windowcreationparams.cpp' || echo '$(srcdir)/'`vortex/windowcreationparams.cpp
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-windowcreationparams.Tpo $(DEPDIR)/libvortex_tool_a-windowcreationparams.Po
+#	source='vortex/windowcreationparams.cpp' object='libvortex_tool_a-windowcreationparams.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-windowcreationparams.o `test -f 'vortex/windowcreationparams.cpp' || echo '$(srcdir)/'`vortex/windowcreationparams.cpp
+
+libvortex_tool_a-windowcreationparams.obj: vortex/windowcreationparams.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_tool_a-windowcreationparams.obj -MD -MP -MF $(DEPDIR)/libvortex_tool_a-windowcreationparams.Tpo -c -o libvortex_tool_a-windowcreationparams.obj `if test -f 'vortex/windowcreationparams.cpp'; then $(CYGPATH_W) 'vortex/windowcreationparams.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/windowcreationparams.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_tool_a-windowcreationparams.Tpo $(DEPDIR)/libvortex_tool_a-windowcreationparams.Po
+#	source='vortex/windowcreationparams.cpp' object='libvortex_tool_a-windowcreationparams.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_tool_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_tool_a-windowcreationparams.obj `if test -f 'vortex/windowcreationparams.cpp'; then $(CYGPATH_W) 'vortex/windowcreationparams.cpp'; else $(CYGPATH_W) '$(srcdir)/vortex/windowcreationparams.cpp'; fi`
 
 libvortex_a-file.o: platform/file.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_a-file.o -MD -MP -MF $(DEPDIR)/libvortex_a-file.Tpo -c -o libvortex_a-file.o `test -f 'platform/file.cpp' || echo '$(srcdir)/'`platform/file.cpp
@@ -502,6 +987,20 @@ libvortex_a-concurrent_queue.obj: core/concurrent_queue.cpp
 #	source='core/concurrent_queue.cpp' object='libvortex_a-concurrent_queue.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_a-concurrent_queue.obj `if test -f 'core/concurrent_queue.cpp'; then $(CYGPATH_W) 'core/concurrent_queue.cpp'; else $(CYGPATH_W) '$(srcdir)/core/concurrent_queue.cpp'; fi`
+
+libvortex_a-eventoutput.o: core/eventoutput.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_a-eventoutput.o -MD -MP -MF $(DEPDIR)/libvortex_a-eventoutput.Tpo -c -o libvortex_a-eventoutput.o `test -f 'core/eventoutput.cpp' || echo '$(srcdir)/'`core/eventoutput.cpp
+	$(am__mv) $(DEPDIR)/libvortex_a-eventoutput.Tpo $(DEPDIR)/libvortex_a-eventoutput.Po
+#	source='core/eventoutput.cpp' object='libvortex_a-eventoutput.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_a-eventoutput.o `test -f 'core/eventoutput.cpp' || echo '$(srcdir)/'`core/eventoutput.cpp
+
+libvortex_a-eventoutput.obj: core/eventoutput.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_a-eventoutput.obj -MD -MP -MF $(DEPDIR)/libvortex_a-eventoutput.Tpo -c -o libvortex_a-eventoutput.obj `if test -f 'core/eventoutput.cpp'; then $(CYGPATH_W) 'core/eventoutput.cpp'; else $(CYGPATH_W) '$(srcdir)/core/eventoutput.cpp'; fi`
+	$(am__mv) $(DEPDIR)/libvortex_a-eventoutput.Tpo $(DEPDIR)/libvortex_a-eventoutput.Po
+#	source='core/eventoutput.cpp' object='libvortex_a-eventoutput.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libvortex_a-eventoutput.obj `if test -f 'core/eventoutput.cpp'; then $(CYGPATH_W) 'core/eventoutput.cpp'; else $(CYGPATH_W) '$(srcdir)/core/eventoutput.cpp'; fi`
 
 libvortex_a-math.o: core/math.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libvortex_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libvortex_a-math.o -MD -MP -MF $(DEPDIR)/libvortex_a-math.Tpo -c -o libvortex_a-math.o `test -f 'core/math.cpp' || echo '$(srcdir)/'`core/math.cpp
@@ -885,7 +1384,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libLIBRARIES mostlyclean-am
+clean-am: clean-generic clean-libLIBRARIES clean-noinstLIBRARIES \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -955,17 +1455,17 @@ uninstall-am: uninstall-libLIBRARIES
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libLIBRARIES ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-libLIBRARIES install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-libLIBRARIES
+	clean-libLIBRARIES clean-noinstLIBRARIES ctags distclean \
+	distclean-compile distclean-generic distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-libLIBRARIES install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-libLIBRARIES
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
