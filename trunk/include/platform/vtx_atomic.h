@@ -18,8 +18,11 @@
 #define VTX_ATOMIC_H
 #include <platform/vtx_defineconfig.h>
 #include <string>
-#ifdef WIN32
+#if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+#include <X11/X.h>
 #endif
 
 namespace platform
@@ -33,7 +36,7 @@ namespace platform
 #endif
 #if defined(VTX_PLATFORM_LINUX)
 	//TODO: get this fixed.
-	typedef void *WINDOW;
+	typedef XID WINDOW;
 	typedef void *SYSTEM_HANDLE;
 #endif
 
