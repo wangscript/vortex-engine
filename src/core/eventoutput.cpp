@@ -29,7 +29,18 @@ void EventOutput::reportEvent( E_LEVEL level, std::wstring& message )
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
 	{
-		*this->outStream << L": " << message << std::endl;
+		this->outputToStream(level, message);
+		//*this->outStream << L": " << message << std::endl;
+	}
+}
+
+void EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
+{
+	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
+	if(this->reportLevel <= level)
+	{
+		std::wstring msg(message);
+		this->outputToStream(level, msg);
 	}
 }
 
@@ -39,9 +50,15 @@ void EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, 
 	if(this->reportLevel <= level)
 	{
 		std::wstringstream strstream;
-		strstream << errorCode;
-		*this->outStream << L": " << "Method '"	 << method << "' failed (" << strstream.str() << ")" << std::endl; 
+		strstream << "Method '"	 << method << "' failed (" << errorCode << ")" << std::endl;
+		std::wstring msg(strstream.str());
+		this->outputToStream(level, msg);
 	}
+}
+
+void EventOutput::outputToStream( E_LEVEL level, std::wstring& message )
+{
+	*this->outStream << L": " << message << std::endl;
 }
 
 void EventOutput::setOutputLevel( E_LEVEL level )

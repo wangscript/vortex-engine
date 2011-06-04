@@ -42,6 +42,7 @@ void RenderManager::init(RenderCreationParams &params, WindowCreationParams &win
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
+		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_INFO, 
 		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
 	}
 #endif
