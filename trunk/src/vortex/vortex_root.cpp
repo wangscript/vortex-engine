@@ -17,6 +17,10 @@
 #include <vortex/vtx_vortex.h>
 #include <iostream>
 
+#define REPORT_INIT(output, message) \
+	std::wstring msg(message); \
+	output->reportEvent(EventOutput::E_LEVEL_VERBOSE, msg);
+
 Root::Root()
 {
 	std::wstring msg(L"Standard error output!!");
@@ -30,6 +34,8 @@ Root::Root()
 
 void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
 {
+	REPORT_INIT(this->output, L"JobManager");
+//	this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, std::wstring(L"Initializing JobManager..."));
 	this->jobManager->init();
 	this->resourceManager->init();
 	this->renderManager->init(renderParams, windowParams);
