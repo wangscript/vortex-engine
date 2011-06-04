@@ -255,7 +255,6 @@ SOURCES = ../include/platform/vtx_atomic.h \
 			../include/vortex/vtx_clock.h \
 			../include/vortex/vtx_dx10render.h \
 			../include/vortex/vtx_job.h \
-			../include/vortex/vtx_manager.h \
 			../include/vortex/vtx_openglrender.h \
 			../include/vortex/vtx_render.h \
 			../include/vortex/vtx_renderinternal.h \
