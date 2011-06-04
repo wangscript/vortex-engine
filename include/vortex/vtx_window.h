@@ -45,6 +45,9 @@ public:
 #if defined(VTX_PLATFORM_WIN32)
 	WNDPROC wndProc;
 #endif
+#if defined(VTX_PLATFORM_LINUX)
+	Display *displayX11;
+#endif
 };
 
 class NativeWindow : VortexBase

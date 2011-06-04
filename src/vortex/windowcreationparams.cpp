@@ -37,4 +37,7 @@ WindowCreationParams::WindowCreationParams()
 #if defined(VTX_PLATFORM_WIN32)
 	this->wndProc = WndProc;
 #endif
+#if defined(VTX_PLATFORM_LINUX)
+	this->displayX11 = NULL;
+#endif
 }
