@@ -33,6 +33,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	NativeWindow *window = new NativeWindow(parent);
 	if(params.windowHandle == 0)
 	{
+		parent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: No handle supplied, creating new window.");
 		window->manageWindow = true;
 #if defined(VTX_PLATFORM_WIN32)
 		HINSTANCE instance = GetModuleHandle(NULL);
@@ -96,11 +97,17 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		}
 		ShowWindow(window->handle, SW_SHOW);
 #elif defined(VTX_PLATFORM_LINUX) && defined(VTX_COMPILE_WITH_OPENGL) 
-	XEvent event;
 	// TODO: Need to create window without glX methods for software rendering.
 	// When done, investigate if its usable for when compiling with OpenGL aswell. Unity is king.
 	int result;
-	window->display = XOpenDisplay(getenv("DISPLAY"));
+	if(params.displayX11 == NULL)
+	{
+		window->display = XOpenDisplay(getenv("DISPLAY"));
+	}
+	else
+	{
+		window->display = params.displayX11;
+	}
 	ASSERT(window->display != NULL);
 	if(window->display == NULL)
 	{
@@ -211,11 +218,19 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	// Window already exists.
 	else
 	{
+		parent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Will not create new window, using supplied windowhandle.");
 		window->handle = params.windowHandle;
 		window->manageWindow = false;
                 window->win = window->handle;
 
-		window->display = XOpenDisplay(getenv("DISPLAY"));
+		if(params.displayX11 == NULL)
+		{
+			window->display = XOpenDisplay(getenv("DISPLAY"));
+		}
+		else
+		{
+			window->display = params.displayX11;
+		}
 		ASSERT(window->display != NULL);
 		if(window->display == NULL)
 		{
