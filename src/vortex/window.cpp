@@ -202,17 +202,15 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	ASSERT(window->context != NULL);
 	if(window->context == NULL)
 	{
-		XNextEvent(window->display, &event);
+		XErrorEvent *event = NativeWindow::getLastXError(window->win);
 		std::wstring message(L"glXCreateContext");
-		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event.type);
+		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
 	}
 #endif
 	}
 	// Window already exists.
 	else
 	{
-		XEvent event;
-		
 		window->handle = params.windowHandle;
 		window->manageWindow = false;
                 window->win = window->handle;
@@ -243,9 +241,9 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		ASSERT(window->context != NULL);
 		if(window->context == NULL)
 		{
-			XNextEvent(window->display, &event);
+			XErrorEvent *event = NativeWindow::getLastXError(window->win);
 			std::wstring message(L"glXCreateContext");
-			parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event.type);
+			parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
 	}
 	ASSERT(window->handle != NULL);
