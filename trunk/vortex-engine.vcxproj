@@ -116,6 +116,7 @@
     <ClInclude Include="include\core\vtx_assertions.h" />
     <ClInclude Include="include\core\vtx_concurrent_queue.h" />
     <ClInclude Include="include\core\vtx_double_stack_allocator.h" />
+    <ClInclude Include="include\core\vtx_eventoutput.h" />
     <ClInclude Include="include\core\vtx_math.h" />
     <ClInclude Include="include\core\vtx_stack_allocator.h" />
     <ClInclude Include="include\core\vtx_types.h" />

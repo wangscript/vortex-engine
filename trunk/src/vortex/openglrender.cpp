@@ -20,7 +20,9 @@
 #include <platform/vtx_defineconfig.h>
 #include <vortex/vtx_openglrender.h>
 #include <GL/gl.h>
+#if defined(VTX_PLATFORM_LINUX)
 #include <GL/glxproto.h>
+#endif
 #include <vortex/vtx_vortex.h>
 
 #if defined(VTX_PLATFORM_LINUX)
