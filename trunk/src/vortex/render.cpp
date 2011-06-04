@@ -24,9 +24,8 @@
 #endif
 
 #include <core/vtx_assertions.h>
-//#if defined(VTX_PLATFORM_WIN32)
-//#include <Windows.h>
-//#endif
+
+#include <vortex/vtx_vortex.h>
 
 using namespace platform;
 
@@ -42,13 +41,14 @@ void RenderManager::init(RenderCreationParams &params, WindowCreationParams &win
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_INFO, 
+		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating DX10 render");
 		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
+		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating OpenGL render");	
 		this->render = new OpenGLRender(VortexBase::engineParent, params, this->window);
 	}
 #endif
