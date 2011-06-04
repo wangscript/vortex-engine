@@ -18,11 +18,11 @@
 	{ \
 		std::wstring message(L"Initializing "); \
 		message.append(component); \
-		message.append(L"...\n"); \
+		message.append(L"..."); \
 		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
 		init_exp \
 		message.insert(0, L"Done "); \
-		message.erase(message.length() - 4, 3); \
+		message.erase(message.length() - 3, 3); \
 		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
 	}
 	
