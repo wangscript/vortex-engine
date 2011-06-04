@@ -61,11 +61,9 @@ OpenGLRender::OpenGLRender(Root& parent, RenderCreationParams &params, NativeWin
 	b = wglMakeCurrent(this->hDC, this->renderContext);
 	glViewport(0, 0, 400, 400);
 #elif defined(VTX_PLATFORM_LINUX)
-	XEvent event;
-	int c = BadRequest;
-	Bool b = glXMakeCurrent(outputWindow->display, outputWindow->win, outputWindow->context);
+	Bool result = glXMakeCurrent(outputWindow->display, outputWindow->win, outputWindow->context);
 	//Bool b = glXMakeContextCurrent(outputWindow->display, outputWindow->win, outputWindow->win, outputWindow->context);
-	if(!b)
+	if(!result)
 	{
 		XErrorEvent *event = NativeWindow::getLastXError(outputWindow->win);
 		if(event == NULL)
