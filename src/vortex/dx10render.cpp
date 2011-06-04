@@ -23,7 +23,7 @@
 
 using namespace platform;
 
-DX10Render::DX10Render(RenderCreationParams &params, NativeWindow *outputWindow)
+DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow) : RenderAPI(parent)
 {
 	HRESULT result;
 	DXGI_SWAP_CHAIN_DESC swapChainDesc;

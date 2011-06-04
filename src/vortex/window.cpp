@@ -10,10 +10,9 @@
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <stdlib.h>
-#endif
-
 std::map<platform::WINDOW, XErrorEvent*> *NativeWindow::lastErrorMap;
 bool NativeWindow::isHandlingXErrors = false;
+#endif
 
 NativeWindow::NativeWindow(Root &parent) : VortexBase(parent)
 {
@@ -221,7 +220,8 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		parent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Will not create new window, using supplied windowhandle.");
 		window->handle = params.windowHandle;
 		window->manageWindow = false;
-                window->win = window->handle;
+#if defined(VTX_PLATFORM_LINUX)
+        window->win = window->handle;
 
 		if(params.displayX11 == NULL)
 		{
@@ -260,6 +260,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 			std::wstring message(L"glXCreateContext");
 			parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
+#endif
 	}
 	ASSERT(window->handle != NULL);
 
@@ -285,6 +286,7 @@ platform::WINDOW NativeWindow::getHandle(void)
 	return this->handle;
 }
 
+#if defined(VTX_PLATFORM_LINUX)
 XErrorEvent *NativeWindow::getLastXError(platform::WINDOW handle)
 {
 	std::map<platform::WINDOW, XErrorEvent*>::iterator it;
@@ -303,3 +305,4 @@ int NativeWindow::xErrorHandler(Display *display, XErrorEvent *event)
 	NativeWindow::lastErrorMap[0][event->resourceid] = event;
 	return 0;
 }
+#endif

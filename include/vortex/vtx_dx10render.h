@@ -33,7 +33,7 @@ private:
 	IDXGISwapChain *swapChain;
 	ID3D10RenderTargetView *renderTargetView;
 public:
-	DX10Render(RenderCreationParams &params, NativeWindow *outputWindow);
+	DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow);
 	virtual void swap(void);
 	virtual void clear(void);
 };
