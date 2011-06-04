@@ -14,13 +14,26 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#define INIT(init_exp, component) \
+	{ \
+		std::wstring message(L"Initializing "); \
+		message.append(component); \
+		message.append(L"...\n"); \
+		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
+		init_exp \
+		message.insert(0, L"Done "); \
+		message.erase(message.length() - 4, 3); \
+		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
+	}
+	
+
 #include <vortex/vtx_vortex.h>
 #include <iostream>
 
 Root::Root()
 {
 	std::wstring msg(L"Standard error output!!");
-	this->output = new EventOutput(EventOutput::E_LEVEL_INFO);
+	this->output = new EventOutput(EventOutput::E_LEVEL_VERBOSE);
 	this->output->reportEvent(EventOutput::E_LEVEL_FATAL, msg);
 	this->jobManager = new JobManager;
 	this->resourceManager = new ResourceManager(*this);
@@ -29,12 +42,8 @@ Root::Root()
 }
 
 void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
-{
-//	this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, std::wstring(L"Initializing JobManager..."));
-	this->jobManager->init();
-	this->resourceManager->init();
-	this->renderManager->init(renderParams, windowParams);
-	this->simulationManager->init(this->renderManager->getRenderObject());
+{	
+	this->init(windowParams, renderParams);
 
 	this->simulationManager->run();
 
@@ -45,13 +54,18 @@ void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderP
 
 }
 
+void Root::init(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+{
+	INIT(this->jobManager->init();, L"JobManager");
+	INIT(this->resourceManager->init();, L"ResourceManager");
+	INIT(this->renderManager->init(renderParams, windowParams);, L"RenderManager");
+	INIT(this->simulationManager->init(this->renderManager->getRenderObject());, L"SimulationManager");
+}
+
 #if defined(VTX_TOOL_BUILD)
 void Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
 {
-	this->jobManager->init();
-	this->resourceManager->init();
-	this->renderManager->init(renderParams, windowParams);
-	this->simulationManager->init(this->renderManager->getRenderObject());
+	this->init(windowParams, renderParams);
 }
 
 void Root::toolStep(/*platform::F32*/float elapsed)

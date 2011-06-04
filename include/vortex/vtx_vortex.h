@@ -48,6 +48,8 @@ private:
 	SimulationManager	*simulationManager;
 	ResourceManager		*resourceManager;
 	RenderManager		*renderManager;
+	
+	void init(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
 };
 
 #endif
