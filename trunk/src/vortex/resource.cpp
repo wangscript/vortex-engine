@@ -25,3 +25,9 @@ void ResourceManager::init()
 void ResourceManager::destroy()
 {
 }
+
+template <class T>
+T ResourceManager::load(std::wstring &asset)
+{
+	
+}
