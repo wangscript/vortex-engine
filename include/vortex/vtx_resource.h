@@ -26,6 +26,9 @@ public:
 	ResourceManager(Root& parent) : VortexBase(parent) {}
 	void init(void);
 	void destroy(void);
+
+	template <class T>
+	T load(std::wstring &asset);
 };
 
 #endif
