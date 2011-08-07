@@ -25,6 +25,19 @@
 #define VTX_PLATFORM_LINUX
 #endif
 
+// Debug flag
+#if defined(VTX_PLATFORM_WIN32)
+#if defined(_DEBUG) || defined(DEBUG)
+#define VTX_DEBUG
+#endif
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+#if !defined(NDEBUG)
+#define VTX_DEBUG
+#endif
+#endif
+
+
 /*	Render API defines
 	Comment out a define to not include it in the build. */
 #if defined(VTX_PLATFORM_WIN32)
