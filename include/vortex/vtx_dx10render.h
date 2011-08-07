@@ -26,6 +26,10 @@
 #include <platform/vtx_atomic.h>
 #include <d3d10.h>
 
+#ifndef ReleaseCOM
+#define ReleaseCOM(x) if (x) { x->Release(); x = NULL; }
+#endif
+
 class DX10Render : public RenderAPI
 {
 private:

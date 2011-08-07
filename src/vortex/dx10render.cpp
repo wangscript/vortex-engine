@@ -27,14 +27,15 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 {
 	HRESULT result;
 	DXGI_SWAP_CHAIN_DESC swapChainDesc;
-	IDXGIFactory *dxfactory;
-	ID3D10Texture2D *backBuffer;
+	//IDXGIFactory *dxfactory;
+	ID3D10Texture2D *backBuffer, *depthStencilBuffer;
 
-	HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&dxfactory);
+	//HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&dxfactory);
 
 	//result = (D3D10CreateDevice(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &this->device));
 	//ASSERT(result == S_OK);
-
+	
+	// Create swap chain and device
 	ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapChainDesc.BufferCount = 1;
 	swapChainDesc.BufferDesc.Width = params.backBufferSize.x;
@@ -42,24 +43,59 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 	swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // TODO: RenderCreationParams enum!
+	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	swapChainDesc.OutputWindow = outputWindow->getHandle();
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.SampleDesc.Count = params.multisampleCount;
 	swapChainDesc.SampleDesc.Quality = params.multisampleQuality;
-	swapChainDesc.Windowed = TRUE;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	swapChainDesc.Windowed = TRUE; // TODO: Should not always be true!
 
-	result = D3D10CreateDeviceAndSwapChain(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &swapChainDesc, &this->swapChain, &this->device);
+	U32 flags = 0;
+#if defined(VTX_DEBUG)
+	flags |= D3D10_CREATE_DEVICE_DEBUG;
+#endif
+	result = D3D10CreateDeviceAndSwapChain(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, flags, D3D10_SDK_VERSION, &swapChainDesc, &this->swapChain, &this->device);
 	//result = dxfactory->CreateSwapChain(this->device, &swapChainDesc, &this->swapChain);
 	ASSERT(result == S_OK);
 
-	result = this->swapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), (void**)&backBuffer);
+	// Create render target view.
+	result = this->swapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), reinterpret_cast<void**>(&backBuffer));
 	ASSERT(result == S_OK);
 
 	result = device->CreateRenderTargetView(backBuffer, NULL, &renderTargetView);
 	ASSERT(result == S_OK);
 
-	device->OMSetRenderTargets(1, &renderTargetView, NULL);
+	ReleaseCOM(backBuffer);
 
+	// Create depth/stencil buffer/view.
+
+	D3D10_TEXTURE2D_DESC depthStencilDesc;
+	ZeroMemory(&depthStencilDesc, sizeof(D3D10_TEXTURE2D_DESC));
+	depthStencilDesc.Width = params.backBufferSize.x;
+	depthStencilDesc.Height = params.backBufferSize.y;
+	depthStencilDesc.MipLevels = 1;
+	depthStencilDesc.ArraySize = 1;
+	depthStencilDesc.BindFlags = D3D10_BIND_DEPTH_STENCIL;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.CPUAccessFlags = 0;
+	depthStencilDesc.MiscFlags = 0;
+	depthStencilDesc.SampleDesc.Count = params.multisampleCount;
+	depthStencilDesc.SampleDesc.Quality = params.multisampleQuality;
+	depthStencilDesc.Usage = D3D10_USAGE_DEFAULT;
+
+	result = device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilBuffer);
+	ASSERT(result == S_OK);
+
+	ID3D10DepthStencilView *depthStencilView;
+	result = device->CreateDepthStencilView(depthStencilBuffer, NULL, &depthStencilView);
+	ASSERT(result == S_OK);
+
+	// Bind render target view and depth stencil view.
+	device->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+	// Set viewport
+	// TODO: Viewport might not always occupy entire screen!
 	D3D10_VIEWPORT vp;
     vp.Width = params.backBufferSize.x;
     vp.Height = params.backBufferSize.y;
