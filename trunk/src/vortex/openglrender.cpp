@@ -111,3 +111,17 @@ void OpenGLRender::clear(void)
 //#endif
 		
 }
+
+VertexBuffer *OpenGLRender::createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage)
+{
+	return NULL;
+}
+
+void OpenGLRender::bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets)
+{
+
+}
+
+void OpenGLRender::draw(platform::U32 verticeCount, platform::U32 startVertex)
+{
+}

@@ -21,6 +21,18 @@
 
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
+// This class is not exposed as it is not intended to be used directly.
+class DX10VertexBuffer : public VertexBuffer
+{
+private:
+	ID3D10Buffer *buffer;
+public:
+	DX10VertexBuffer(ID3D10Buffer *d3dbuffer)
+		: buffer(d3dbuffer)
+	{
+	}
+};
+
 using namespace platform;
 
 DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow) : RenderAPI(parent)
@@ -34,7 +46,7 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 
 	//result = (D3D10CreateDevice(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &this->device));
 	//ASSERT(result == S_OK);
-	
+
 	// Create swap chain and device
 	ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapChainDesc.BufferCount = 1;
@@ -51,7 +63,7 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.Windowed = TRUE; // TODO: Should not always be true!
 
-	U32 flags = 0;
+	platform::U32 flags = 0;
 #if defined(VTX_DEBUG)
 	flags |= D3D10_CREATE_DEVICE_DEBUG;
 #endif
@@ -97,14 +109,14 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 	// Set viewport
 	// TODO: Viewport might not always occupy entire screen!
 	D3D10_VIEWPORT vp;
-    vp.Width = params.backBufferSize.x;
-    vp.Height = params.backBufferSize.y;
-    vp.MinDepth = 0.0f;
-    vp.MaxDepth = 1.0f;
-    vp.TopLeftX = 0;
-    vp.TopLeftY = 0;
-    device->RSSetViewports( 1, &vp );
-	
+	vp.Width = params.backBufferSize.x;
+	vp.Height = params.backBufferSize.y;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	device->RSSetViewports( 1, &vp );
+
 }
 
 void DX10Render::clear()
@@ -116,6 +128,45 @@ void DX10Render::swap(void)
 {
 	HRESULT result = this->swapChain->Present(0, 0);
 	ASSERT(result == S_OK);
+}
+
+VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage)
+{
+	D3D10_BUFFER_DESC bufferDesc;
+	ZeroMemory(&bufferDesc, sizeof(D3D10_BUFFER_DESC));
+	bufferDesc.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bufferDesc.ByteWidth = sizeof(VertexPosNormTex) * noVertices; // TODO: How to handle other vertex types?
+	bufferDesc.CPUAccessFlags = 0;
+	bufferDesc.MiscFlags = 0;
+	switch(usage)
+	{
+	case BUFFER_USAGE_DYNAMIC:
+		bufferDesc.Usage = D3D10_USAGE_DYNAMIC;
+		break;
+	case BUFFER_USAGE_IMMUTABLE:
+		bufferDesc.Usage = D3D10_USAGE_IMMUTABLE;
+		break;
+	}
+
+	D3D10_SUBRESOURCE_DATA subresData;
+	ZeroMemory(&subresData, sizeof(D3D10_SUBRESOURCE_DATA));
+	subresData.pSysMem = vertices;
+
+	ID3D10Buffer *vertexBuffer;
+	platform::U32 result = this->device->CreateBuffer(&bufferDesc, &subresData, &vertexBuffer);
+	ASSERT(result == S_OK);
+
+	return new DX10VertexBuffer(vertexBuffer);
+}
+
+void DX10Render::bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets)
+{
+	this->device->IASetVertexBuffers(slot, bufferCount, reinterpret_cast<ID3D10Buffer**>(buffers), strides, offsets);
+}
+
+void DX10Render::draw(platform::U32 verticeCount, platform::U32 startVertex)
+{
+	this->device->Draw(verticeCount, startVertex);
 }
 
 #endif

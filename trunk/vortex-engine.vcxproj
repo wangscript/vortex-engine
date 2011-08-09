@@ -52,10 +52,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\include\platform\;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Projects\Vortex\include;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tool-debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\include\platform\;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\include\platform\;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,6 +138,7 @@
     <ClInclude Include="include\vortex\vtx_renderinternal.h" />
     <ClInclude Include="include\vortex\vtx_resource.h" />
     <ClInclude Include="include\vortex\vtx_simulation.h" />
+    <ClInclude Include="include\vortex\vtx_vbuffer.h" />
     <ClInclude Include="include\vortex\vtx_vortex.h" />
     <ClInclude Include="include\vortex\vtx_window.h" />
     <ClInclude Include="include\vtx_texture.h" />
