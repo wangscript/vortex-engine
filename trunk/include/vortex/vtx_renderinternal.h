@@ -19,6 +19,11 @@
 
 #include <core/vtx_types.h>
 #include <vortex/vtx_vortexbase.h>
+#include <vortex/vtx_vbuffer.h>
+#include <platform/vtx_atomic.h>
+
+// Forward declare
+struct VertexPosNormTex;
 
 class RenderAPI : protected VortexBase
 {
@@ -31,6 +36,10 @@ public:
 	virtual void clear() = 0;
 	void setClearColor(core::Vector4 &color);
 	core::Vector4 *getClearColor();
+
+	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage) = 0;
+	virtual void bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets) = 0;
+	virtual void draw(platform::U32 verticeCount, platform::U32 startVertex) = 0;
 };
 
 #endif
