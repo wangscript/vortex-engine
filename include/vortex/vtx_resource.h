@@ -18,6 +18,7 @@
 #define VTX_RESOURCE_H
 
 #include <vortex/vtx_vortexbase.h>
+#include <string>
 class Root;
 
 class ResourceManager : VortexBase

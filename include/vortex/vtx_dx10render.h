@@ -25,10 +25,27 @@
 #include <vortex/vtx_render.h>
 #include <platform/vtx_atomic.h>
 #include <d3d10.h>
+#include <D3DX10.h>
 
 #ifndef ReleaseCOM
 #define ReleaseCOM(x) if (x) { x->Release(); x = NULL; }
 #endif
+
+
+
+//D3D10_INPUT_ELEMENT_DESC VertexPositionNormalTextureDesc[] =
+//{
+//	{"POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0},
+//	{"NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0},
+//	{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0}
+//};
+
+//class DX10VertexBuffer : VertexBuffer
+//{
+//private:
+//	ID3D10Buffer *buffer;
+//	public 
+//};
 
 class DX10Render : public RenderAPI
 {
@@ -40,6 +57,9 @@ public:
 	DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow);
 	virtual void swap(void);
 	virtual void clear(void);
+	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage);
+	virtual void bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets);
+	virtual void draw(platform::U32 verticeCount, platform::U32 startVertex);
 };
 
 #endif
