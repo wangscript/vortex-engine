@@ -28,7 +28,7 @@ Vector4::Vector4()
 	memset(this->values, 0, sizeof(this->values));
 }
 
-Vector4::Vector4( F32 x, F32 y, F32 z, F32 w )
+Vector4::Vector4( __F32 x, __F32 y, __F32 z, __F32 w )
 {
 	this->values[0] = x;
 	this->values[1] = y;
@@ -60,23 +60,23 @@ void Vector4::multiply( Vector4 &a, Vector4 &b, Vector4 &result )
 	_mm_store_ps(result.values, mRes);
 }
 
-void Vector4::multiply( Vector4 &a, F32 value, Vector4 &result )
+void Vector4::multiply( Vector4 &a, __F32 value, Vector4 &result )
 {
-	ALIGNED_16 F32 values[] = {value, value, value, value};
+	ALIGNED_16 __F32 values[] = {value, value, value, value};
 	__m128 mA = _mm_load_ps(a.values);
 	__m128 mB = _mm_load_ps(values);
 	__m128 mRes = _mm_mul_ps(mA, mB);
 	_mm_store_ps(result.values, mRes);
 }
 
-F32 Vector4::dot( Vector4 &a, Vector4 &b )
+__F32 Vector4::dot( Vector4 &a, Vector4 &b )
 {
 	__m128 ma;
 	__m128 mb;
 	//__m128 mr;
 	ma = _mm_load_ps(&a.values[0]);
 	mb = _mm_load_ps(&b.values[0]);
-	ALIGNED_16 F32 res[4];
+	ALIGNED_16 __F32 res[4];
 
 	ma = _mm_mul_ps(ma, mb);
 	ma = _mm_hadd_ps(ma, ma);

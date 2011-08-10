@@ -19,7 +19,7 @@
 using namespace core;
 using namespace platform;
 
-Vector3::Vector3( F32 x, F32 y, F32 z )
+Vector3::Vector3( __F32 x, __F32 y, __F32 z )
 {
 	this->x = x;
 	this->y = y;
@@ -54,7 +54,7 @@ void Vector3::multiply( Vector3 &other, Vector3 &result )
 	result.z = this->z * other.z;
 }
 
-void Vector3::multiply( F32 value, Vector3 &result )
+void Vector3::multiply( __F32 value, Vector3 &result )
 {
 	result.x = this->x * value;
 	result.y = this->y * value;

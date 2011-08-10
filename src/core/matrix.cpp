@@ -23,9 +23,9 @@
 using namespace core;
 using namespace platform;
 
-Matrix4x4::Matrix4x4( F32 m[4][4] )
+Matrix4x4::Matrix4x4( __F32 m[4][4] )
 {
-	memcpy(this->m, m, sizeof(F32) * 16);
+	memcpy(this->m, m, sizeof(__F32) * 16);
 }
 
 Matrix4x4::Matrix4x4()
