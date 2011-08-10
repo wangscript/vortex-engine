@@ -22,7 +22,7 @@
 class Clock
 {
 private:
-	platform::U64 startTime;
+	platform::U64_t startTime;
 public:
 	void reset(void);
 	float /*platform::F32*/ getElapsedSeconds(void);

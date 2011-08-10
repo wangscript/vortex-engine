@@ -33,9 +33,9 @@ public:
 	~OpenGLRender(void);
 	virtual void swap(void);
 	virtual void clear(void);
-	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage);
-	virtual void bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets);
-	virtual void draw(platform::U32 verticeCount, platform::U32 startVertex);
+	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage);
+	virtual void bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets);
+	virtual void draw(platform::U32_t verticeCount, platform::U32_t startVertex);
 };
 
 #endif

@@ -26,16 +26,16 @@ namespace core
 	class StackAllocator
 	{
 	private:
-		platform::U32 stackSize;
-		platform::U8 *data;
-		platform::U32 stackPosition;
+		platform::U32_t stackSize;
+		platform::U8_t *data;
+		platform::U32_t stackPosition;
 	public:
 		enum ErrorCode{	OK,	NOT_ENOUGH_STACK_SPACE };
-		StackAllocator( platform::U32 stackSize );
+		StackAllocator( platform::U32_t stackSize );
 		~StackAllocator();	
-		ErrorCode allocate( platform::U32 size , platform::U8 **allocatedSpace );
-		void freeToMarker( platform::U32 stackPosition );
-		platform::U32 getMarker();
+		ErrorCode allocate( platform::U32_t size , platform::U8_t **allocatedSpace );
+		void freeToMarker( platform::U32_t stackPosition );
+		platform::U32_t getMarker();
 	};
 }
 

@@ -24,8 +24,8 @@ namespace platform
 class Timer
 {
 public:
-	static U64 readHighResolutionTimer(void);
-	static U64 readHighResolutionTimerFrequency(void);
+	static U64_t readHighResolutionTimer(void);
+	static U64_t readHighResolutionTimerFrequency(void);
 };
 }
 

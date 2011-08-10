@@ -22,7 +22,7 @@ using namespace platform;
 
 using namespace core;
 
-StackAllocator::StackAllocator( U32 stackSize )
+StackAllocator::StackAllocator( U32_t stackSize )
 {
 	/*this->stackSize = stackSize;
 	this->data = (U8*)malloc(this->stackSize);
@@ -35,7 +35,7 @@ StackAllocator::~StackAllocator()
 }
 
 
-StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpace )
+StackAllocator::ErrorCode StackAllocator::allocate( U32_t size, U8_t **allocatedSpace )
 {
 	//ASSERT(size > 0);
 	StackAllocator::ErrorCode err;
@@ -60,13 +60,13 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32 size, U8 **allocatedSpac
 	return err;
 }
 
-void StackAllocator::freeToMarker( U32 marker )
+void StackAllocator::freeToMarker( U32_t marker )
 {
 	/*ASSERT(marker > (U32)this->data);
 	this->stackPosition = marker;*/
 }
 
-U32 StackAllocator::getMarker()
+U32_t StackAllocator::getMarker()
 {
 	return this->stackPosition;
 }

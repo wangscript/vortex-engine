@@ -24,7 +24,7 @@
 class SimulationManager
 {
 public:
-	platform::U32 frames;
+	platform::U32_t frames;
 	void init(RenderAPI *render);
 	void destroy(void);
 	void run(void);

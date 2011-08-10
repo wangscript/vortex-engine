@@ -46,9 +46,9 @@ class RenderCreationParams
 public:
 	RenderCreationParams(void);
 	E_RENDER_API rapi;
-	core::Vector2<platform::U32> backBufferSize;
-	platform::U32 multisampleCount;
-	platform::U32 multisampleQuality;
+	core::Vector2<platform::U32_t> backBufferSize;
+	platform::U32_t multisampleCount;
+	platform::U32_t multisampleQuality;
 };
 
 class RenderManager : VortexBase

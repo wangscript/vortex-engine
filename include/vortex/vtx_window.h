@@ -37,8 +37,8 @@ public:
 		STYLE_MENU				= 16
 	};
 	bool isFullscreen;
-	core::Vector2<platform::U32> windowPosition;
-	core::Vector2<platform::U32> windowSize;
+	core::Vector2<platform::U32_t> windowPosition;
+	core::Vector2<platform::U32_t> windowSize;
 	std::wstring windowTitle;
 	E_WINDOWSTYLE styleFlags;
 	platform::WINDOW windowHandle;

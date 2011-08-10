@@ -39,7 +39,7 @@ namespace platform
 			ramdisk
 		};
 		~Device();
-		static U32 getDevices(boost::intrusive::list<Device> *devices);
+		static U32_t getDevices(boost::intrusive::list<Device> *devices);
 		drive_type getDriveType();
 		std::string *getName();
 		Device();

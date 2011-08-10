@@ -44,12 +44,12 @@ IOStream::ErrorCode IOStream::init(SYSTEM_HANDLE handle)
 	return ret;
 }
 
-U64 IOStream::getPosition()
+U64_t IOStream::getPosition()
 {
 	return this->position;
 }
 
-IOStream::ErrorCode IOStream::setPosition(U64 position)
+IOStream::ErrorCode IOStream::setPosition(U64_t position)
 {
 	IOStream::ErrorCode ret;
 #ifdef WIN32
@@ -77,7 +77,7 @@ IOStream::ErrorCode IOStream::setPosition(U64 position)
 	return ret;
 }
 
-IOStream::ErrorCode IOStream::readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesRead)
+IOStream::ErrorCode IOStream::readBytes(U8_t *buffer, U32_t bytesToRead, U32_t *bytesRead)
 {
 	IOStream::ErrorCode ret;
 #ifdef WIN32

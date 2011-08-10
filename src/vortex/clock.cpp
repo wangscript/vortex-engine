@@ -24,20 +24,20 @@ void Clock::reset(void)
 	this->startTime = Timer::readHighResolutionTimer();
 }
 
-__F32 Clock::getElapsedSeconds(void)
+F32_t Clock::getElapsedSeconds(void)
 {
-	U64 now = Timer::readHighResolutionTimer();
-	U64 freq = Timer::readHighResolutionTimerFrequency();
-	return ((__F32)(now - this->startTime)) / (__F32)freq;
+	U64_t now = Timer::readHighResolutionTimer();
+	U64_t freq = Timer::readHighResolutionTimerFrequency();
+	return ((F32_t)(now - this->startTime)) / (F32_t)freq;
 }
 
-__F32 Clock::getElapsedSecondsAndReset(void)
+F32_t Clock::getElapsedSecondsAndReset(void)
 {
-	U64 now = Timer::readHighResolutionTimer();
-	U64 start = this->startTime;
+	U64_t now = Timer::readHighResolutionTimer();
+	U64_t start = this->startTime;
 	this->startTime = now;
-	U64 freq = Timer::readHighResolutionTimerFrequency();
-	return ((__F32)(now - start)) / (__F32)freq;
+	U64_t freq = Timer::readHighResolutionTimerFrequency();
+	return ((F32_t)(now - start)) / (F32_t)freq;
 }
 
 

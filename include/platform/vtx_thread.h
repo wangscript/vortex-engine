@@ -22,7 +22,7 @@
 
 #if defined(VTX_PLATFORM_WIN32)
 typedef HANDLE THREAD_HANDLE;
-typedef platform::U32 (*ThreadFunc)(void*);
+typedef platform::U32_t (*ThreadFunc)(void*);
 #elif defined(VTX_PLATFORM_LINUX)
 #include <pthread.h>
 typedef pthread_t THREAD_HANDLE;
@@ -39,7 +39,7 @@ namespace platform
 		enum ErrorCode { OK, UNKNOWN_ERROR, NOPERMISSION, SYSTEMFAIL };
 		explicit Thread(ThreadFunc func);
 		ErrorCode start(void *threadData);
-		ErrorCode start(void *threadData, U32 affinityMask);
+		ErrorCode start(void *threadData, U32_t affinityMask);
 	private:
 		THREAD_HANDLE handle;
 		ThreadFunc func;

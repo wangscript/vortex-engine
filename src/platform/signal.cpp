@@ -57,7 +57,7 @@ void Signal::waitForSignal()
 #endif
 }
 
-void Signal::waitForSignal(U32 timeout)
+void Signal::waitForSignal(U32_t timeout)
 {
 #ifdef WIN32
 	WaitForSingleObject(this->handle, timeout);

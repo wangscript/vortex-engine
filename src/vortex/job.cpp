@@ -28,7 +28,7 @@ using namespace platform;
 
 void JobManager::init()
 {
-	U32 affinity = this->getCurrentProcessAffinityMask();
+	U32_t affinity = this->getCurrentProcessAffinityMask();
 	this->noJobProcessors = Utilities::getSetBitCount(affinity);
 	// Can not use C++ dynamic array allocation since that requires a default parameterless constructor.
 	this->processors = (JobProcessor**)malloc(sizeof(JobProcessor*) * this->noJobProcessors);
@@ -37,7 +37,7 @@ void JobManager::init()
 
 void JobManager::destroy()
 {
-	for(U32 i = 0; i < this->noJobProcessors; i++)
+	for(U32_t i = 0; i < this->noJobProcessors; i++)
 	{
 		delete this->processors[i];
 	}
@@ -45,10 +45,10 @@ void JobManager::destroy()
 }
 
 
-void JobManager::initJobProcessors(U32 processAffinity)
+void JobManager::initJobProcessors(U32_t processAffinity)
 {
-	U32 bit = 1;
-	for(U32 i = 0; i < this->noJobProcessors; i++)
+	U32_t bit = 1;
+	for(U32_t i = 0; i < this->noJobProcessors; i++)
 	{
 		while(!(processAffinity & bit))
 			bit <<= 1;
@@ -58,12 +58,12 @@ void JobManager::initJobProcessors(U32 processAffinity)
 		bit <<= 1;
 	}
 }
-U32 JobManager::getCurrentProcessAffinityMask(void)
+U32_t JobManager::getCurrentProcessAffinityMask(void)
 {
-	U32 processAffinity;
+	U32_t processAffinity;
 #if defined(VTX_PLATFORM_WIN32)
 	HANDLE processHandle = GetCurrentProcess();
-	U32 systemAffinity;
+	U32_t systemAffinity;
 
 	BOOL success = GetProcessAffinityMask(
 		processHandle,
@@ -78,13 +78,13 @@ U32 JobManager::getCurrentProcessAffinityMask(void)
 	return processAffinity;
 }
 
-U32 JobManager::getNumberOfProcessorsAvailable(void)
+U32_t JobManager::getNumberOfProcessorsAvailable(void)
 {
-	U32 noProcessors;
+	U32_t noProcessors;
 #if defined(VTX_PLATFORM_WIN32)
 	HANDLE processHandle = GetCurrentProcess();
-	U32 systemAffinity;
-	U32 processAffinity;
+	U32_t systemAffinity;
+	U32_t processAffinity;
 
 	BOOL b = GetProcessAffinityMask(
 		processHandle,
@@ -100,12 +100,12 @@ U32 JobManager::getNumberOfProcessorsAvailable(void)
 	return noProcessors;
 }
 
-void JobManager::setPromotionIncrement(U32 value)
+void JobManager::setPromotionIncrement(U32_t value)
 {
 	this->promotionIncrement = value;
 } 
 
-platform::U32 JobManager::getPromotionIncrement(void)
+platform::U32_t JobManager::getPromotionIncrement(void)
 {
 	return this->promotionIncrement;
 }
@@ -116,7 +116,7 @@ void threadDelegate(void *data)
 	processor->process();
 }
 
-JobProcessor::JobProcessor(platform::U32 affinity)
+JobProcessor::JobProcessor(platform::U32_t affinity)
 {
 	this->affinity = affinity;
 	this->thread = new Thread((ThreadFunc)threadDelegate);
@@ -142,7 +142,7 @@ void JobProcessor::process()
 	}
 }
 
-Job::Job(U32 priority, complete_callback callback)
+Job::Job(U32_t priority, complete_callback callback)
 {
 	this->priority = priority;
 	this->callback = callback;

@@ -26,13 +26,13 @@ namespace core
 	public:
 		static void cross(Vector3 &a, Vector3 &b, Vector3 &result);
 		template <class T>
-		static platform::__F32 dot(T &a, T &b)
+		static platform::F32_t dot(T &a, T &b)
 		{
 			return (a.x * b.x + 
 				a.y * b.y);
 		}
-		static platform::__F32 dot(Vector3 &a, Vector3 &b);
-		static platform::__F32 dot(Vector4 &a, Vector4 &b);
+		static platform::F32_t dot(Vector3 &a, Vector3 &b);
+		static platform::F32_t dot(Vector4 &a, Vector4 &b);
 	};
 }
 
