@@ -1,12 +1,13 @@
 #ifndef VTX_VBUFFER_H
 
 #include <core/vtx_types.h>
+#include <platform/vtx_atomic.h>
 
 struct VertexPosNormTex
 {
 	core::Vector3 position;
 	core::Vector3 normal;
-	core::Vector2<platform::F32> texCoord;
+	core::Vector2<platform::__F32> texCoord;
 	//D3DXVECTOR3 position;
 	//D3DXVECTOR3 normal;
 	//D3DXVECTOR2 uv;

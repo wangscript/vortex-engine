@@ -42,7 +42,7 @@ void SimulationManager::run()
 	this->render->setClearColor(color);
 	gameClock.reset();
 	frameClock.reset();
-	F32 elapsed;
+	__F32 elapsed;
 	while(true)
 	{
 		
@@ -66,14 +66,14 @@ void SimulationManager::run()
 	};
 }
 
-void SimulationManager::step(F32 elapsed)
+void SimulationManager::step(__F32 elapsed)
 {
 	core::Vector4 color(0.25f, elapsed, 1.0f, 1.0f);
 	this->render->setClearColor(color);
 	this->runOneFrame(elapsed);
 }
 
-void SimulationManager::runOneFrame(F32 seconds)
+void SimulationManager::runOneFrame(__F32 seconds)
 {
 	this->frames++;
 	//std::cout << seconds << std::endl;
