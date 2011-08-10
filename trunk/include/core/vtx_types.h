@@ -26,9 +26,9 @@ namespace core
 	{
 	public:
 		Matrix4x4();
-		Matrix4x4( platform::__F32 m[4][4] );
+		Matrix4x4( platform::F32_t m[4][4] );
 		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
-		ALIGNED_16 platform::__F32 m[4][4];
+		ALIGNED_16 platform::F32_t m[4][4];
 	private:
 	};
 
@@ -84,15 +84,15 @@ namespace core
 	{
 	public:
 		Vector3();
-		Vector3( platform::__F32 x, platform::__F32 y, platform::__F32 z );
+		Vector3( platform::F32_t x, platform::F32_t y, platform::F32_t z );
 		void add( Vector3 &other, Vector3 &result );
 		void subtract( Vector3 &other, Vector3 &result );
-		void lerp( Vector3 &other, Vector3 &result, platform::__F32 amount );
+		void lerp( Vector3 &other, Vector3 &result, platform::F32_t amount );
 		void multiply( Vector3 &other, Vector3 &result );
-		void multiply( platform::__F32 value, Vector3 &result );
-		platform::__F32 x;
-		platform::__F32 y;
-		platform::__F32 z;
+		void multiply( platform::F32_t value, Vector3 &result );
+		platform::F32_t x;
+		platform::F32_t y;
+		platform::F32_t z;
 	private:
 	};
 
@@ -100,13 +100,13 @@ namespace core
 	{
 	public:
 		Vector4();
-		Vector4( platform::__F32 x, platform::__F32 y, platform::__F32 z, platform::__F32 w );
+		Vector4( platform::F32_t x, platform::F32_t y, platform::F32_t z, platform::F32_t w );
 		static void add( Vector4 &a, Vector4 &b, Vector4 &result );
 		static void subtract( Vector4 &a, Vector4 &b, Vector4 &result );
 		static void multiply( Vector4 &a, Vector4 &b, Vector4 &result );
-		static void multiply( Vector4 &a, platform::__F32 value, Vector4 &result );
-		static platform::__F32 dot( Vector4 &a, Vector4 &b );
-		ALIGNED_16 platform::__F32 values[4];
+		static void multiply( Vector4 &a, platform::F32_t value, Vector4 &result );
+		static platform::F32_t dot( Vector4 &a, Vector4 &b );
+		ALIGNED_16 platform::F32_t values[4];
 	private:
 	};
 }

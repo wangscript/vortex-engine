@@ -22,9 +22,9 @@
 
 using namespace platform;
 
-U64 Timer::readHighResolutionTimer(void)
+U64_t Timer::readHighResolutionTimer(void)
 {
-	U64 result;
+	U64_t result;
 #if defined(VTX_PLATFORM_WIN32)
 	LARGE_INTEGER value;
 	BOOL res = QueryPerformanceCounter(&value);
@@ -36,9 +36,9 @@ U64 Timer::readHighResolutionTimer(void)
 	return result;
 }
 
-U64 Timer::readHighResolutionTimerFrequency(void)
+U64_t Timer::readHighResolutionTimerFrequency(void)
 {
-	U64 result;
+	U64_t result;
 #if defined(VTX_PLATFORM_WIN32)
 	LARGE_INTEGER value;
 	BOOL res = QueryPerformanceFrequency(&value);

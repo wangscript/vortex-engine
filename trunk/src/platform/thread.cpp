@@ -29,7 +29,7 @@ Thread::Thread(ThreadFunc func)
 	this->func = func;
 }
 
-Thread::ErrorCode Thread::start(void *threadData, U32 affinityMask)
+Thread::ErrorCode Thread::start(void *threadData, U32_t affinityMask)
 {
 	Thread::ErrorCode ret;
 #if defined(VTX_PLATFORM_WIN32)

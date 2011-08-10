@@ -63,7 +63,7 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.Windowed = TRUE; // TODO: Should not always be true!
 
-	platform::U32 flags = 0;
+	platform::U32_t flags = 0;
 #if defined(VTX_DEBUG)
 	flags |= D3D10_CREATE_DEVICE_DEBUG;
 #endif
@@ -130,7 +130,7 @@ void DX10Render::swap(void)
 	ASSERT(result == S_OK);
 }
 
-VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platform::U32 noVertices, E_BUFFER_USAGE usage)
+VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage)
 {
 	D3D10_BUFFER_DESC bufferDesc;
 	ZeroMemory(&bufferDesc, sizeof(D3D10_BUFFER_DESC));
@@ -153,18 +153,18 @@ VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platfor
 	subresData.pSysMem = vertices;
 
 	ID3D10Buffer *vertexBuffer;
-	platform::U32 result = this->device->CreateBuffer(&bufferDesc, &subresData, &vertexBuffer);
+	platform::U32_t result = this->device->CreateBuffer(&bufferDesc, &subresData, &vertexBuffer);
 	ASSERT(result == S_OK);
 
 	return new DX10VertexBuffer(vertexBuffer);
 }
 
-void DX10Render::bindVertexBuffers(platform::U32 slot, platform::U32 bufferCount, VertexBuffer **buffers, const platform::U32 *strides, const platform::U32 *offsets)
+void DX10Render::bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets)
 {
 	this->device->IASetVertexBuffers(slot, bufferCount, reinterpret_cast<ID3D10Buffer**>(buffers), strides, offsets);
 }
 
-void DX10Render::draw(platform::U32 verticeCount, platform::U32 startVertex)
+void DX10Render::draw(platform::U32_t verticeCount, platform::U32_t startVertex)
 {
 	this->device->Draw(verticeCount, startVertex);
 }

@@ -16,12 +16,12 @@
 
 #include <core/vtx_util.h>
 
-platform::U8 Utilities::getSetBitCount(platform::U32 value)
+platform::U8_t Utilities::getSetBitCount(platform::U32_t value)
 {
 	using namespace platform;
-	U8 bitCount = 0;
-	U32 currentBit = 1;
-	for(U32 i = 0; i < 32; i++)
+	U8_t bitCount = 0;
+	U32_t currentBit = 1;
+	for(U32_t i = 0; i < 32; i++)
 	{
 		if(value & currentBit)
 			bitCount++;

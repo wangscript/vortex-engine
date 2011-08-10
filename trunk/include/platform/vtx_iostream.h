@@ -30,19 +30,19 @@ namespace platform
 	{
 	protected:
 		SYSTEM_HANDLE handle;
-		U64 position;
+		U64_t position;
 	public:
 		enum ErrorCode { OK, UNKOWN_ERROR };
-		typedef void (*read_callback)(U8 *buffer, U32 bytesRead);
+		typedef void (*read_callback)(U8_t *buffer, U32_t bytesRead);
 		typedef void (*write_callback)(void);
 
 		ErrorCode init(SYSTEM_HANDLE handle);
-		U64 getPosition();
-		ErrorCode setPosition(U64 position);
-		ErrorCode readBytes(U8 *buffer, U32 bytesToRead, U32 *bytesRead);
-		void readBytes_async(U8 *buffer, U32 bytesToRead, read_callback callback);
-		void writeBytes(U8 *buffer, U32 start, U32 length);
-		void writeBytes_async(U8 *buffer, U32 start, U32 length, write_callback);
+		U64_t getPosition();
+		ErrorCode setPosition(U64_t position);
+		ErrorCode readBytes(U8_t *buffer, U32_t bytesToRead, U32_t *bytesRead);
+		void readBytes_async(U8_t *buffer, U32_t bytesToRead, read_callback callback);
+		void writeBytes(U8_t *buffer, U32_t start, U32_t length);
+		void writeBytes_async(U8_t *buffer, U32_t start, U32_t length, write_callback);
 		virtual ErrorCode openStream(std::wstring &path) = 0;
 		void closeStream();
 	};

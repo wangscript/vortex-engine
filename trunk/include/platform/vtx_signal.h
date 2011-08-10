@@ -32,7 +32,7 @@ namespace platform
 		void setSignaled();
 		void reset();
 		void waitForSignal(void);
-		void waitForSignal(U32 timeout);
+		void waitForSignal(U32_t timeout);
 	};
 
 }

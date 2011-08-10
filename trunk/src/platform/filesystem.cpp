@@ -31,27 +31,27 @@ Device::~Device()
 	delete this->deviceName;
 }
 
-U32 Device::getDevices(boost::intrusive::list<Device> *devices)
+U32_t Device::getDevices(boost::intrusive::list<Device> *devices)
 {
-	U32 bufferSize = 32;
-	U8 *buffer = NULL;
-	U8 *ptr;
-	U32 length;
+	U32_t bufferSize = 32;
+	U8_t *buffer = NULL;
+	U8_t *ptr;
+	U32_t length;
 	do
 	{
 		if(buffer != NULL)
 			free(buffer);
 		bufferSize *= 2;
-		buffer = (U8*)malloc(bufferSize);
+		buffer = (U8_t*)malloc(bufferSize);
 #ifdef WIN32
 		length = ::GetLogicalDriveStringsA(bufferSize, (LPSTR)buffer);
 #endif
 	}while(length > bufferSize);
 
-	U8 deviceCount = (length / 3) - 2;
+	U8_t deviceCount = (length / 3) - 2;
 
 	ptr = buffer;
-	for(U32 i = 0; i < deviceCount; i++)
+	for(U32_t i = 0; i < deviceCount; i++)
 	{
 		Device *device = new Device();
 		device->deviceName = new std::string((char*)ptr);

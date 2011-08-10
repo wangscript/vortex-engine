@@ -22,7 +22,7 @@
 class Utilities
 {
 public:
-	static platform::U8 getSetBitCount(platform::U32 value);
+	static platform::U8_t getSetBitCount(platform::U32_t value);
 };
 
 #endif

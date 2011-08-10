@@ -33,7 +33,7 @@ public:
 	EventOutput( E_LEVEL level, std::wostream* out) : reportLevel(level), outStream(out) {};  
 	void reportEvent( E_LEVEL, std::wstring& );
 	void reportEvent( E_LEVEL, wchar_t* );
-	void reportMethodFailedEvent( E_LEVEL, std::wstring&, platform::U32 );
+	void reportMethodFailedEvent( E_LEVEL, std::wstring&, platform::U32_t );
 	void setOutputLevel( E_LEVEL );
 	void setOutput( std::wostream* );
 private:

@@ -44,7 +44,7 @@ void EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
 	}
 }
 
-void EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, platform::U32 errorCode)
+void EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, platform::U32_t errorCode)
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
