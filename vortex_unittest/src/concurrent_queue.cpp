@@ -15,7 +15,6 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gtest/gtest.h"
-#include <vortex/vtx_concurrent_queue.h>
 
 TEST(ConcurrentQueue, EnqueueDequeue)
 {

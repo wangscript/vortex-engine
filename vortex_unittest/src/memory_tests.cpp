@@ -24,15 +24,15 @@
 TEST(StackAllocator, AllocationTest)
 {
 	core::StackAllocator stack(STACKALLOCATOR_SIZE);
-	platform::U32* dataBlocks[STACKALLOCATOR_SIZE / 4];
-	platform::U32 *data;
+	platform::U32_t* dataBlocks[STACKALLOCATOR_SIZE / 4];
+	platform::U32_t *data;
 	core::StackAllocator::ErrorCode err;
-	platform::U32 marker;
+	platform::U32_t marker;
 	
 	/* Fill 50% of stack with integers */
-	for(platform::U32 i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
+	for(platform::U32_t i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
 	{
-		err = (stack.allocate(4, (platform::U8**)&data));
+		err = (stack.allocate(4, (platform::U8_t**)&data));
 		*data = i;
 		dataBlocks[i] = data;
 	}
@@ -41,15 +41,15 @@ TEST(StackAllocator, AllocationTest)
 	marker = stack.getMarker();
 
 	/* Fill 50% of stack with integers */
-	for(platform::U32 i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
+	for(platform::U32_t i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
 	{
-		err = (stack.allocate(4, (platform::U8**)&data));
+		err = (stack.allocate(4, (platform::U8_t**)&data));
 		*data = (STACKALLOCATOR_SIZE / 8) + i;
 		dataBlocks[(STACKALLOCATOR_SIZE / 8) + i] = data;
 	}
 
 	/* Assert data integrity */
-	for(platform::U32 i = 0; i < STACKALLOCATOR_SIZE / 4; i++)
+	for(platform::U32_t i = 0; i < STACKALLOCATOR_SIZE / 4; i++)
 	{
 		ASSERT_EQ(*dataBlocks[i], i);
 	}
@@ -57,15 +57,15 @@ TEST(StackAllocator, AllocationTest)
 	/* Free to marker */
 	stack.freeToMarker(marker);
 
-	for(platform::U32 i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
+	for(platform::U32_t i = 0; i < STACKALLOCATOR_SIZE / 8; i++)
 	{
-		err = (stack.allocate(4, (platform::U8**)&data));
+		err = (stack.allocate(4, (platform::U8_t**)&data));
 		*data = (STACKALLOCATOR_SIZE / 4) - i;
 		dataBlocks[(STACKALLOCATOR_SIZE / 8) + i] = data;
 	}
 
 	/* Assert data integrity */
-	for(platform::U32 i = 0; i < STACKALLOCATOR_SIZE / 4; i++)
+	for(platform::U32_t i = 0; i < STACKALLOCATOR_SIZE / 4; i++)
 	{
 		if(i >= STACKALLOCATOR_SIZE / 8)
 		{
@@ -81,7 +81,7 @@ TEST(StackAllocator, AllocationTest)
 TEST(StackAllocator, NoSpaceInStackTest)
 {
 	core::StackAllocator stack(STACKALLOCATOR_SIZE);
-	platform::U8 *data;
+	platform::U8_t *data;
 	core::StackAllocator::ErrorCode err;
 	err = stack.allocate(STACKALLOCATOR_SIZE / 2, &data);
 	ASSERT_EQ(err, core::StackAllocator::OK);

@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\include\vortex;..\include\core;C:\Program Files (x86)\boost\boost_1_44;..\include\platform;..\google_test\gtest-1.6.0\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Projects\Vortex\include;D:\Projects\Boost\boost_1_47_0\boost_1_47_0\;..\google_test\gtest-1.6.0\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\Vortex\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>google_test.lib;vortex_core.lib;vortex_platform_independence.lib;vortex.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>google_test.lib;vortex-engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -87,6 +87,7 @@
     <ClCompile Include="src\memory_tests.cpp" />
     <ClCompile Include="src\rendermanager_tests.cpp" />
     <ClCompile Include="src\root.cpp" />
+    <ClCompile Include="src\vector3_tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

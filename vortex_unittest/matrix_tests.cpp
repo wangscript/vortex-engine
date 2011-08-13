@@ -22,16 +22,16 @@ TEST(Vector4, DotCalculation)
 {
 	core::Vector4 v1(1, 2, 3, 4);
 	core::Vector4 v2(5, 6, 7, 8);
-	platform::F32 dot = core::Math::dot(v1, v2);
+	platform::F32_t dot = core::Math::dot(v1, v2);
 	ASSERT_EQ(dot, 70);
 }
 
 TEST(Matrix, MatrixMultiplication)
 {
-	platform::F32 valuesA[4][4];
-	platform::F32 valuesB[4][4];
-	platform::F32 valueA = 0;
-	platform::F32 valueB = 15;
+	platform::F32_t valuesA[4][4];
+	platform::F32_t valuesB[4][4];
+	platform::F32_t valueA = 0;
+	platform::F32_t valueB = 15;
 
 	for(int i = 0; i < 4; i++)
 	{
