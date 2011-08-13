@@ -31,7 +31,7 @@ struct delete_disposer
 TEST(Device, GetDevices)
 {
 	::list<Device> devices;
-	U32 deviceCount = Device::getDevices(&devices);
+	U32_t deviceCount = Device::getDevices(&devices);
 
 	ASSERT_EQ(deviceCount > 0, true);
 
@@ -72,10 +72,10 @@ TEST(IOStream, Read)
 	FileStream stream;
 	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
 	
-	U8 *buffer = (U8*)malloc(2);
-	U8 *destBuffer = (U8*)malloc(13);
-	U32 bytesRead;
-	for(U32 i = 0; i < 12; i += 2)
+	U8_t *buffer = (U8_t*)malloc(2);
+	U8_t *destBuffer = (U8_t*)malloc(13);
+	U32_t bytesRead;
+	for(U32_t i = 0; i < 12; i += 2)
 	{
 		stream.readBytes(buffer, 2, &bytesRead);
 		destBuffer[i] = buffer[0];
@@ -94,8 +94,8 @@ TEST(IOStream, SetPosition)
 	FileStream stream;
 	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
 
-	U8 *buffer = (U8*)malloc(7);
-	U32 bytesRead;
+	U8_t *buffer = (U8_t*)malloc(7);
+	U32_t bytesRead;
 	ASSERT_EQ(stream.setPosition(6), FileStream::OK);
 
 	ASSERT_EQ(stream.readBytes(buffer, 6, &bytesRead), FileStream::OK);
