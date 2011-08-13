@@ -125,3 +125,7 @@ void OpenGLRender::bindVertexBuffers(platform::U32_t slot, platform::U32_t buffe
 void OpenGLRender::draw(platform::U32_t verticeCount, platform::U32_t startVertex)
 {
 }
+
+void OpenGLRender::setPrimitiveType(E_PRIMITIVE_TYPE type)
+{
+}

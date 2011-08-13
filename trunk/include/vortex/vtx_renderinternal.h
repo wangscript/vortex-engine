@@ -22,6 +22,19 @@
 #include <vortex/vtx_vbuffer.h>
 #include <platform/vtx_atomic.h>
 
+enum E_PRIMITIVE_TYPE
+{
+	E_PRIMITIVE_POINTLIST,
+	E_PRIMITIVE_LINELIST,
+	E_PRIMITIVE_LINESTRIP,
+	E_PRIMITIVE_TRIANGLELIST,
+	E_PRIMITIVE_TRIANGLESTRIP,
+	E_PRIMITIVE_LINELIST_ADJ,
+	E_PRIMITIVE_LINESTRIP_ADJ,
+	E_PRIMITIVE_TRIANGLELIST_ADJ,
+	E_PRIMITIVE_TRIANGLESTRIP_ADJ
+};
+
 // Forward declare
 struct VertexPosNormTex;
 
@@ -40,6 +53,7 @@ public:
 	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage) = 0;
 	virtual void bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets) = 0;
 	virtual void draw(platform::U32_t verticeCount, platform::U32_t startVertex) = 0;
+	virtual void setPrimitiveType(E_PRIMITIVE_TYPE type) = 0;
 };
 
 #endif

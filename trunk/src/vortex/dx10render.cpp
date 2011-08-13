@@ -24,9 +24,8 @@
 // This class is not exposed as it is not intended to be used directly.
 class DX10VertexBuffer : public VertexBuffer
 {
-private:
-	ID3D10Buffer *buffer;
 public:
+	ID3D10Buffer *buffer;
 	DX10VertexBuffer(ID3D10Buffer *d3dbuffer)
 		: buffer(d3dbuffer)
 	{
@@ -140,10 +139,10 @@ VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platfor
 	bufferDesc.MiscFlags = 0;
 	switch(usage)
 	{
-	case BUFFER_USAGE_DYNAMIC:
+	case E_BUFFER_USAGE_DYNAMIC:
 		bufferDesc.Usage = D3D10_USAGE_DYNAMIC;
 		break;
-	case BUFFER_USAGE_IMMUTABLE:
+	case E_BUFFER_USAGE_IMMUTABLE:
 		bufferDesc.Usage = D3D10_USAGE_IMMUTABLE;
 		break;
 	}
@@ -161,12 +160,50 @@ VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platfor
 
 void DX10Render::bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets)
 {
-	this->device->IASetVertexBuffers(slot, bufferCount, reinterpret_cast<ID3D10Buffer**>(buffers), strides, offsets);
+	// Only allow 1 VertexBuffer to be bound for time being. I have to figure out how to design the VertexBuffer general structure.
+	DX10VertexBuffer *vb = reinterpret_cast<DX10VertexBuffer*>(buffers[0]);
+	this->device->IASetVertexBuffers(slot, bufferCount, &vb->buffer, strides, offsets);
 }
 
 void DX10Render::draw(platform::U32_t verticeCount, platform::U32_t startVertex)
 {
 	this->device->Draw(verticeCount, startVertex);
+}
+
+void DX10Render::setPrimitiveType(E_PRIMITIVE_TYPE type)
+{
+	ASSERT(type >= 0);	// check against minimum value
+	ASSERT(type < 9);	// check against maximum value
+	switch(type)
+	{
+	case E_PRIMITIVE_LINELIST:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_LINELIST);
+		break;
+	case E_PRIMITIVE_LINELIST_ADJ:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_LINELIST_ADJ);
+		break;
+	case E_PRIMITIVE_LINESTRIP:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		break;
+	case E_PRIMITIVE_LINESTRIP_ADJ:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP_ADJ);
+		break;
+	case E_PRIMITIVE_POINTLIST:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+		break;
+	case E_PRIMITIVE_TRIANGLELIST:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		break;
+	case E_PRIMITIVE_TRIANGLELIST_ADJ:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST_ADJ);
+		break;
+	case E_PRIMITIVE_TRIANGLESTRIP:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		break;
+	case E_PRIMITIVE_TRIANGLESTRIP_ADJ:
+		this->device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ);
+		break;
+	}
 }
 
 #endif
