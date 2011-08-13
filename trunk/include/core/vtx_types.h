@@ -22,16 +22,6 @@
 
 namespace core
 {
-	class Matrix4x4
-	{
-	public:
-		Matrix4x4();
-		Matrix4x4( platform::F32_t m[4][4] );
-		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
-		ALIGNED_16 platform::F32_t m[4][4];
-	private:
-	};
-
 	template <class T>
 	class Vector2
 	{
@@ -90,6 +80,7 @@ namespace core
 		void lerp( Vector3 &other, Vector3 &result, platform::F32_t amount );
 		void multiply( Vector3 &other, Vector3 &result );
 		void multiply( platform::F32_t value, Vector3 &result );
+		void normalize(void);
 		platform::F32_t x;
 		platform::F32_t y;
 		platform::F32_t z;
@@ -107,6 +98,17 @@ namespace core
 		static void multiply( Vector4 &a, platform::F32_t value, Vector4 &result );
 		static platform::F32_t dot( Vector4 &a, Vector4 &b );
 		ALIGNED_16 platform::F32_t values[4];
+	private:
+	};
+
+	class Matrix4x4
+	{
+	public:
+		Matrix4x4();
+		Matrix4x4( platform::F32_t m[4][4] );
+		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
+		static Matrix4x4 createViewMatrix(Vector3 position, Vector3 target, Vector3 up);
+		ALIGNED_16 platform::F32_t m[4][4];
 	private:
 	};
 }
