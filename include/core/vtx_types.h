@@ -76,11 +76,17 @@ namespace core
 		Vector3();
 		Vector3( platform::F32_t x, platform::F32_t y, platform::F32_t z );
 		void add( Vector3 &other, Vector3 &result );
+		void cross( Vector3 &other, Vector3 &result );
+		static platform::F32_t dot( Vector3 &a, Vector3 &b );
 		void subtract( Vector3 &other, Vector3 &result );
 		void lerp( Vector3 &other, Vector3 &result, platform::F32_t amount );
 		void multiply( Vector3 &other, Vector3 &result );
 		void multiply( platform::F32_t value, Vector3 &result );
-		void normalize(void);
+		void normalize( void );
+		bool operator==(const Vector3 &other) const;
+		bool operator!=(const Vector3 &other) const;
+		Vector3 &operator=(const Vector3 &other);
+
 		platform::F32_t x;
 		platform::F32_t y;
 		platform::F32_t z;
@@ -107,7 +113,10 @@ namespace core
 		Matrix4x4();
 		Matrix4x4( platform::F32_t m[4][4] );
 		static void multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result );
-		static Matrix4x4 createViewMatrix(Vector3 position, Vector3 target, Vector3 up);
+		static Matrix4x4 *createViewMatrix(Vector3 &position, Vector3 &target, Vector3 &up);
+		static void createViewMatrix(Vector3 &position, Vector3 &target, Vector3 &up, Matrix4x4 &result);
+		static Matrix4x4 *createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane);
+		static void createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane, Matrix4x4 &result);
 		ALIGNED_16 platform::F32_t m[4][4];
 	private:
 	};
