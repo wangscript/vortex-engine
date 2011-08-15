@@ -52,6 +52,7 @@ namespace platform
 	typedef signed int			I32_t;
 	typedef unsigned long long	U64_t;
 	typedef float				F32_t;
+	typedef double				F64_t;
 #endif
 #if defined(VTX_PLATFORM_WIN32)
 	typedef unsigned __int8		U8_t;
@@ -62,6 +63,7 @@ namespace platform
 	typedef signed __int32		I32_t;
 	typedef unsigned __int64	U64_t;
 	typedef float				F32_t;
+	typedef double				F64_t;
 #endif
 #if defined(VTX_PLATFORM_LINUX)
 	// Workaround until I find out how to get 64 bit integers on unix with g++.
