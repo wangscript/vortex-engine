@@ -21,8 +21,24 @@
 
 #if defined(WIN32)
 #define VTX_PLATFORM_WIN32
+
+#define cpuid(func,a,b,c,d)\
+	asm {\
+	mov	eax, func\
+	cpuid\
+	mov	a, eax\
+	mov	b, ebx\
+	mov	c, ecx\
+	mov	d, edx\
+	}
+
 #elif defined(__linux)
 #define VTX_PLATFORM_LINUX
+
+#define cpuid(func,ax,bx,cx,dx)\
+	__asm__ __volatile__ ("cpuid":\
+	"=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
+
 #endif
 
 // Debug flag
@@ -60,8 +76,13 @@
 
 #if defined(VTX_PLATFORM_WIN32)
 #define ALIGNED_16 __declspec(align(16))
+#define ALIGNED_32 __declspec(align(32))
 #elif defined(VTX_PLATFORM_LINUX)
 #define ALIGNED_16 __attribute__((aligned(16)))
+#define ALIGNED_32 __attribute__((aligned(32)))
 #endif
+
+//#define VTX_USE_SSE 1
+//#define VTX_USE_AVX 1
 
 #endif
