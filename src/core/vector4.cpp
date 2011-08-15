@@ -81,18 +81,7 @@ F32_t Vector4::dot( Vector4 &a, Vector4 &b )
 	ma = _mm_mul_ps(ma, mb);
 	ma = _mm_hadd_ps(ma, ma);
 	ma = _mm_hadd_ps(ma, ma);
-	// TODO: Replace this with intrinsics, even if the assembly code is awesome.
-	// DONE!
-	//__asm
-	//{
-	//	movaps xmm0, xmmword ptr [ma]
-	//	movaps xmm1, xmmword ptr [mb]
-	//	mulps xmm0, xmm1
-	//	haddps xmm0, xmm0
-	//	haddps xmm0, xmm0
-	//	movaps xmmword ptr [mr], xmm0
-	//}
-	//_mm_store_ps(&res[0], mr);
+
 	_mm_store_ps(&res[0], ma);
 	return res[0];
 }
