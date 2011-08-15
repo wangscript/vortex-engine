@@ -55,7 +55,7 @@
     <IncludePath>D:\Projects\Vortex\include;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tool-debug|Win32'">
-    <IncludePath>C:\Users\Emil\Documents\Visual Studio 2010\Projects\Vortex\vortex-engine\include\platform\;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Projects\Vortex\include;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,6 +130,7 @@
     <ClInclude Include="include\platform\vtx_signal.h" />
     <ClInclude Include="include\platform\vtx_thread.h" />
     <ClInclude Include="include\platform\vtx_timer.h" />
+    <ClInclude Include="include\vortex\vtx_camera.h" />
     <ClInclude Include="include\vortex\vtx_clock.h" />
     <ClInclude Include="include\vortex\vtx_dx10render.h" />
     <ClInclude Include="include\vortex\vtx_job.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="src\platform\signal.cpp" />
     <ClCompile Include="src\platform\thread.cpp" />
     <ClCompile Include="src\platform\timer.cpp" />
+    <ClCompile Include="src\vortex\camera3d.cpp" />
     <ClCompile Include="src\vortex\clock.cpp" />
     <ClCompile Include="src\vortex\dx10render.cpp" />
     <ClCompile Include="src\vortex\job.cpp" />
