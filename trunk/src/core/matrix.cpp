@@ -20,19 +20,17 @@
 #include <pmmintrin.h>
 #include <cstring>
 
-using namespace core;
-using namespace platform;
 
-Matrix4x4::Matrix4x4( F32_t m[4][4] )
+core::Matrix4x4::Matrix4x4( platform::F32_t m[4][4] )
 {
-	memcpy(this->m, m, sizeof(F32_t) * 16);
+	memcpy(this->m, m, sizeof(platform::F32_t) * 16);
 }
 
-Matrix4x4::Matrix4x4()
+core::Matrix4x4::Matrix4x4()
 {
 }
 
-void Matrix4x4::multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result )
+void core::Matrix4x4::multiply(core::Matrix4x4 &a, core::Matrix4x4 &b, core::Matrix4x4 &result )
 {
 	__m128 b0, b1, b2, b3;
 	__m128 row, res;
@@ -111,4 +109,125 @@ void Matrix4x4::multiply(Matrix4x4 &a, Matrix4x4 &b, Matrix4x4 &result )
 	res = _mm_add_ps(res, _mm_mul_ps(row, b3));
 
 	_mm_store_ps(&result.m[3][0], res);
+}
+
+core::Matrix4x4 *core::Matrix4x4::createViewMatrix(core::Vector3 &position, core::Vector3 &target, core::Vector3 &up)
+{
+	core::Vector3 direction;
+	core::Vector3 cameraLocalXAxis;
+	core::Vector3 vector;
+
+	position.subtract(target, direction);
+	direction.normalize();
+
+	up.cross(direction, cameraLocalXAxis);
+	cameraLocalXAxis.normalize();
+
+	direction.cross(cameraLocalXAxis, vector);
+	
+	core::Matrix4x4 *result = new core::Matrix4x4();
+	result->m[0][0] = cameraLocalXAxis.x;
+	result->m[0][1] = vector.x;
+	result->m[0][2] = direction.x;
+	result->m[0][3] = 0.0f;
+	result->m[1][0] = cameraLocalXAxis.y;
+	result->m[1][1] = vector.y;
+	result->m[1][2] = direction.y;
+	result->m[1][3] = 0.0f;
+	result->m[2][0] = cameraLocalXAxis.z;
+	result->m[2][1] = vector.z;
+	result->m[2][2] = direction.z;
+	result->m[2][3] = 0.0f;
+	result->m[3][0] = -core::Vector3::dot(cameraLocalXAxis, position);
+	result->m[3][1] = -core::Vector3::dot(vector, position);
+	result->m[3][2] = -core::Vector3::dot(direction, position);
+	result->m[3][3] = 1.0f;
+	return result;
+}
+
+void core::Matrix4x4::createViewMatrix(core::Vector3 &position, core::Vector3 &target, core::Vector3 &up, core::Matrix4x4 &result)
+{
+	core::Vector3 direction;
+	core::Vector3 cameraLocalXAxis;
+	core::Vector3 vector;
+
+	position.subtract(target, direction);
+	direction.normalize();
+
+	up.cross(direction, cameraLocalXAxis);
+	up.normalize();
+
+	direction.cross(cameraLocalXAxis, vector);
+	
+	result.m[0][0] = cameraLocalXAxis.x;
+	result.m[0][1] = vector.x;
+	result.m[0][2] = direction.x;
+	result.m[0][3] = 0.0f;
+	result.m[1][0] = cameraLocalXAxis.y;
+	result.m[1][1] = vector.y;
+	result.m[1][2] = direction.y;
+	result.m[1][3] = 0.0f;
+	result.m[2][0] = cameraLocalXAxis.z;
+	result.m[2][1] = vector.z;
+	result.m[2][2] = direction.z;
+	result.m[2][3] = 0.0f;
+	result.m[3][0] = -core::Vector3::dot(cameraLocalXAxis, position);
+	result.m[3][1] = -core::Vector3::dot(vector, position);
+	result.m[3][2] = -core::Vector3::dot(direction, position);
+	result.m[3][3] = 1.0f;
+}
+
+core::Matrix4x4 *core::Matrix4x4::createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane)
+{
+	platform::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
+	platform::F32_t val2 = val1 / aspectRatio;
+
+	core::Matrix4x4 *matrix = new core::Matrix4x4();
+	matrix->m[0][0] = val2;
+	matrix->m[0][1] = 0.0f;
+	matrix->m[0][2] = 0.0f;
+	matrix->m[0][3] = 0.0f;
+	
+	matrix->m[1][0] = 0.0f;
+	matrix->m[1][1] = val1;
+	matrix->m[1][2] = 0.0f;
+	matrix->m[1][3] = 0.0f;
+	
+	matrix->m[2][0] = 0.0f;
+	matrix->m[2][1] = 0.0f;
+	matrix->m[2][2] = farPlane / (nearPlane - farPlane);
+	matrix->m[2][3] = -1.0f;
+
+	matrix->m[3][0] = 0.0f;
+	matrix->m[3][1] = 0.0f;
+	matrix->m[3][2] = (platform::F32_t)((platform::F64_t) nearPlane * (platform::F64_t) farPlane / ((platform::F64_t) near - (platform::F64_t) farPlane));
+	matrix->m[3][3] = 0.0f;
+
+	return matrix;
+}
+
+void core::Matrix4x4::createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane, core::Matrix4x4 &result)
+{
+	platform::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
+	platform::F32_t val2 = val1 / aspectRatio;
+
+	result.m[0][0] = val2;
+	result.m[0][1] = 0.0f;
+	result.m[0][2] = 0.0f;
+	result.m[0][3] = 0.0f;
+	
+	result.m[1][0] = 0.0f;
+	result.m[1][1] = val1;
+	result.m[1][2] = 0.0f;
+	result.m[1][3] = 0.0f;
+	
+	result.m[2][0] = 0.0f;
+	result.m[2][1] = 0.0f;
+	result.m[2][2] = farPlane / (nearPlane - farPlane);
+	result.m[2][3] = -1.0f;
+
+	result.m[3][0] = 0.0f;
+	result.m[3][1] = 0.0f;
+	result.m[3][2] = (platform::F32_t)((platform::F64_t) nearPlane * (platform::F64_t) farPlane / ((platform::F64_t) near - (platform::F64_t) farPlane));
+	result.m[3][3] = 0.0f;
 }
