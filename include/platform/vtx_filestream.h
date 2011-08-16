@@ -19,10 +19,10 @@
 
 #include <platform/vtx_iostream.h>
 #ifdef WIN32
-#include <Windows.h>
+#include <Windows.h> // Why is this here?
 #endif
 
-namespace platform
+namespace io
 {
 
 	class FileStream : public IOStream

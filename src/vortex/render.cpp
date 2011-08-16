@@ -14,8 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_defineconfig.h>
-#include <vortex/vtx_render.h>
+#include <platform/vtx_buildconfig.h>
+#include <vortex/vtx_rendermanager.h>
 #if defined(VTX_COMPILE_WITH_DX10)
 #include <vortex/vtx_dx10render.h>
 #endif
@@ -24,47 +24,52 @@
 #endif
 
 #include <core/vtx_assertions.h>
-
 #include <vortex/vtx_vortex.h>
+#include <vortex/vtx_nativewindow.h>
+#include <core/vtx_eventoutput.h>
+#include <vortex/vtx_rendercreationparams.h>
 
-using namespace platform;
+namespace core
+{
+	class WindowCreationParams;
+}
 
-RenderManager::RenderManager(Root& parent) : VortexBase(parent)
+graphics::RenderManager::RenderManager(core::Root& parent) : VortexBase(parent)
 {
 	this->render = NULL;
 }
 
-void RenderManager::init(RenderCreationParams &params, WindowCreationParams &windowParams)
+void graphics::RenderManager::init(graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams)
 {
-	this->window = NativeWindow::create(VortexBase::engineParent, windowParams);
+	this->window = core::NativeWindow::create(VortexBase::engineParent, windowParams);
 	//this->createWindow(windowParams);
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating DX10 render");
+		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating DX10 render");
 		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
-		VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating OpenGL render");	
+		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating OpenGL render");	
 		this->render = new OpenGLRender(VortexBase::engineParent, params, this->window);
 	}
 #endif
 }
 
-void RenderManager::destroy(void)
+void graphics::RenderManager::destroy(void)
 {
 	this->window->destroy();
 }
 
-RenderAPI *RenderManager::getRenderObject(void)
+graphics::RenderAPI *graphics::RenderManager::getRenderObject(void)
 {
 	return this->render;
 }
 
-void RenderManager::createWindow(WindowCreationParams &params)
+void graphics::RenderManager::createWindow(core::WindowCreationParams &params)
 {
 
 }

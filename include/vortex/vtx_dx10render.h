@@ -17,12 +17,11 @@
 #ifndef VTX_RENDERDX10_H
 #define VTX_RENDERDX10_H
 
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
-#include <vortex/vtx_renderinternal.h>
-#include <vortex/vtx_render.h>
+#include <vortex/vtx_renderapi.h>
 #include <platform/vtx_atomic.h>
 #include <d3d10.h>
 #include <D3DX10.h>
@@ -31,8 +30,10 @@
 #define ReleaseCOM(x) if (x) { x->Release(); x = NULL; }
 #endif
 
-
-
+namespace core
+{
+	class NativeWindow;
+}
 //D3D10_INPUT_ELEMENT_DESC VertexPositionNormalTextureDesc[] =
 //{
 //	{"POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0},
@@ -47,21 +48,27 @@
 //	public 
 //};
 
-class DX10Render : public RenderAPI
+namespace graphics
 {
-private:
-	ID3D10Device *device;
-	IDXGISwapChain *swapChain;
-	ID3D10RenderTargetView *renderTargetView;
-public:
-	DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow);
-	virtual void swap(void);
-	virtual void clear(void);
-	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage);
-	virtual void bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets);
-	virtual void draw(platform::U32_t verticeCount, platform::U32_t startVertex);
-	virtual void setPrimitiveType(E_PRIMITIVE_TYPE type);
-};
+	class RenderCreationParams;
+
+	class DX10Render : public RenderAPI
+	{
+	private:
+		ID3D10Device *device;
+		IDXGISwapChain *swapChain;
+		ID3D10RenderTargetView *renderTargetView;
+	public:
+		DX10Render(core::Root &parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
+		virtual void swap(void);
+		virtual void clear(void);
+		virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, core::U32_t noVertices, E_BUFFER_USAGE usage);
+		virtual void bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets);
+		virtual void draw(core::U32_t verticeCount, core::U32_t startVertex);
+		virtual void setPrimitiveType(E_PRIMITIVE_TYPE type);
+	};
+
+}
 
 #endif
 

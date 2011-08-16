@@ -21,7 +21,7 @@
 #include <boost/intrusive/list.hpp>
 #include <vector>
 
-namespace platform
+namespace io
 {
 
 	class Device
@@ -39,7 +39,7 @@ namespace platform
 			ramdisk
 		};
 		~Device();
-		static U32_t getDevices(boost::intrusive::list<Device> *devices);
+		static core::U32_t getDevices(boost::intrusive::list<Device> *devices);
 		drive_type getDriveType();
 		std::string *getName();
 		Device();

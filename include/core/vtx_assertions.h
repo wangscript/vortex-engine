@@ -17,7 +17,7 @@
 #ifndef VTX_ASSERTIONS_H
 #define VTX_ASSERTIONS_H
 
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 
 void reportAssertionFailure(const char *expr, const char *file, long line);
 #if defined(ASSERTIONS_ENABLED)

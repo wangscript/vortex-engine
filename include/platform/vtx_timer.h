@@ -19,7 +19,7 @@
 
 #include <platform/vtx_atomic.h>
 
-namespace platform
+namespace core
 {
 class Timer
 {

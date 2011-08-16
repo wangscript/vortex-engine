@@ -14,6 +14,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include <core/vtx_eventoutput.h>
+#include <vortex/vtx_resource.h>
+#include <vortex/vtx_rendermanager.h>
+#include <vortex/vtx_simulationmanager.h>
+
 #define INIT(init_exp, component) \
 	{ \
 		std::wstring message(L"Initializing "); \
@@ -26,22 +31,22 @@
 		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
 	}
 	
-
+#include <vortex/vtx_jobmanager.h>
 #include <vortex/vtx_vortex.h>
 #include <iostream>
 
-Root::Root()
+core::Root::Root()
 {
 	std::wstring msg(L"Standard error output!!");
-	this->output = new EventOutput(EventOutput::E_LEVEL_VERBOSE);
-	this->output->reportEvent(EventOutput::E_LEVEL_FATAL, msg);
-	this->jobManager = new JobManager;
-	this->resourceManager = new ResourceManager(*this);
-	this->renderManager = new RenderManager(*this);
-	this->simulationManager = new SimulationManager;
+	this->output = new core::EventOutput(core::EventOutput::E_LEVEL_VERBOSE);
+	this->output->reportEvent(core::EventOutput::E_LEVEL_FATAL, msg);
+	this->jobManager = new concurrency::JobManager();
+	this->resourceManager = new content::ResourceManager(*this);
+	this->renderManager = new graphics::RenderManager(*this);
+	this->simulationManager = new core::SimulationManager();
 }
 
-void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+void core::Root::Run(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {	
 	this->init(windowParams, renderParams);
 
@@ -54,7 +59,7 @@ void Root::Run(WindowCreationParams &windowParams, RenderCreationParams &renderP
 
 }
 
-void Root::init(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+void core::Root::init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {
 	INIT(this->jobManager->init();, L"JobManager");
 	INIT(this->resourceManager->init();, L"ResourceManager");
@@ -63,17 +68,17 @@ void Root::init(WindowCreationParams &windowParams, RenderCreationParams &render
 }
 
 #if defined(VTX_TOOL_BUILD)
-void Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+void core::Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
 {
 	this->init(windowParams, renderParams);
 }
 
-void Root::toolStep(/*platform::F32*/float elapsed)
+void core::Root::toolStep(/*platform::F32*/float elapsed)
 {
 	this->simulationManager->step(elapsed);
 }
 
-void Root::toolDestroy(void)
+void core::Root::toolDestroy(void)
 {
 	this->jobManager->destroy();
 	this->simulationManager->destroy();

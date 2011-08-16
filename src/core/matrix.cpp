@@ -14,16 +14,17 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <core/vtx_types.h>
+#include <core/vtx_matrix4x4.h>
+#include <core/vtx_vector3.h>
 #include <core/vtx_math.h>
 #include <xmmintrin.h>
 #include <pmmintrin.h>
 #include <cstring>
 
 
-core::Matrix4x4::Matrix4x4( platform::F32_t m[4][4] )
+core::Matrix4x4::Matrix4x4( core::F32_t m[4][4] )
 {
-	memcpy(this->m, m, sizeof(platform::F32_t) * 16);
+	memcpy(this->m, m, sizeof(core::F32_t) * 16);
 }
 
 core::Matrix4x4::Matrix4x4()
@@ -177,10 +178,10 @@ void core::Matrix4x4::createViewMatrix(core::Vector3 &position, core::Vector3 &t
 	result.m[3][3] = 1.0f;
 }
 
-core::Matrix4x4 *core::Matrix4x4::createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane)
+core::Matrix4x4 *core::Matrix4x4::createProjection(core::F32_t fov, core::F32_t aspectRatio, core::F32_t nearPlane, core::F32_t farPlane)
 {
-	platform::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
-	platform::F32_t val2 = val1 / aspectRatio;
+	core::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
+	core::F32_t val2 = val1 / aspectRatio;
 
 	core::Matrix4x4 *matrix = new core::Matrix4x4();
 	matrix->m[0][0] = val2;
@@ -200,16 +201,16 @@ core::Matrix4x4 *core::Matrix4x4::createProjection(platform::F32_t fov, platform
 
 	matrix->m[3][0] = 0.0f;
 	matrix->m[3][1] = 0.0f;
-	matrix->m[3][2] = (platform::F32_t)((platform::F64_t) nearPlane * (platform::F64_t) farPlane / ((platform::F64_t) near - (platform::F64_t) farPlane));
+	matrix->m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) near - (core::F64_t) farPlane));
 	matrix->m[3][3] = 0.0f;
 
 	return matrix;
 }
 
-void core::Matrix4x4::createProjection(platform::F32_t fov, platform::F32_t aspectRatio, platform::F32_t nearPlane, platform::F32_t farPlane, core::Matrix4x4 &result)
+void core::Matrix4x4::createProjection(core::F32_t fov, core::F32_t aspectRatio, core::F32_t nearPlane, core::F32_t farPlane, core::Matrix4x4 &result)
 {
-	platform::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
-	platform::F32_t val2 = val1 / aspectRatio;
+	core::F32_t val1 = 1.0f / std::tan(fov * 0.5f);
+	core::F32_t val2 = val1 / aspectRatio;
 
 	result.m[0][0] = val2;
 	result.m[0][1] = 0.0f;
@@ -228,6 +229,6 @@ void core::Matrix4x4::createProjection(platform::F32_t fov, platform::F32_t aspe
 
 	result.m[3][0] = 0.0f;
 	result.m[3][1] = 0.0f;
-	result.m[3][2] = (platform::F32_t)((platform::F64_t) nearPlane * (platform::F64_t) farPlane / ((platform::F64_t) near - (platform::F64_t) farPlane));
+	result.m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) near - (core::F64_t) farPlane));
 	result.m[3][3] = 0.0f;
 }

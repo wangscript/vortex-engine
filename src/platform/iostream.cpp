@@ -19,9 +19,7 @@
 #include <Windows.h>
 #endif
 
-using namespace platform;
-
-IOStream::ErrorCode IOStream::init(SYSTEM_HANDLE handle)
+io::IOStream::ErrorCode io::IOStream::init(core::SYSTEM_HANDLE handle)
 {
 	IOStream::ErrorCode ret;
 	// Should not use these preprocessor #ifs here but there is something wrong with my INVALID_SYSTEM_HANDLE define.
@@ -44,14 +42,14 @@ IOStream::ErrorCode IOStream::init(SYSTEM_HANDLE handle)
 	return ret;
 }
 
-U64_t IOStream::getPosition()
+core::U64_t io::IOStream::getPosition()
 {
 	return this->position;
 }
 
-IOStream::ErrorCode IOStream::setPosition(U64_t position)
+io::IOStream::ErrorCode io::IOStream::setPosition(core::U64_t position)
 {
-	IOStream::ErrorCode ret;
+	io::IOStream::ErrorCode ret;
 #ifdef WIN32
 	LARGE_INTEGER pos;
 	pos.HighPart = (position & 0xFFFFFFFF00000000) >> 32;
@@ -77,7 +75,7 @@ IOStream::ErrorCode IOStream::setPosition(U64_t position)
 	return ret;
 }
 
-IOStream::ErrorCode IOStream::readBytes(U8_t *buffer, U32_t bytesToRead, U32_t *bytesRead)
+io::IOStream::ErrorCode io::IOStream::readBytes(core::U8_t *buffer, core::U32_t bytesToRead, core::U32_t *bytesRead)
 {
 	IOStream::ErrorCode ret;
 #ifdef WIN32

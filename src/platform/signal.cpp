@@ -16,9 +16,7 @@
 
 #include <platform/vtx_signal.h>
 
-using namespace platform;
-
-Signal::Signal(bool manualReset)
+concurrency::Signal::Signal(bool manualReset)
 {
 #ifdef WIN32
 	this->handle = CreateEventEx(
@@ -29,35 +27,35 @@ Signal::Signal(bool manualReset)
 #endif
 }
 
-Signal::~Signal()
+concurrency::Signal::~Signal()
 {
 #ifdef WIN32
 	CloseHandle(this->handle);
 #endif
 }
 
-void Signal::reset()
+void concurrency::Signal::reset()
 {
 #ifdef WIN32
 	ResetEvent(this->handle);
 #endif
 }
 
-void Signal::setSignaled()
+void concurrency::Signal::setSignaled()
 {
 #ifdef WIN32
 	SetEvent(this->handle);
 #endif
 }
 
-void Signal::waitForSignal()
+void concurrency::Signal::waitForSignal()
 {
 #ifdef WIN32
 	WaitForSingleObject(this->handle, INFINITE);
 #endif
 }
 
-void Signal::waitForSignal(U32_t timeout)
+void concurrency::Signal::waitForSignal(core::U32_t timeout)
 {
 #ifdef WIN32
 	WaitForSingleObject(this->handle, timeout);

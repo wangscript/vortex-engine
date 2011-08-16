@@ -18,13 +18,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\platform\vtx_filesystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\platform\vtx_iostream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\platform\vtx_defineconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\platform\vtx_atomic.h">
@@ -57,22 +51,13 @@
     <ClInclude Include="include\core\vtx_assertions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\vtx_concurrent_queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\vtx_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\core\vtx_double_stack_allocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\vortex\vtx_render.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\vortex\vtx_job.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vortex\vtx_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vortex\vtx_dx10render.h">
@@ -82,12 +67,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vortex\vtx_openglrender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vortex\vtx_renderinternal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vortex\vtx_simulation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vortex\vtx_clock.h">
@@ -100,6 +79,63 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vtx_texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vtx_concurrent_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform\vtx_filesystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_vbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_rendercreationparams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_windowcreationparams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_nativewindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform\vtx_buildconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_jobprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_jobmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_rendermanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_vertexposnormtex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_d3d10vertexbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_renderapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vtx_vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vtx_vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vtx_vector4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vtx_matrix4x4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vortex\vtx_simulationmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -164,9 +200,6 @@
     <ClCompile Include="src\vortex\dx10render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vortex\simulation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\vortex\render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -189,6 +222,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\eventoutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vortex\camera3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vortex\jobprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vortex\jobmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vortex\vertexposnormtex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vortex\simulationmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

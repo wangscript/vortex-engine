@@ -20,38 +20,36 @@
 #include <Windows.h>
 #endif
 
-using namespace platform;
-
-Device::Device()
+io::Device::Device()
 {
 }
 
-Device::~Device()
+io::Device::~Device()
 {
 	delete this->deviceName;
 }
 
-U32_t Device::getDevices(boost::intrusive::list<Device> *devices)
+core::U32_t io::Device::getDevices(boost::intrusive::list<io::Device> *devices)
 {
-	U32_t bufferSize = 32;
-	U8_t *buffer = NULL;
-	U8_t *ptr;
-	U32_t length;
+	core::U32_t bufferSize = 32;
+	core::U8_t *buffer = NULL;
+	core::U8_t *ptr;
+	core::U32_t length;
 	do
 	{
 		if(buffer != NULL)
 			free(buffer);
 		bufferSize *= 2;
-		buffer = (U8_t*)malloc(bufferSize);
+		buffer = (core::U8_t*)malloc(bufferSize);
 #ifdef WIN32
 		length = ::GetLogicalDriveStringsA(bufferSize, (LPSTR)buffer);
 #endif
 	}while(length > bufferSize);
 
-	U8_t deviceCount = (length / 3) - 2;
+	core::U8_t deviceCount = (length / 3) - 2;
 
 	ptr = buffer;
-	for(U32_t i = 0; i < deviceCount; i++)
+	for(core::U32_t i = 0; i < deviceCount; i++)
 	{
 		Device *device = new Device();
 		device->deviceName = new std::string((char*)ptr);
@@ -67,7 +65,7 @@ U32_t Device::getDevices(boost::intrusive::list<Device> *devices)
 	return deviceCount;
 }
 
-std::string *Device::getName()
+std::string *io::Device::getName()
 {
 	return this->deviceName;
 }

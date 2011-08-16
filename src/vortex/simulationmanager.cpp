@@ -14,9 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_defineconfig.h>
-#include <vortex/vtx_simulation.h>
+#include <platform/vtx_buildconfig.h>
+#include <vortex/vtx_simulationmanager.h>
 #include <vortex/vtx_clock.h>
+#include <vortex/vtx_renderapi.h>
 #include <iostream>
 #include <ctime>
 #include <stdlib.h>
@@ -24,25 +25,27 @@
 #include <Windows.h>
 #endif
 
-using namespace platform;
+#include <vortex/vtx_vertexposnormtex.h>
+#include <vortex/vtx_vbuffer.h>
 
-void SimulationManager::init(RenderAPI *render)
+void core::SimulationManager::init(graphics::RenderAPI *render)
 {
 	this->render = render;
 }
 
-void SimulationManager::destroy()
+void core::SimulationManager::destroy()
 {
 }
 
-void SimulationManager::run()
+void core::SimulationManager::run()
 {
-	Clock gameClock, frameClock;
+	core::Clock gameClock, frameClock;
 	core::Vector4 color(0.0f, 0.0f, 0.5f, 1.0f);
 	this->render->setClearColor(color);
 	gameClock.reset();
 	frameClock.reset();
-	F32_t elapsed;
+	core::F32_t elapsed;
+	
 	while(true)
 	{
 		
@@ -66,14 +69,27 @@ void SimulationManager::run()
 	};
 }
 
-void SimulationManager::step(F32_t elapsed)
+void core::SimulationManager::step(core::F32_t elapsed)
 {
+	
+	graphics::VertexPosNormTex verts[] =
+	{
+		graphics::VertexPosNormTex(-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
+		graphics::VertexPosNormTex(0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 0.0f),
+		graphics::VertexPosNormTex(1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f)
+	};
+
+	U32_t stride = sizeof(graphics::VertexPosNormTex);
+	U32_t offset = 0;
+	graphics::VertexBuffer *vb = this->render->createVertexBuffer(verts, 3, graphics::E_BUFFER_USAGE_IMMUTABLE);
+	this->render->bindVertexBuffers(0, 1, &vb, &stride, &offset);
+	this->render->setPrimitiveType(graphics::E_PRIMITIVE_TRIANGLESTRIP);
 	core::Vector4 color(0.25f, elapsed, 1.0f, 1.0f);
 	this->render->setClearColor(color);
 	this->runOneFrame(elapsed);
 }
 
-void SimulationManager::runOneFrame(F32_t seconds)
+void core::SimulationManager::runOneFrame(core::F32_t seconds)
 {
 	this->frames++;
 	//std::cout << seconds << std::endl;
@@ -81,6 +97,6 @@ void SimulationManager::runOneFrame(F32_t seconds)
 	this->render->clear();
 	//std::cout << "post clear " << this->frames << std::endl;
 	// DRAW
-
+	this->render->draw(3, 0);
 	this->render->swap();
 }

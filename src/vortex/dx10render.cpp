@@ -15,26 +15,17 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define ASSERTIONS_ENABLED 1
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 #include <vortex/vtx_dx10render.h>
 #include <core/vtx_assertions.h>
+#include <vortex/vtx_rendercreationparams.h>
+#include <vortex/vtx_d3d10vertexbuffer.h>
+#include <vortex/vtx_nativewindow.h>
+#include <vortex/vtx_vertexposnormtex.h>
 
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
-// This class is not exposed as it is not intended to be used directly.
-class DX10VertexBuffer : public VertexBuffer
-{
-public:
-	ID3D10Buffer *buffer;
-	DX10VertexBuffer(ID3D10Buffer *d3dbuffer)
-		: buffer(d3dbuffer)
-	{
-	}
-};
-
-using namespace platform;
-
-DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow *outputWindow) : RenderAPI(parent)
+graphics::DX10Render::DX10Render(core::Root &parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow) : graphics::RenderAPI(parent)
 {
 	HRESULT result;
 	DXGI_SWAP_CHAIN_DESC swapChainDesc;
@@ -62,7 +53,7 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.Windowed = TRUE; // TODO: Should not always be true!
 
-	platform::U32_t flags = 0;
+	core::U32_t flags = 0;
 #if defined(VTX_DEBUG)
 	flags |= D3D10_CREATE_DEVICE_DEBUG;
 #endif
@@ -118,18 +109,18 @@ DX10Render::DX10Render(Root &parent, RenderCreationParams &params, NativeWindow 
 
 }
 
-void DX10Render::clear()
+void graphics::DX10Render::clear()
 {
 	this->device->ClearRenderTargetView(this->renderTargetView, this->clearColor.values);
 }
 
-void DX10Render::swap(void)
+void graphics::DX10Render::swap(void)
 {
 	HRESULT result = this->swapChain->Present(0, 0);
 	ASSERT(result == S_OK);
 }
 
-VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage)
+graphics::VertexBuffer *graphics::DX10Render::createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, graphics::E_BUFFER_USAGE usage)
 {
 	D3D10_BUFFER_DESC bufferDesc;
 	ZeroMemory(&bufferDesc, sizeof(D3D10_BUFFER_DESC));
@@ -152,25 +143,25 @@ VertexBuffer *DX10Render::createVertexBuffer(VertexPosNormTex *vertices, platfor
 	subresData.pSysMem = vertices;
 
 	ID3D10Buffer *vertexBuffer;
-	platform::U32_t result = this->device->CreateBuffer(&bufferDesc, &subresData, &vertexBuffer);
+	core::U32_t result = this->device->CreateBuffer(&bufferDesc, &subresData, &vertexBuffer);
 	ASSERT(result == S_OK);
 
 	return new DX10VertexBuffer(vertexBuffer);
 }
 
-void DX10Render::bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets)
+void graphics::DX10Render::bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, graphics::VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets)
 {
 	// Only allow 1 VertexBuffer to be bound for time being. I have to figure out how to design the VertexBuffer general structure.
 	DX10VertexBuffer *vb = reinterpret_cast<DX10VertexBuffer*>(buffers[0]);
 	this->device->IASetVertexBuffers(slot, bufferCount, &vb->buffer, strides, offsets);
 }
 
-void DX10Render::draw(platform::U32_t verticeCount, platform::U32_t startVertex)
+void graphics::DX10Render::draw(core::U32_t verticeCount, core::U32_t startVertex)
 {
 	this->device->Draw(verticeCount, startVertex);
 }
 
-void DX10Render::setPrimitiveType(E_PRIMITIVE_TYPE type)
+void graphics::DX10Render::setPrimitiveType(graphics::E_PRIMITIVE_TYPE type)
 {
 	ASSERT(type >= 0);	// check against minimum value
 	ASSERT(type < 9);	// check against maximum value

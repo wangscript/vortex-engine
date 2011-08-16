@@ -14,25 +14,41 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef VTX_SIMULATION_H
-#define VTX_SIMULATION_H
-//#include <vortex/vtx_vortexbase.h>
-#include <vortex/vtx_renderinternal.h>
-#include <platform/vtx_atomic.h>
-#include <vortex/vtx_clock.h>
+#ifndef VTX_RENDERMANAGER_H
+#define VTX_RENDERMANAGER_H
 
-class SimulationManager
+#include <vortex/vtx_vortexbase.h>
+
+// Forward declarations
+namespace graphics
 {
-public:
-	platform::U32_t frames;
-	void init(RenderAPI *render);
-	void destroy(void);
-	void run(void);
-	void step(/*platform::F32*/ float elapsed);
-private:
-	Clock gameClock;
-	RenderAPI *render;
-	void runOneFrame(/*platform::F32*/ float seconds);
-};
+	class RenderCreationParams;
+	class RenderAPI;
+}
+
+namespace core
+{
+	class WindowCreationParams;
+	class NativeWindow;
+}
+
+namespace graphics
+{
+
+	class RenderManager : core::VortexBase
+	{
+	public:
+		RenderManager(core::Root&);
+		void init(graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams);
+		void destroy(void);
+		graphics::RenderAPI *getRenderObject(void);
+	private:
+		void createWindow(core::WindowCreationParams &params);
+		core::NativeWindow *window;
+		bool manageWindow;
+		graphics::RenderAPI *render;
+	};
+
+}
 
 #endif

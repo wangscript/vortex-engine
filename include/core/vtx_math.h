@@ -17,22 +17,25 @@
 #ifndef VTX_MATH_H
 #define VTX_MATH_H
 
-#include <core/vtx_types.h>
+#include <platform/vtx_atomic.h>
 
 namespace core
 {
+	class Vector3;
+	class Vector4;
+
 	class Math
 	{
 	public:
-		static void cross(Vector3 &a, Vector3 &b, Vector3 &result);
+		static void cross(core::Vector3 &a, core::Vector3 &b, core::Vector3 &result);
 		template <class T>
-		static platform::F32_t dot(T &a, T &b)
+		static core::F32_t dot(T &a, T &b)
 		{
 			return (a.x * b.x + 
 				a.y * b.y);
 		}
-		static platform::F32_t dot(Vector3 &a, Vector3 &b);
-		static platform::F32_t dot(Vector4 &a, Vector4 &b);
+		static core::F32_t dot(core::Vector3 &a, core::Vector3 &b);
+		static core::F32_t dot(core::Vector4 &a, core::Vector4 &b);
 	};
 }
 

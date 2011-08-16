@@ -14,8 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_defineconfig.h>
-#include <core/vtx_types.h>
+#include <platform/vtx_buildconfig.h>
+#include <core/vtx_vector3.h>
 
 #include <emmintrin.h>
 #include <xmmintrin.h>
@@ -27,7 +27,7 @@ core::Vector3::Vector3()
 	this->x = this->y = this->z = 0;
 }
 
-core::Vector3::Vector3( platform::F32_t x, platform::F32_t y, platform::F32_t z )
+core::Vector3::Vector3( core::F32_t x, core::F32_t y, core::F32_t z )
 {
 	this->x = x;
 	this->y = y;
@@ -62,7 +62,7 @@ void core::Vector3::multiply( core::Vector3 &other, core::Vector3 &result )
 	result.z = this->z * other.z;
 }
 
-void core::Vector3::multiply( platform::F32_t value, core::Vector3 &result )
+void core::Vector3::multiply( core::F32_t value, core::Vector3 &result )
 {
 	result.x = this->x * value;
 	result.y = this->y * value;
@@ -127,7 +127,7 @@ void core::Vector3::normalize(void)
 	this->y = vector[1];
 	this->z = vector[2];
 #else
-	platform::F64_t num = 1.0 / std::sqrt(std::pow(this->x, 2) + std::pow(this->y, 2) + std::pow(this->z, 2));
+	core::F64_t num = 1.0 / std::sqrt(std::pow(this->x, 2) + std::pow(this->y, 2) + std::pow(this->z, 2));
 	this->x *= num;
 	this->y *= num;
 	this->z *= num;
@@ -137,21 +137,21 @@ void core::Vector3::normalize(void)
 void core::Vector3::cross( core::Vector3 &other, core::Vector3 &result )
 {
 	// TODO: Rewrite this using SIMD
-	result.x = ((platform::F64_t) this->y * (platform::F64_t) other.z - (platform::F64_t) this->z * (platform::F64_t) other.y);
-	result.y = ((platform::F64_t) this->z * (platform::F64_t) other.x - (platform::F64_t) this->x * (platform::F64_t) other.z);
-	result.z = ((platform::F64_t) this->x * (platform::F64_t) other.y - (platform::F64_t) this->y * (platform::F64_t) other.x);
+	result.x = ((core::F64_t) this->y * (core::F64_t) other.z - (core::F64_t) this->z * (core::F64_t) other.y);
+	result.y = ((core::F64_t) this->z * (core::F64_t) other.x - (core::F64_t) this->x * (core::F64_t) other.z);
+	result.z = ((core::F64_t) this->x * (core::F64_t) other.y - (core::F64_t) this->y * (core::F64_t) other.x);
 }
 
-platform::F32_t core::Vector3::dot( Vector3 &a, core::Vector3 &b )
+core::F32_t core::Vector3::dot( core::Vector3 &a, core::Vector3 &b )
 {
-	ALIGNED_16 platform::F32_t aVector[] = {a.x, a.y, a.z, 0};
-	ALIGNED_16 platform::F32_t bVector[] = {b.x, b.y, b.z, 0};
+	ALIGNED_16 core::F32_t aVector[] = {a.x, a.y, a.z, 0};
+	ALIGNED_16 core::F32_t bVector[] = {b.x, b.y, b.z, 0};
 	__m128 ma;
 	__m128 mb;
 	//__m128 mr;
 	ma = _mm_load_ps(aVector);
 	mb = _mm_load_ps(bVector);
-	ALIGNED_16 platform::F32_t res[4];
+	ALIGNED_16 core::F32_t res[4];
 
 	ma = _mm_mul_ps(ma, mb);
 	ma = _mm_hadd_ps(ma, ma);

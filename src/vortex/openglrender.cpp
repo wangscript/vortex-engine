@@ -17,19 +17,20 @@
 // TODO: REMOVE THIS and implement OpenGl for linux
 
 
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 #include <vortex/vtx_openglrender.h>
 #include <GL/gl.h>
 #if defined(VTX_PLATFORM_LINUX)
 #include <GL/glxproto.h>
 #endif
 #include <vortex/vtx_vortex.h>
+#include <vortex/vtx_nativewindow.h>
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <GL/glx.h>
 #endif
 
-OpenGLRender::OpenGLRender(Root& parent, RenderCreationParams &params, NativeWindow *outputWindow) : RenderAPI(parent)
+graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow) : graphics::RenderAPI(parent)
 {
 	this->window = outputWindow;
 #if defined(VTX_PLATFORM_WIN32)
@@ -83,7 +84,7 @@ OpenGLRender::OpenGLRender(Root& parent, RenderCreationParams &params, NativeWin
 #endif
 }
 
-OpenGLRender::~OpenGLRender(void)
+graphics::OpenGLRender::~OpenGLRender(void)
 {
 #if defined(VTX_PLATFORM_WIN32)
 	wglDeleteContext(this->renderContext);
@@ -91,7 +92,7 @@ OpenGLRender::~OpenGLRender(void)
 #endif
 }
 
-void OpenGLRender::swap(void)
+void graphics::OpenGLRender::swap(void)
 {
 #if defined(VTX_PLATFORM_WIN32)
 	glFlush();
@@ -101,7 +102,7 @@ void OpenGLRender::swap(void)
 #endif
 }
 
-void OpenGLRender::clear(void)
+void graphics::OpenGLRender::clear(void)
 {
 	// TODO: Do we need Begin/End methods?
 	// This method call shouldnt really be here.
@@ -112,20 +113,20 @@ void OpenGLRender::clear(void)
 		
 }
 
-VertexBuffer *OpenGLRender::createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage)
+graphics::VertexBuffer *graphics::OpenGLRender::createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, E_BUFFER_USAGE usage)
 {
 	return NULL;
 }
 
-void OpenGLRender::bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets)
+void graphics::OpenGLRender::bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets)
 {
 
 }
 
-void OpenGLRender::draw(platform::U32_t verticeCount, platform::U32_t startVertex)
+void graphics::OpenGLRender::draw(core::U32_t verticeCount, core::U32_t startVertex)
 {
 }
 
-void OpenGLRender::setPrimitiveType(E_PRIMITIVE_TYPE type)
+void graphics::OpenGLRender::setPrimitiveType(E_PRIMITIVE_TYPE type)
 {
 }

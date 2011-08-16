@@ -14,12 +14,12 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <vortex/vtx_render.h>
+#include <vortex/vtx_rendercreationparams.h>
 
 #define DEFAULT_BACKBUFFER_WIDTH	800
 #define DEFAULT_BACKBUFFER_HEIGHT	600
 
-RenderCreationParams::RenderCreationParams(void)
+graphics::RenderCreationParams::RenderCreationParams(void)
 {
 	this->backBufferSize.x = DEFAULT_BACKBUFFER_WIDTH;
 	this->backBufferSize.y = DEFAULT_BACKBUFFER_HEIGHT;

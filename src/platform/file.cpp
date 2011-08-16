@@ -19,25 +19,24 @@
 #include <Windows.h>
 #endif
 
-using namespace platform;
 
-File::File(std::wstring *path)
+io::File::File(std::wstring *path)
 {
 	this->path = *path;
 }
 
-File::~File(void)
+io::File::~File(void)
 {
 }
 
-File::ErrorCode File::exists(void)
+io::File::ErrorCode io::File::exists(void)
 {
-	return File::exists(&this->path);
+	return io::File::exists(&this->path);
 }
 
-File::ErrorCode File::exists(std::wstring *path)
+io::File::ErrorCode io::File::exists(std::wstring *path)
 {
-	File::ErrorCode ret;
+	io::File::ErrorCode ret;
 #ifdef WIN32
 	WIN32_FIND_DATAW data;
 
@@ -59,14 +58,14 @@ File::ErrorCode File::exists(std::wstring *path)
 #endif
 }
 
-File::ErrorCode File::create(bool overwrite)
+io::File::ErrorCode io::File::create(bool overwrite)
 {
-	return File::create(&this->path, overwrite);
+	return io::File::create(&this->path, overwrite);
 }
 
-File::ErrorCode File::create(std::wstring *path, bool overwrite)
+io::File::ErrorCode io::File::create(std::wstring *path, bool overwrite)
 {
-	File::ErrorCode ret;
+	io::File::ErrorCode ret;
 #ifdef WIN32
 	HANDLE handle = CreateFileW(
 		path->c_str(),
@@ -81,32 +80,32 @@ File::ErrorCode File::create(std::wstring *path, bool overwrite)
 		DWORD err = GetLastError();
 		// TODO: What error codes does CreateFileW return?
 		if(err == ERROR_FILE_EXISTS)
-			ret = File::FILE_EXISTS;
+			ret = io::File::FILE_EXISTS;
 		else
-			ret = File::UNKOWN_ERROR;
+			ret = io::File::UNKOWN_ERROR;
 	}
 	else
 	{
-		ret = File::OK;
+		ret = io::File::OK;
 		CloseHandle(handle);
 	}
 #endif
 	return ret;
 }
 
-File::ErrorCode File::deletefile(void)
+io::File::ErrorCode io::File::deletefile(void)
 {
-	return File::deletefile(&this->path);
+	return io::File::deletefile(&this->path);
 }
 
-File::ErrorCode File::deletefile(std::wstring *path)
+io::File::ErrorCode io::File::deletefile(std::wstring *path)
 {
-	File::ErrorCode ret;
+	io::File::ErrorCode ret;
 #if WIN32
 	BOOL success = DeleteFile(path->c_str());
 	if(success)
 	{
-		ret = File::OK;
+		ret = io::File::OK;
 	}
 	else
 	{
@@ -125,7 +124,7 @@ File::ErrorCode File::deletefile(std::wstring *path)
 	return ret;
 }
 
-std::wstring File::getPath()
+std::wstring io::File::getPath()
 {
 	return this->path;
 }

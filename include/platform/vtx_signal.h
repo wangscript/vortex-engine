@@ -19,20 +19,20 @@
 
 #include <platform/vtx_atomic.h>
 
-namespace platform
+namespace concurrency
 {
 
 	class Signal
 	{
 	private:
-		SYSTEM_HANDLE handle;
+		core::SYSTEM_HANDLE handle;
 	public:
 		explicit Signal(bool manualReset);
 		~Signal();
 		void setSignaled();
 		void reset();
 		void waitForSignal(void);
-		void waitForSignal(U32_t timeout);
+		void waitForSignal(core::U32_t timeout);
 	};
 
 }

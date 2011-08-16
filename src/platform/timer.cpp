@@ -14,17 +14,15 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include <platform/vtx_buildconfig.h>
 #include <platform/vtx_timer.h>
-#include <platform/vtx_defineconfig.h>
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
 #endif
 
-using namespace platform;
-
-U64_t Timer::readHighResolutionTimer(void)
+core::U64_t core::Timer::readHighResolutionTimer(void)
 {
-	U64_t result;
+	core::U64_t result;
 #if defined(VTX_PLATFORM_WIN32)
 	LARGE_INTEGER value;
 	BOOL res = QueryPerformanceCounter(&value);
@@ -36,9 +34,9 @@ U64_t Timer::readHighResolutionTimer(void)
 	return result;
 }
 
-U64_t Timer::readHighResolutionTimerFrequency(void)
+core::U64_t core::Timer::readHighResolutionTimerFrequency(void)
 {
-	U64_t result;
+	core::U64_t result;
 #if defined(VTX_PLATFORM_WIN32)
 	LARGE_INTEGER value;
 	BOOL res = QueryPerformanceFrequency(&value);

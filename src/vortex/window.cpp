@@ -1,8 +1,12 @@
 #define ASSERTIONS_ENABLED
 
-#include <vortex/vtx_window.h>
+#include <vortex/vtx_nativewindow.h>
 #include <core/vtx_assertions.h>
 #include <vortex/vtx_vortex.h>
+
+#include <core/vtx_eventoutput.h>
+
+#include <vortex/vtx_windowcreationparams.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
@@ -14,25 +18,25 @@ std::map<platform::WINDOW, XErrorEvent*> *NativeWindow::lastErrorMap;
 bool NativeWindow::isHandlingXErrors = false;
 #endif
 
-NativeWindow::NativeWindow(Root &parent) : VortexBase(parent)
+core::NativeWindow::NativeWindow(core::Root &parent) : core::VortexBase(parent)
 {
 #if defined(VTX_PLATFORM_LINUX)
-	if(!NativeWindow::isHandlingXErrors)
+	if(!core::NativeWindow::isHandlingXErrors)
 	{
-		NativeWindow::isHandlingXErrors = true;
-		NativeWindow::lastErrorMap = new std::map<platform::WINDOW, XErrorEvent*>;
-		XSetErrorHandler(NativeWindow::xErrorHandler);
+		core::NativeWindow::isHandlingXErrors = true;
+		core::NativeWindow::lastErrorMap = new std::map<core::WINDOW, XErrorEvent*>;
+		XSetErrorHandler(core::NativeWindow::xErrorHandler);
 	}
 #endif
 }
 
-NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
+core::NativeWindow *core::NativeWindow::create(Root &parent, core::WindowCreationParams &params)
 {
 		// Window does not exist and should be created.
 	NativeWindow *window = new NativeWindow(parent);
 	if(params.windowHandle == 0)
 	{
-		parent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: No handle supplied, creating new window.");
+		parent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: No handle supplied, creating new window.");
 		window->manageWindow = true;
 #if defined(VTX_PLATFORM_WIN32)
 		HINSTANCE instance = GetModuleHandle(NULL);
@@ -111,7 +115,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	if(window->display == NULL)
 	{
 		std::wstring message(L"XOpenDisplay failed");
-		parent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+		parent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 	}
 
 	int visualAttribs[12] = { GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 1};
@@ -120,7 +124,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	if(visualInfo == NULL)
 	{
 		std::wstring message(L"glXChooseVisual failed");
-		parent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+		parent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 	}
 	XSetWindowAttributes attribs;
 	attribs.event_mask = ExposureMask | VisibilityChangeMask | KeyPressMask | PointerMotionMask | StructureNotifyMask;
@@ -141,7 +145,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		BadWindow == attribs.colormap)
 	{
 		std::wstring message(L"XCreateColormap");
-		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, attribs.colormap);
+		parent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, attribs.colormap);
 	}
 
 
@@ -176,7 +180,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		window->win == BadWindow)
 	{
 		std::wstring message(L"XCreateWindow");
-		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, window->win);
+		parent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, window->win);
 	}
 
 
@@ -189,7 +193,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	if(BadAlloc == result || BadWindow == result)
 	{
 		std::wstring message(L"XStoreName");
-		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, result);
+		parent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, result);
 	}
 		
 	result = XMapWindow(window->display, window->win);
@@ -197,7 +201,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	if(BadWindow == result)
 	{
 		std::wstring message(L"XMapWindow failed with BadWindow");
-		parent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+		parent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 	}
 
 	window->context = glXCreateContext(
@@ -210,14 +214,14 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 	{
 		XErrorEvent *event = NativeWindow::getLastXError(window->win);
 		std::wstring message(L"glXCreateContext");
-		parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
+		parent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, event->error_code);
 	}
 #endif
 	}
 	// Window already exists.
 	else
 	{
-		parent.output->reportEvent(EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Will not create new window, using supplied windowhandle.");
+		parent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Will not create new window, using supplied windowhandle.");
 		window->handle = params.windowHandle;
 		window->manageWindow = false;
 #if defined(VTX_PLATFORM_LINUX)
@@ -235,7 +239,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		if(window->display == NULL)
 		{
 			std::wstring message(L"XOpenDisplay failed");
-			parent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+			parent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 		}
 
 		int visualAttribs[12] = { GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 1};
@@ -244,7 +248,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		if(visualInfo == NULL)
 		{
 			std::wstring message(L"glXChooseVisual failed");
-			parent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+			parent.output->reportEvent(Ecore::ventOutput::E_LEVEL_FATAL, message);
 		}
 
 
@@ -258,7 +262,7 @@ NativeWindow *NativeWindow::create(Root &parent, WindowCreationParams &params)
 		{
 			XErrorEvent *event = NativeWindow::getLastXError(window->win);
 			std::wstring message(L"glXCreateContext");
-			parent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
+			parent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
 #endif
 	}
@@ -268,7 +272,7 @@ return window;
 
 }
 
-void NativeWindow::destroy(void)
+void core::NativeWindow::destroy(void)
 {
 #if defined(VTX_PLATFORM_WIN32)
 	HINSTANCE instance = GetModuleHandle(NULL);
@@ -281,7 +285,7 @@ void NativeWindow::destroy(void)
 #endif
 }
 
-platform::WINDOW NativeWindow::getHandle(void)
+core::WINDOW core::NativeWindow::getHandle(void)
 {
 	return this->handle;
 }
@@ -292,17 +296,17 @@ XErrorEvent *NativeWindow::getLastXError(platform::WINDOW handle)
 	std::map<platform::WINDOW, XErrorEvent*>::iterator it;
 	XErrorEvent *lastError = NULL;
 	
-	it = NativeWindow::lastErrorMap->find(handle);
-	if(it != NativeWindow::lastErrorMap->end())
+	it = core::NativeWindow::lastErrorMap->find(handle);
+	if(it != core::NativeWindow::lastErrorMap->end())
 	{
 		lastError = it->second;
 	}
 	return lastError;
 }
 
-int NativeWindow::xErrorHandler(Display *display, XErrorEvent *event)
+int core::NativeWindow::xErrorHandler(Display *display, XErrorEvent *event)
 {
-	NativeWindow::lastErrorMap[0][event->resourceid] = event;
+	core::NativeWindow::lastErrorMap[0][event->resourceid] = event;
 	return 0;
 }
 #endif

@@ -18,28 +18,24 @@
 #include <core/vtx_assertions.h>
 #include <stdlib.h>
 
-using namespace platform;
-
-using namespace core;
-
-StackAllocator::StackAllocator( U32_t stackSize )
+core::StackAllocator::StackAllocator( core::U32_t stackSize )
 {
 	/*this->stackSize = stackSize;
 	this->data = (U8*)malloc(this->stackSize);
 	this->stackPosition = reinterpret_cast<__UINT64>(this->data);*/
 }
 
-StackAllocator::~StackAllocator()
+core::StackAllocator::~StackAllocator()
 {
 	free(this->data);
 }
 
 
-StackAllocator::ErrorCode StackAllocator::allocate( U32_t size, U8_t **allocatedSpace )
+core::StackAllocator::ErrorCode core::StackAllocator::allocate( core::U32_t size, core::U8_t **allocatedSpace )
 {
 	//ASSERT(size > 0);
-	StackAllocator::ErrorCode err;
-	err = StackAllocator::OK;
+	core::StackAllocator::ErrorCode err;
+	err = core::StackAllocator::OK;
 	/*U32 newStackPosition = this->stackPosition + size;
 	U8 *stackAllocation = NULL;
 	if(newStackPosition >
@@ -60,13 +56,13 @@ StackAllocator::ErrorCode StackAllocator::allocate( U32_t size, U8_t **allocated
 	return err;
 }
 
-void StackAllocator::freeToMarker( U32_t marker )
+void core::StackAllocator::freeToMarker( core::U32_t marker )
 {
 	/*ASSERT(marker > (U32)this->data);
 	this->stackPosition = marker;*/
 }
 
-U32_t StackAllocator::getMarker()
+core::U32_t core::StackAllocator::getMarker()
 {
 	return this->stackPosition;
 }

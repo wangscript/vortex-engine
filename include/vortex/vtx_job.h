@@ -17,48 +17,22 @@
 #ifndef VTX_JOB_H
 #define VTX_JOB_H
 
-//#include <vortex/vtx_vortexbase.h>
-#include <platform/vtx_thread.h>
 #include <platform/vtx_atomic.h>
-#include <platform/vtx_signal.h>
 
-class Job
+namespace concurrency
 {
-public:
-	typedef void (*complete_callback)(Job &job);
-	Job(platform::U32_t priority, complete_callback callback);
-	virtual void performJob() = 0;
-private:
-	platform::U32_t priority;
-	complete_callback callback;
-};
+	class JobProcessor;
 
-class JobProcessor
-{
-public:
-	explicit JobProcessor(platform::U32_t affinityMask);
-	void start(void);
-	void process(void); // This method needs to be public for the pointer-to-member-function workaround to work.
-private:
-	platform::Signal *signal;
-	platform::U32_t affinity;
-	platform::Thread *thread;
-};
-
-class JobManager
-{
-private:
-	platform::U32_t promotionIncrement;
-	platform::U32_t noJobProcessors;
-	platform::U32_t getCurrentProcessAffinityMask(void);
-	platform::U32_t getNumberOfProcessorsAvailable(void);
-	void initJobProcessors(platform::U32_t processAffinity);
-	JobProcessor **processors;
-public:
-	void init(void);
-	void destroy(void);
-	void setPromotionIncrement(platform::U32_t value);
-	platform::U32_t getPromotionIncrement(void);
-};
+	class Job
+	{
+	public:
+		typedef void (*complete_callback)(Job &job);
+		Job(core::U32_t priority, complete_callback callback);
+		virtual void performJob() = 0;
+	private:
+		core::U32_t priority;
+		complete_callback callback;
+	};
+}
 
 #endif

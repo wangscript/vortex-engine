@@ -18,24 +18,23 @@
 #ifndef VTX_STACK_ALLOCATOR_H
 #define VTX_STACK_ALLOCATOR_H
 
-#include <core/vtx_types.h>
+#include <platform/vtx_atomic.h>
 
-//
 namespace core
 {
 	class StackAllocator
 	{
 	private:
-		platform::U32_t stackSize;
-		platform::U8_t *data;
-		platform::U32_t stackPosition;
+		core::U32_t stackSize;
+		core::U8_t *data;
+		core::U32_t stackPosition;
 	public:
 		enum ErrorCode{	OK,	NOT_ENOUGH_STACK_SPACE };
-		StackAllocator( platform::U32_t stackSize );
+		StackAllocator( core::U32_t stackSize );
 		~StackAllocator();	
-		ErrorCode allocate( platform::U32_t size , platform::U8_t **allocatedSpace );
-		void freeToMarker( platform::U32_t stackPosition );
-		platform::U32_t getMarker();
+		ErrorCode allocate( core::U32_t size , core::U8_t **allocatedSpace );
+		void freeToMarker( core::U32_t stackPosition );
+		core::U32_t getMarker();
 	};
 }
 

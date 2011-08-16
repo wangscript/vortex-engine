@@ -19,14 +19,19 @@
 
 #include <platform/vtx_atomic.h>
 
-class Clock
+namespace core
 {
-private:
-	platform::U64_t startTime;
-public:
-	void reset(void);
-	float /*platform::F32*/ getElapsedSeconds(void);
-	float /*platform::F32*/ getElapsedSecondsAndReset(void);
-};
+
+	class Clock
+	{
+	private:
+		core::U64_t startTime;
+	public:
+		void reset(void);
+		core::F32_t getElapsedSeconds(void);
+		core::F32_t getElapsedSecondsAndReset(void);
+	};
+
+}
 
 #endif
