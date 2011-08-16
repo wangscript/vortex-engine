@@ -14,14 +14,12 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_filestream.h>
+#include <platform/vtx_filestream.h>;
 
-using namespace platform;
-
-IOStream::ErrorCode FileStream::openStream(std::wstring &path)
+io::IOStream::ErrorCode io::FileStream::openStream(std::wstring &path)
 {
 	// Open file for reading and writing as binary.
-	SYSTEM_HANDLE handle;
+	core::SYSTEM_HANDLE handle;
 	// TODO: Fix unix variant!
 #ifdef WIN32
 	handle = CreateFileW(
@@ -36,7 +34,7 @@ IOStream::ErrorCode FileStream::openStream(std::wstring &path)
 	return this->init(handle);
 }
 
-void FileStream::closeStream()
+void io::FileStream::closeStream()
 {
 #ifdef WIN32
 	CloseHandle(this->handle);

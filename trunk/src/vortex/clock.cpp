@@ -17,27 +17,25 @@
 #include <vortex/vtx_clock.h>
 #include <platform/vtx_timer.h>
 
-using namespace platform;
-
-void Clock::reset(void)
+void core::Clock::reset(void)
 {
 	this->startTime = Timer::readHighResolutionTimer();
 }
 
-F32_t Clock::getElapsedSeconds(void)
+core::F32_t core::Clock::getElapsedSeconds(void)
 {
-	U64_t now = Timer::readHighResolutionTimer();
-	U64_t freq = Timer::readHighResolutionTimerFrequency();
-	return ((F32_t)(now - this->startTime)) / (F32_t)freq;
+	core::U64_t now = core::Timer::readHighResolutionTimer();
+	core::U64_t freq = core::Timer::readHighResolutionTimerFrequency();
+	return ((core::F32_t)(now - this->startTime)) / (core::F32_t)freq;
 }
 
-F32_t Clock::getElapsedSecondsAndReset(void)
+core::F32_t core::Clock::getElapsedSecondsAndReset(void)
 {
-	U64_t now = Timer::readHighResolutionTimer();
-	U64_t start = this->startTime;
+	core::U64_t now = core::Timer::readHighResolutionTimer();
+	core::U64_t start = this->startTime;
 	this->startTime = now;
-	U64_t freq = Timer::readHighResolutionTimerFrequency();
-	return ((F32_t)(now - start)) / (F32_t)freq;
+	core::U64_t freq = core::Timer::readHighResolutionTimerFrequency();
+	return ((core::F32_t)(now - start)) / (core::F32_t)freq;
 }
 
 

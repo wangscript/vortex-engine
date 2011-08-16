@@ -15,16 +15,11 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <core/vtx_eventoutput.h>
+#include <platform/vtx_atomic.h>
 #include <core/vtx_assertions.h>
 #include <sstream>
 
-/*EventOutput::EventOutput( E_LEVEL level ) : reportLevel(level), outStream(
-{
-}*/
-//EventOutput::EventOutput( E_LEVEL level) : reportLevel(level)
-//	EventOutput( E_LEVEL, std::wstring& ); 
-
-void EventOutput::reportEvent( E_LEVEL level, std::wstring& message )
+void core::EventOutput::reportEvent( E_LEVEL level, std::wstring& message )
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
@@ -34,7 +29,7 @@ void EventOutput::reportEvent( E_LEVEL level, std::wstring& message )
 	}
 }
 
-void EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
+void core::EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
@@ -44,7 +39,7 @@ void EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
 	}
 }
 
-void EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, platform::U32_t errorCode)
+void core::EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, core::U32_t errorCode)
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
@@ -56,17 +51,17 @@ void EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, 
 	}
 }
 
-void EventOutput::outputToStream( E_LEVEL level, std::wstring& message )
+void core::EventOutput::outputToStream( E_LEVEL level, std::wstring& message )
 {
 	*this->outStream << L": " << message << std::endl;
 }
 
-void EventOutput::setOutputLevel( E_LEVEL level )
+void core::EventOutput::setOutputLevel( E_LEVEL level )
 {
 	this->reportLevel = level;
 }
 
-void EventOutput::setOutput( std::wostream *out )
+void core::EventOutput::setOutput( std::wostream *out )
 {
 	if(!out)
 		this->outStream = &std::wcerr;

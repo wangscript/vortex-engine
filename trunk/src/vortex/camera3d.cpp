@@ -1,11 +1,13 @@
 #include <vortex/vtx_camera.h>
+#include <core/vtx_matrix4x4.h>
+#include <core/vtx_vector3.h>
 
-Camera3D::Camera3D(void)
+core::Camera3D::Camera3D(void)
 {
 	this->view = new core::Matrix4x4();
 }
 
-core::Matrix4x4 *Camera3D::getView(void)
+core::Matrix4x4 *core::Camera3D::getView(void)
 {
 	if(this->viewIsDirty)
 	{
@@ -15,7 +17,7 @@ core::Matrix4x4 *Camera3D::getView(void)
 	return this->view;
 }
 
-core::Matrix4x4 *Camera3D::getProjection(void)
+core::Matrix4x4 *core::Camera3D::getProjection(void)
 {
 	if(this->projIsDirty)
 	{
@@ -26,7 +28,7 @@ core::Matrix4x4 *Camera3D::getProjection(void)
 }
 
 
-void Camera3D::setPosition(core::Vector3 &pos)
+void core::Camera3D::setPosition(core::Vector3 &pos)
 {
 	if(*this->position != pos)
 	{
@@ -35,7 +37,7 @@ void Camera3D::setPosition(core::Vector3 &pos)
 	}
 }
 
-core::Vector3 *Camera3D::getPosition(void)
+core::Vector3 *core::Camera3D::getPosition(void)
 {
 	return this->position;
 }

@@ -20,23 +20,22 @@
 #include <vector>
 
 using namespace boost::intrusive;
-using namespace platform;
 
 struct delete_disposer
 {
-	void operator()(Device *delete_this)
+	void operator()(io::Device *delete_this)
 	{  delete delete_this;  }
 };
 
 TEST(Device, GetDevices)
 {
-	::list<Device> devices;
-	U32_t deviceCount = Device::getDevices(&devices);
+	::list<io::Device> devices;
+	core::U32_t deviceCount = io::Device::getDevices(&devices);
 
 	ASSERT_EQ(deviceCount > 0, true);
 
-	::list<Device>::iterator it(devices.begin());
-	::list<Device>::iterator itend(devices.end());
+	::list<io::Device>::iterator it(devices.begin());
+	::list<io::Device>::iterator itend(devices.end());
 	for(; it != itend; ++it)
 	{
 		// What can be asserted?
@@ -49,33 +48,33 @@ TEST(File, Exists)
 {
 	std::wstring p(L"c:\\temp\\testidag.png");
 	std::wstring p2(L"c:\\temp\\thisfiledoesnotexist.txt");
-	File file(&p);
-	File file2(&p2);
-	ASSERT_EQ(file.exists(), File::OK);
-	ASSERT_EQ(file2.exists(), File::FILE_DOES_NOT_EXIST);
+	io::File file(&p);
+	io::File file2(&p2);
+	ASSERT_EQ(file.exists(), io::File::OK);
+	ASSERT_EQ(file2.exists(), io::File::FILE_DOES_NOT_EXIST);
 
 }
 
 TEST(File, CreateDelete)
 {
 	std::wstring path(L"c:\\temp\\unittest.txt");
-	File file(&path);
-	ASSERT_EQ(file.exists(), File::FILE_DOES_NOT_EXIST);
-	ASSERT_EQ(file.create(false), File::OK);
-	ASSERT_EQ(file.exists(), File::OK);
-	ASSERT_EQ(file.deletefile(), File::OK);
-	ASSERT_EQ(file.exists(), File::FILE_DOES_NOT_EXIST);
+	io::File file(&path);
+	ASSERT_EQ(file.exists(), io::File::FILE_DOES_NOT_EXIST);
+	ASSERT_EQ(file.create(false), io::File::OK);
+	ASSERT_EQ(file.exists(), io::File::OK);
+	ASSERT_EQ(file.deletefile(), io::File::OK);
+	ASSERT_EQ(file.exists(), io::File::FILE_DOES_NOT_EXIST);
 }
 
 TEST(IOStream, Read)
 {
-	FileStream stream;
+	io::FileStream stream;
 	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
 	
-	U8_t *buffer = (U8_t*)malloc(2);
-	U8_t *destBuffer = (U8_t*)malloc(13);
-	U32_t bytesRead;
-	for(U32_t i = 0; i < 12; i += 2)
+	core::U8_t *buffer = (core::U8_t*)malloc(2);
+	core::U8_t *destBuffer = (core::U8_t*)malloc(13);
+	core::U32_t bytesRead;
+	for(core::U32_t i = 0; i < 12; i += 2)
 	{
 		stream.readBytes(buffer, 2, &bytesRead);
 		destBuffer[i] = buffer[0];
@@ -91,14 +90,14 @@ TEST(IOStream, Read)
 
 TEST(IOStream, SetPosition)
 {
-	FileStream stream;
+	io::FileStream stream;
 	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
 
-	U8_t *buffer = (U8_t*)malloc(7);
-	U32_t bytesRead;
-	ASSERT_EQ(stream.setPosition(6), FileStream::OK);
+	core::U8_t *buffer = (core::U8_t*)malloc(7);
+	core::U32_t bytesRead;
+	ASSERT_EQ(stream.setPosition(6), io::FileStream::OK);
 
-	ASSERT_EQ(stream.readBytes(buffer, 6, &bytesRead), FileStream::OK);
+	ASSERT_EQ(stream.readBytes(buffer, 6, &bytesRead), io::FileStream::OK);
 	buffer[6] = 0;
 	ASSERT_EQ(strcmp((char*)buffer, "world!"), 0);
 

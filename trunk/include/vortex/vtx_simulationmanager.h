@@ -14,18 +14,32 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef VTX_UTIL_H
-#define VTX_UTIL_H
+#ifndef VTX_SIMULATION_H
+#define VTX_SIMULATION_H
 
 #include <platform/vtx_atomic.h>
+#include <vortex/vtx_clock.h>
+
+namespace graphics
+{
+	class RenderAPI;
+}
 
 namespace core
 {
 
-	class Utilities
+	class SimulationManager
 	{
 	public:
-		static core::U8_t getSetBitCount(core::U32_t value);
+		core::U32_t frames;
+		void init(graphics::RenderAPI *render);
+		void destroy(void);
+		void run(void);
+		void step(core::F32_t elapsed);
+	private:
+		core::Clock gameClock;
+		graphics::RenderAPI *render;
+		void runOneFrame(core::F32_t seconds);
 	};
 
 }

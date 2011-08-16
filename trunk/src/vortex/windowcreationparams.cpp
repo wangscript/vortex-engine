@@ -15,8 +15,9 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <core/vtx_assertions.h>
-#include <platform/vtx_defineconfig.h>
-#include <vortex/vtx_render.h>
+#include <platform/vtx_buildconfig.h>
+#include <vortex/vtx_rendermanager.h>
+#include <vortex/vtx_windowcreationparams.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -25,7 +26,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 #endif
 
-WindowCreationParams::WindowCreationParams()
+core::WindowCreationParams::WindowCreationParams()
 {
 	this->windowHandle = 0;
 	this->isFullscreen = false;

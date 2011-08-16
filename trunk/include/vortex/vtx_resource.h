@@ -19,17 +19,26 @@
 
 #include <vortex/vtx_vortexbase.h>
 #include <string>
-class Root;
 
-class ResourceManager : VortexBase
+namespace core
 {
-public:
-	ResourceManager(Root& parent) : VortexBase(parent) {}
-	void init(void);
-	void destroy(void);
+	class Root;
+}
 
-	template <class T>
-	T load(std::wstring &asset);
-};
+namespace content
+{
+
+	class ResourceManager : core::VortexBase
+	{
+	public:
+		ResourceManager(core::Root& parent) : core::VortexBase(parent) {}
+		void init(void);
+		void destroy(void);
+
+		template <class T>
+		T load(std::wstring &asset);
+	};
+
+}
 
 #endif

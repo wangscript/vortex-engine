@@ -14,11 +14,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <vortex/vtx_renderinternal.h>
+#include <vortex/vtx_renderapi.h>
 #include <platform/vtx_atomic.h>
 #include <cstring>
 
-void RenderAPI::setClearColor(core::Vector4 &color)
+void graphics::RenderAPI::setClearColor(core::Vector4 &color)
 {
 	this->clearColor.values[0] = color.values[0];
 	this->clearColor.values[1] = color.values[1];
@@ -26,7 +26,7 @@ void RenderAPI::setClearColor(core::Vector4 &color)
 	this->clearColor.values[3] = color.values[3];
 }
 
-core::Vector4 *RenderAPI::getClearColor()
+core::Vector4 *graphics::RenderAPI::getClearColor()
 {
 	return &this->clearColor;
 }

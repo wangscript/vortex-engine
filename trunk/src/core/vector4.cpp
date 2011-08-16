@@ -14,21 +14,18 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_defineconfig.h>
-#include <core/vtx_types.h>
+#include <platform/vtx_buildconfig.h>
+#include <core/vtx_vector4.h>
 #include <xmmintrin.h>
 #include <pmmintrin.h>
 #include <cstring>
 
-using namespace core;
-using namespace platform;
-
-Vector4::Vector4()
+core::Vector4::Vector4()
 {
 	memset(this->values, 0, sizeof(this->values));
 }
 
-Vector4::Vector4( F32_t x, F32_t y, F32_t z, F32_t w )
+core::Vector4::Vector4( core::F32_t x, core::F32_t y, core::F32_t z, core::F32_t w )
 {
 	this->values[0] = x;
 	this->values[1] = y;
@@ -36,7 +33,7 @@ Vector4::Vector4( F32_t x, F32_t y, F32_t z, F32_t w )
 	this->values[3] = w;
 }
 
-void Vector4::add( Vector4 &a, Vector4 &b, Vector4 &result )
+void core::Vector4::add( core::Vector4 &a, core::Vector4 &b, core::Vector4 &result )
 {
 	__m128 mA = _mm_load_ps(a.values);
 	__m128 mB = _mm_load_ps(b.values);
@@ -44,7 +41,7 @@ void Vector4::add( Vector4 &a, Vector4 &b, Vector4 &result )
 	_mm_store_ps(result.values, mRes);
 }
 
-void Vector4::subtract( Vector4 &a, Vector4 &b, Vector4 &result )
+void core::Vector4::subtract( core::Vector4 &a, core::Vector4 &b, core::Vector4 &result )
 {
 	__m128 mA = _mm_load_ps(a.values);
 	__m128 mB = _mm_load_ps(b.values);
@@ -52,7 +49,7 @@ void Vector4::subtract( Vector4 &a, Vector4 &b, Vector4 &result )
 	_mm_store_ps(result.values, mRes);
 }
 
-void Vector4::multiply( Vector4 &a, Vector4 &b, Vector4 &result )
+void core::Vector4::multiply( core::Vector4 &a, core::Vector4 &b, core::Vector4 &result )
 {
 	__m128 mA = _mm_load_ps(a.values);
 	__m128 mB = _mm_load_ps(b.values);
@@ -60,7 +57,7 @@ void Vector4::multiply( Vector4 &a, Vector4 &b, Vector4 &result )
 	_mm_store_ps(result.values, mRes);
 }
 
-void Vector4::multiply( Vector4 &a, F32_t value, Vector4 &result )
+void core::Vector4::multiply( core::Vector4 &a, core::F32_t value, core::Vector4 &result )
 {
 	ALIGNED_16 F32_t values[] = {value, value, value, value};
 	__m128 mA = _mm_load_ps(a.values);
@@ -69,7 +66,7 @@ void Vector4::multiply( Vector4 &a, F32_t value, Vector4 &result )
 	_mm_store_ps(result.values, mRes);
 }
 
-F32_t Vector4::dot( Vector4 &a, Vector4 &b )
+core::F32_t core::Vector4::dot( core::Vector4 &a, core::Vector4 &b )
 {
 	__m128 ma;
 	__m128 mb;

@@ -17,15 +17,19 @@
 #ifndef VTX_VORTEXBASE_H
 #define VTX_VORTEXBASE_H
 
-class Root;
-
-class VortexBase
+namespace core
 {
-protected:
-Root &engineParent;
-public:
-VortexBase(Root &parent) : engineParent(parent) {}
+	class Root;
 
-};
+	class VortexBase
+	{
+	protected:
+		Root &engineParent;
+	public:
+		VortexBase(Root &parent) : engineParent(parent) {}
+
+	};
+
+}
 
 #endif

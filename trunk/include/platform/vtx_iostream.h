@@ -23,26 +23,26 @@
 #include <Windows.h>
 #endif
 
-namespace platform
+namespace io
 {
 
 	class IOStream
 	{
 	protected:
-		SYSTEM_HANDLE handle;
-		U64_t position;
+		core::SYSTEM_HANDLE handle;
+		core::U64_t position;
 	public:
 		enum ErrorCode { OK, UNKOWN_ERROR };
-		typedef void (*read_callback)(U8_t *buffer, U32_t bytesRead);
+		typedef void (*read_callback)(core::U8_t *buffer, core::U32_t bytesRead);
 		typedef void (*write_callback)(void);
 
-		ErrorCode init(SYSTEM_HANDLE handle);
-		U64_t getPosition();
-		ErrorCode setPosition(U64_t position);
-		ErrorCode readBytes(U8_t *buffer, U32_t bytesToRead, U32_t *bytesRead);
-		void readBytes_async(U8_t *buffer, U32_t bytesToRead, read_callback callback);
-		void writeBytes(U8_t *buffer, U32_t start, U32_t length);
-		void writeBytes_async(U8_t *buffer, U32_t start, U32_t length, write_callback);
+		ErrorCode init(core::SYSTEM_HANDLE handle);
+		core::U64_t getPosition();
+		ErrorCode setPosition(core::U64_t position);
+		ErrorCode readBytes(core::U8_t *buffer, core::U32_t bytesToRead, core::U32_t *bytesRead);
+		void readBytes_async(core::U8_t *buffer, core::U32_t bytesToRead, read_callback callback);
+		void writeBytes(core::U8_t *buffer, core::U32_t start, core::U32_t length);
+		void writeBytes_async(core::U8_t *buffer, core::U32_t start, core::U32_t length, write_callback);
 		virtual ErrorCode openStream(std::wstring &path) = 0;
 		void closeStream();
 	};

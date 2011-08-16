@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include <core/vtx_types.h>
+#include <core/vtx_vector3.h>
 
 TEST(Vector3, Normalize)
 {

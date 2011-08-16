@@ -17,26 +17,39 @@
 #ifndef VTX_OPENGLRENDER_H
 #define VTX_OPENGLRENDER_H
 
-#include <vortex/vtx_renderinternal.h>
-#include <vortex/vtx_render.h>
+#include <vortex/vtx_renderapi.h>
+#include <vortex/vtx_rendermanager.h>
 
-class OpenGLRender : public RenderAPI
+namespace core
 {
-private:
-	NativeWindow *window;
+	class NativeWindow;
+}
+
+namespace graphics
+{
+	class RenderCreationParams;
+	class VertexBuffer;
+	class VertexPosNormTex;
+
+	class OpenGLRender : public graphics::RenderAPI
+	{
+	private:
+		core::NativeWindow *window;
 #if defined(VTX_PLATFORM_WIN32)
-	HDC hDC;
-	HGLRC renderContext;
+		HDC hDC;
+		HGLRC renderContext;
 #endif
-public:
-	OpenGLRender(Root& parent, RenderCreationParams &params, NativeWindow *outputWindow);
-	~OpenGLRender(void);
-	virtual void swap(void);
-	virtual void clear(void);
-	virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, platform::U32_t noVertices, E_BUFFER_USAGE usage);
-	virtual void bindVertexBuffers(platform::U32_t slot, platform::U32_t bufferCount, VertexBuffer **buffers, const platform::U32_t *strides, const platform::U32_t *offsets);
-	virtual void draw(platform::U32_t verticeCount, platform::U32_t startVertex);
-	virtual void setPrimitiveType(E_PRIMITIVE_TYPE type);
-};
+	public:
+		OpenGLRender(core::Root& parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
+		~OpenGLRender(void);
+		virtual void swap(void);
+		virtual void clear(void);
+		virtual VertexBuffer *createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, graphics::E_BUFFER_USAGE usage);
+		virtual void bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, graphics::VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets);
+		virtual void draw(core::U32_t verticeCount, core::U32_t startVertex);
+		virtual void setPrimitiveType(graphics::E_PRIMITIVE_TYPE type);
+	};
+
+}
 
 #endif

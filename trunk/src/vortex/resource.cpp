@@ -18,16 +18,16 @@
 #include <iostream>
 #include <vortex/vtx_vortex.h>
 
-void ResourceManager::init()
+void content::ResourceManager::init()
 {
 }
 
-void ResourceManager::destroy()
+void content::ResourceManager::destroy()
 {
 }
 
 template <class T>
-T ResourceManager::load(std::wstring &asset)
+T content::ResourceManager::load(std::wstring &asset)
 {
 	
 }

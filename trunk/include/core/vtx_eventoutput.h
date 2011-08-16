@@ -23,24 +23,28 @@
 #include <iostream>
 #include <map>
 
-
-class EventOutput
+namespace core
 {
-public:
-	enum E_LEVEL { E_LEVEL_VERBOSE, E_LEVEL_INFO, E_LEVEL_WARNING, E_LEVEL_ERROR, E_LEVEL_FATAL };
-	std::map<E_LEVEL, std::wstring> map;
-	EventOutput( E_LEVEL level) : reportLevel(level), outStream(&std::wcerr) {};
-	EventOutput( E_LEVEL level, std::wostream* out) : reportLevel(level), outStream(out) {};  
-	void reportEvent( E_LEVEL, std::wstring& );
-	void reportEvent( E_LEVEL, wchar_t* );
-	void reportMethodFailedEvent( E_LEVEL, std::wstring&, platform::U32_t );
-	void setOutputLevel( E_LEVEL );
-	void setOutput( std::wostream* );
-private:
-	E_LEVEL reportLevel;
-	std::wostream *outStream;
-	void initMap(void);
-	void outputToStream( E_LEVEL, std::wstring& );
-};
+
+	class EventOutput
+	{
+	public:
+		enum E_LEVEL { E_LEVEL_VERBOSE, E_LEVEL_INFO, E_LEVEL_WARNING, E_LEVEL_ERROR, E_LEVEL_FATAL };
+		std::map<E_LEVEL, std::wstring> map;
+		EventOutput( E_LEVEL level) : reportLevel(level), outStream(&std::wcerr) {};
+		EventOutput( E_LEVEL level, std::wostream* out) : reportLevel(level), outStream(out) {};  
+		void reportEvent( E_LEVEL, std::wstring& );
+		void reportEvent( E_LEVEL, wchar_t* );
+		void reportMethodFailedEvent( E_LEVEL, std::wstring&, core::U32_t );
+		void setOutputLevel( E_LEVEL );
+		void setOutput( std::wostream* );
+	private:
+		E_LEVEL reportLevel;
+		std::wostream *outStream;
+		void initMap(void);
+		void outputToStream( E_LEVEL, std::wstring& );
+	};
+
+}
 
 #endif

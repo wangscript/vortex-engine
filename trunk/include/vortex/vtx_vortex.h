@@ -17,39 +17,58 @@
 #ifndef VTX_VORTEX_H
 #define VTX_VORTEX_H
 
-#include <platform/vtx_defineconfig.h>
-#include <core/vtx_eventoutput.h>
-#include <vortex/vtx_job.h>
-#include <vortex/vtx_render.h>
-#include <vortex/vtx_resource.h>
-#include <vortex/vtx_simulation.h>
-#include <vortex/vtx_window.h>
+#include <platform/vtx_buildconfig.h>
 
-class Root
+namespace graphics
 {
-public:
-	Root(void);
-	void Run(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
-#if defined(VTX_TOOL_BUILD)
-	void toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
-	void toolStep(/*platform::F32*/float elapsed);
-	void toolDestroy(void);
-#endif
-private:
-	friend class JobManager;
-	friend class SimulationManager;
-	friend class ResourceManager;
-	friend class RenderManager;
-	friend class NativeWindow;
-	friend class OpenGLRender;
+	class RenderCreationParams;
+	class RenderManager;
+}
 
-	EventOutput		*output;
-	JobManager		*jobManager;
-	SimulationManager	*simulationManager;
-	ResourceManager		*resourceManager;
-	RenderManager		*renderManager;
-	
-	void init(WindowCreationParams &windowParams, RenderCreationParams &renderParams);
-};
+namespace concurrency
+{
+	class JobManager;
+}
+
+namespace content
+{
+	class ResourceManager;
+}
+
+namespace core
+{
+	class EventOutput;
+	class NativeWindow;
+	class SimulationManager;
+	class WindowCreationParams;
+
+	class Root
+	{
+	public:
+		Root(void);
+		void Run(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
+#if defined(VTX_TOOL_BUILD)
+		void toolInit(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
+		void toolStep(core::F32_t elapsed);
+		void toolDestroy(void);
+#endif
+	private:
+		friend class JobManager;
+		friend class SimulationManager;
+		friend class ResourceManager;
+		friend class graphics::RenderManager;
+		friend class NativeWindow;
+		friend class OpenGLRender;
+
+		core::EventOutput			*output;
+		concurrency::JobManager		*jobManager;
+		core::SimulationManager		*simulationManager;
+		content::ResourceManager	*resourceManager;
+		graphics::RenderManager		*renderManager;
+
+		void init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
+	};
+
+}
 
 #endif

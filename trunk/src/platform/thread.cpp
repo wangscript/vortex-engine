@@ -14,7 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 #include <platform/vtx_thread.h>
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
@@ -22,16 +22,14 @@
 #include <errno.h>
 #endif
 
-using namespace platform;
-
-Thread::Thread(ThreadFunc func)
+concurrency::Thread::Thread(ThreadFunc func)
 {
 	this->func = func;
 }
 
-Thread::ErrorCode Thread::start(void *threadData, U32_t affinityMask)
+concurrency::Thread::ErrorCode concurrency::Thread::start(void *threadData, core::U32_t affinityMask)
 {
-	Thread::ErrorCode ret;
+	concurrency::Thread::ErrorCode ret;
 #if defined(VTX_PLATFORM_WIN32)
 	this->handle = CreateThread(
 		NULL,
@@ -67,9 +65,9 @@ Thread::ErrorCode Thread::start(void *threadData, U32_t affinityMask)
 	return ret;
 }
 
-Thread::ErrorCode Thread::start(void *threadData)
+concurrency::Thread::ErrorCode concurrency::Thread::start(void *threadData)
 {
-	Thread::ErrorCode ret;
+	concurrency::Thread::ErrorCode ret;
 #if defined(VTX_PLATFORM_WIN32)
 	this->handle = CreateThread(
 		NULL,
@@ -90,7 +88,7 @@ Thread::ErrorCode Thread::start(void *threadData)
 		ret = Thread::OK;
 	}
 #elif defined(VTX_PLATFORM_LINUX)
-	U32 errcode = pthread_create(&this->handle, NULL, this->func, threadData);
+	core::U32_t errcode = pthread_create(&this->handle, NULL, this->func, threadData);
 	if(errcode != 0)
 	{
 		switch(errcode)

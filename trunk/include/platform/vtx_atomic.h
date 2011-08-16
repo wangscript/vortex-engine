@@ -16,7 +16,7 @@
 
 #ifndef VTX_ATOMIC_H
 #define VTX_ATOMIC_H
-#include <platform/vtx_defineconfig.h>
+#include <platform/vtx_buildconfig.h>
 #include <string>
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
@@ -27,7 +27,7 @@
 
 #include <stdint.h>
 
-namespace platform
+namespace core
 {
 
 #if defined(VTX_PLATFORM_WIN32)
