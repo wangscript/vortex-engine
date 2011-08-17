@@ -14,19 +14,29 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <io/vtx_filestream.h>
 
-TEST(RenderManager, CreateWindow)
+io::IOStream::ErrorCode io::FileStream::openStream(std::wstring &path)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+	// Open file for reading and writing as binary.
+	core::SYSTEM_HANDLE handle;
+	// TODO: Fix unix variant!
+#ifdef WIN32
+	handle = CreateFileW(
+		(LPCWSTR)path.c_str(),
+		GENERIC_READ | GENERIC_WRITE,
+		0,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+#endif
+	return this->init(handle);
+}
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+void io::FileStream::closeStream()
+{
+#ifdef WIN32
+	CloseHandle(this->handle);
+#endif
 }

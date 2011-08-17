@@ -14,19 +14,29 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_D3D10VERTEXBUFFER_H
+#define VTX_D3D10VERTEXBUFFER_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_buildconfig.h>
+#include <graphics/vtx_vbuffer.h>
+
+#if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
+
+namespace graphics
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class DX10VertexBuffer : public VertexBuffer
+	{
+	public:
+		ID3D10Buffer *buffer;
+		DX10VertexBuffer(ID3D10Buffer *d3dbuffer)
+			: buffer(d3dbuffer)
+		{
+		}
+	};
+
 }
+
+#endif
+
+#endif

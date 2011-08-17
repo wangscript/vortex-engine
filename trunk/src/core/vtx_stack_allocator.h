@@ -14,19 +14,28 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
 
-TEST(RenderManager, CreateWindow)
+#ifndef VTX_STACK_ALLOCATOR_H
+#define VTX_STACK_ALLOCATOR_H
+
+#include <core/vtx_atomic.h>
+
+namespace core
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class StackAllocator
+	{
+	private:
+		core::U32_t stackSize;
+		core::U8_t *data;
+		core::U32_t stackPosition;
+	public:
+		enum ErrorCode{	OK,	NOT_ENOUGH_STACK_SPACE };
+		StackAllocator( core::U32_t stackSize );
+		~StackAllocator();	
+		ErrorCode allocate( core::U32_t size , core::U8_t **allocatedSpace );
+		void freeToMarker( core::U32_t stackPosition );
+		core::U32_t getMarker();
+	};
 }
+
+#endif

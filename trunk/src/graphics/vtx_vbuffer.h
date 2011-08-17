@@ -14,19 +14,29 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_VBUFFER_H
+#define VTX_VBUFFER_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_atomic.h>
+
+namespace graphics
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	enum E_BUFFER_USAGE
+	{
+		E_BUFFER_USAGE_IMMUTABLE,
+		E_BUFFER_USAGE_DYNAMIC,
+	};
+
+	class VertexBuffer
+	{
+	protected:
+		VertexBuffer(void)
+		{
+		}
+	};
+
 }
+
+
+#endif

@@ -14,19 +14,20 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <content/vtx_resource.h>
+#include <iostream>
+#include <core/vtx_vortex.h>
 
-TEST(RenderManager, CreateWindow)
+void content::ResourceManager::init()
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+}
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+void content::ResourceManager::destroy()
+{
+}
+
+template <class T>
+T content::ResourceManager::load(std::wstring &asset)
+{
+	
 }

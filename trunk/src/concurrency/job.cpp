@@ -14,19 +14,13 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <core/vtx_buildconfig.h>
+#include <concurrency/vtx_job.h>
+#include <core/vtx_atomic.h>
+#include <core/vtx_assertions.h>
 
-TEST(RenderManager, CreateWindow)
+concurrency::Job::Job(core::U32_t priority, complete_callback callback)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	this->priority = priority;
+	this->callback = callback;
 }

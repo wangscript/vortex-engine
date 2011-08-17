@@ -14,19 +14,28 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_JOBPROCESSOR_H
+#define VTX_JOBPROCESSOR_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_atomic.h>
+
+namespace concurrency
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+	class Signal;
+	class Thread;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class JobProcessor
+	{
+	public:
+		explicit JobProcessor(core::U32_t affinityMask);
+		void start(void);
+		void process(void); // This method needs to be public for the pointer-to-member-function workaround to work.
+	private:
+		concurrency::Signal *signal;
+		core::U32_t affinity;
+		concurrency::Thread *thread;
+	};
+
 }
+
+#endif

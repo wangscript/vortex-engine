@@ -14,19 +14,36 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_THREAD_H
+#define VTX_THREAD_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_buildconfig.h>
+#include <core/vtx_atomic.h>
+
+#if defined(VTX_PLATFORM_WIN32)
+typedef HANDLE THREAD_HANDLE;
+typedef core::U32_t (*ThreadFunc)(void*);
+#elif defined(VTX_PLATFORM_LINUX)
+#include <pthread.h>
+typedef pthread_t THREAD_HANDLE;
+typedef void *(*ThreadFunc)(void*);
+#endif
+
+
+namespace concurrency
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class Thread
+	{
+	public:
+		enum ErrorCode { OK, UNKNOWN_ERROR, NOPERMISSION, SYSTEMFAIL };
+		explicit Thread(ThreadFunc func);
+		ErrorCode start(void *threadData);
+		ErrorCode start(void *threadData, core::U32_t affinityMask);
+	private:
+		THREAD_HANDLE handle;
+		ThreadFunc func;
+	};
 }
+
+#endif

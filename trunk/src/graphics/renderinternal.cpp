@@ -14,19 +14,19 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <graphics/vtx_renderapi.h>
+#include <core/vtx_atomic.h>
+#include <cstring>
 
-TEST(RenderManager, CreateWindow)
+void graphics::RenderAPI::setClearColor(core::Vector4 &color)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+	this->clearColor.values[0] = color.values[0];
+	this->clearColor.values[1] = color.values[1];
+	this->clearColor.values[2] = color.values[2];
+	this->clearColor.values[3] = color.values[3];
+}
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+core::Vector4 *graphics::RenderAPI::getClearColor()
+{
+	return &this->clearColor;
 }

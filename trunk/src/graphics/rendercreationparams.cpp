@@ -14,19 +14,16 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <graphics/vtx_rendercreationparams.h>
 
-TEST(RenderManager, CreateWindow)
+#define DEFAULT_BACKBUFFER_WIDTH	800
+#define DEFAULT_BACKBUFFER_HEIGHT	600
+
+graphics::RenderCreationParams::RenderCreationParams(void)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	this->backBufferSize.x = DEFAULT_BACKBUFFER_WIDTH;
+	this->backBufferSize.y = DEFAULT_BACKBUFFER_HEIGHT;
+	this->multisampleCount = 1;
+	this->multisampleQuality = 0;
+	this->rapi = E_RAPI_SOFTWARE; // Software rendering by default.
 }

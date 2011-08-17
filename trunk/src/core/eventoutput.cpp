@@ -15,7 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <core/vtx_eventoutput.h>
-#include <platform/vtx_atomic.h>
+#include <core/vtx_atomic.h>
 #include <core/vtx_assertions.h>
 #include <sstream>
 
