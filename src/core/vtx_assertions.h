@@ -14,19 +14,31 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_ASSERTIONS_H
+#define VTX_ASSERTIONS_H
 
-TEST(RenderManager, CreateWindow)
-{
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+#include <core/vtx_buildconfig.h>
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
-}
+void reportAssertionFailure(const char *expr, const char *file, long line);
+#if defined(ASSERTIONS_ENABLED)
+#if defined(VTX_PLATFORM_WIN32)
+	#define debugBreak() __asm { int 3 }
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+	#define debugBreak() asm("int $3")
+#endif
+
+	#define ASSERT(expr) \
+		if(expr) { } \
+		else \
+		{ \
+			reportAssertionFailure(#expr, \
+			__FILE__, \
+			__LINE__); \
+			debugBreak(); \
+		}
+#else
+	#define ASSERT(expr)
+#endif
+
+#endif

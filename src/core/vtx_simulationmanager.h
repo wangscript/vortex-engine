@@ -14,19 +14,34 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_SIMULATION_H
+#define VTX_SIMULATION_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_atomic.h>
+#include <core/vtx_clock.h>
+
+namespace graphics
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class RenderAPI;
 }
+
+namespace core
+{
+
+	class SimulationManager
+	{
+	public:
+		core::U32_t frames;
+		void init(graphics::RenderAPI *render);
+		void destroy(void);
+		void run(void);
+		void step(core::F32_t elapsed);
+	private:
+		core::Clock gameClock;
+		graphics::RenderAPI *render;
+		void runOneFrame(core::F32_t seconds);
+	};
+
+}
+
+#endif

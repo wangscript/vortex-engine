@@ -14,19 +14,31 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_JOBMANAGER_H
+#define VTX_JOBMANAGER_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_atomic.h>
+
+namespace concurrency
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+	class JobProcessor;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class JobManager
+	{
+	private:
+		core::U32_t promotionIncrement;
+		core::U32_t noJobProcessors;
+		core::U32_t getCurrentProcessAffinityMask(void);
+		core::U32_t getNumberOfProcessorsAvailable(void);
+		void initJobProcessors(core::U32_t processAffinity);
+		JobProcessor **processors;
+	public:
+		void init(void);
+		void destroy(void);
+		void setPromotionIncrement(core::U32_t value);
+		core::U32_t getPromotionIncrement(void);
+	};
+
 }
+
+#endif

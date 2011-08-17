@@ -14,19 +14,31 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include <core/vtx_assertions.h>
+#include <core/vtx_buildconfig.h>
 #include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <core/vtx_windowcreationparams.h>
 
-TEST(RenderManager, CreateWindow)
+#if defined(VTX_PLATFORM_WIN32)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+#endif
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+core::WindowCreationParams::WindowCreationParams()
+{
+	this->windowHandle = 0;
+	this->isFullscreen = false;
+	this->styleFlags = (WindowCreationParams::E_WINDOWSTYLE)0;
+	this->windowPosition.x = VWIN_USEDEFAULT;
+	this->windowPosition.y = VWIN_USEDEFAULT;
+	this->windowSize.x = VWIN_USEDEFAULT;
+	this->windowSize.y = VWIN_USEDEFAULT;
+#if defined(VTX_PLATFORM_WIN32)
+	this->wndProc = WndProc;
+#endif
+#if defined(VTX_PLATFORM_LINUX)
+	this->displayX11 = NULL;
+#endif
 }

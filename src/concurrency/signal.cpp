@@ -14,19 +14,50 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <concurrency/vtx_signal.h>
 
-TEST(RenderManager, CreateWindow)
+concurrency::Signal::Signal(bool manualReset)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
+#ifdef WIN32
+	this->handle = CreateEventEx(
+		NULL, 
+		NULL, 
+		manualReset ? CREATE_EVENT_MANUAL_RESET : 0, 
+		0);
+#endif
+}
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+concurrency::Signal::~Signal()
+{
+#ifdef WIN32
+	CloseHandle(this->handle);
+#endif
+}
+
+void concurrency::Signal::reset()
+{
+#ifdef WIN32
+	ResetEvent(this->handle);
+#endif
+}
+
+void concurrency::Signal::setSignaled()
+{
+#ifdef WIN32
+	SetEvent(this->handle);
+#endif
+}
+
+void concurrency::Signal::waitForSignal()
+{
+#ifdef WIN32
+	WaitForSingleObject(this->handle, INFINITE);
+#endif
+}
+
+void concurrency::Signal::waitForSignal(core::U32_t timeout)
+{
+#ifdef WIN32
+	WaitForSingleObject(this->handle, timeout);
+#endif
 }

@@ -14,19 +14,28 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#include <core/vtx_clock.h>
+#include <core/vtx_timer.h>
 
-TEST(RenderManager, CreateWindow)
+void core::Clock::reset(void)
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	this->startTime = Timer::readHighResolutionTimer();
 }
+
+core::F32_t core::Clock::getElapsedSeconds(void)
+{
+	core::U64_t now = core::Timer::readHighResolutionTimer();
+	core::U64_t freq = core::Timer::readHighResolutionTimerFrequency();
+	return ((core::F32_t)(now - this->startTime)) / (core::F32_t)freq;
+}
+
+core::F32_t core::Clock::getElapsedSecondsAndReset(void)
+{
+	core::U64_t now = core::Timer::readHighResolutionTimer();
+	core::U64_t start = this->startTime;
+	this->startTime = now;
+	core::U64_t freq = core::Timer::readHighResolutionTimerFrequency();
+	return ((core::F32_t)(now - start)) / (core::F32_t)freq;
+}
+
+

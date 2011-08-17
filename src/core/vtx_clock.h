@@ -14,19 +14,24 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_CLOCK_H
+#define VTX_CLOCK_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_atomic.h>
+
+namespace core
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
 
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class Clock
+	{
+	private:
+		core::U64_t startTime;
+	public:
+		void reset(void);
+		core::F32_t getElapsedSeconds(void);
+		core::F32_t getElapsedSecondsAndReset(void);
+	};
+
 }
+
+#endif

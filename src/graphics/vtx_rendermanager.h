@@ -14,19 +14,41 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <graphics/vtx_rendermanager.h>
-#include "gtest/gtest.h"
+#ifndef VTX_RENDERMANAGER_H
+#define VTX_RENDERMANAGER_H
 
-TEST(RenderManager, CreateWindow)
+#include <core/vtx_vortexbase.h>
+
+// Forward declarations
+namespace graphics
 {
-	// TODO: Fix this test!
-	/*
-	RenderManager manager;
-	RenderCreationParams renderParams;
-	WindowCreationParams windowParams;
-
-	renderParams.rapi = E_RAPI_DX10;
-	manager.init(renderParams, windowParams);
-	//ASSERT_NE(manager., (platform::WINDOW)0);
-	*/
+	class RenderCreationParams;
+	class RenderAPI;
 }
+
+namespace core
+{
+	class WindowCreationParams;
+	class NativeWindow;
+}
+
+namespace graphics
+{
+
+	class RenderManager : core::VortexBase
+	{
+	public:
+		RenderManager(core::Root&);
+		void init(graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams);
+		void destroy(void);
+		graphics::RenderAPI *getRenderObject(void);
+	private:
+		void createWindow(core::WindowCreationParams &params);
+		core::NativeWindow *window;
+		bool manageWindow;
+		graphics::RenderAPI *render;
+	};
+
+}
+
+#endif
