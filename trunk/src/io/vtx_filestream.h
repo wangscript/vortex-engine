@@ -29,7 +29,7 @@ namespace io
 	{
 	public:
 		void foo();
-		virtual IOStream::ErrorCode openStream(std::wstring &path);
+		virtual IOStream::ErrorCode openStream(const std::string &path);
 		virtual void closeStream();
 	private:
 	};

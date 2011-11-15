@@ -20,9 +20,9 @@
 
 core::StackAllocator::StackAllocator( core::U32_t stackSize )
 {
-	/*this->stackSize = stackSize;
-	this->data = (U8*)malloc(this->stackSize);
-	this->stackPosition = reinterpret_cast<__UINT64>(this->data);*/
+	this->stackSize = stackSize;
+	this->data = (core::U8_t*)malloc(this->stackSize);
+	this->stackPosition = reinterpret_cast<core::U32_t>(this->data);
 }
 
 core::StackAllocator::~StackAllocator()
@@ -33,33 +33,33 @@ core::StackAllocator::~StackAllocator()
 
 core::StackAllocator::ErrorCode core::StackAllocator::allocate( core::U32_t size, core::U8_t **allocatedSpace )
 {
-	//ASSERT(size > 0);
+	ASSERT(size > 0);
 	core::StackAllocator::ErrorCode err;
 	err = core::StackAllocator::OK;
-	/*U32 newStackPosition = this->stackPosition + size;
-	U8 *stackAllocation = NULL;
+	core::U32_t newStackPosition = this->stackPosition + size;
+	core::U8_t *stackAllocation = NULL;
 	if(newStackPosition >
-		((U32)this->data + this->stackSize))
+		((core::U32_t)this->data + this->stackSize))
 	{
-		// Insufficient stack space
+		 //Insufficient stack space
 		err = StackAllocator::NOT_ENOUGH_STACK_SPACE;
 	}
 	else
 	{
-		stackAllocation = (U8*)this->stackPosition;
+		stackAllocation = (core::U8_t*)this->stackPosition;
 		this->stackPosition = newStackPosition;
 		err = StackAllocator::OK;
 	}
 	*allocatedSpace = stackAllocation;
-	return err;*/
+	return err;
 	// TODO: Uncomment this.
 	return err;
 }
 
 void core::StackAllocator::freeToMarker( core::U32_t marker )
 {
-	/*ASSERT(marker > (U32)this->data);
-	this->stackPosition = marker;*/
+	ASSERT(marker > (U32)this->data);
+	this->stackPosition = marker;
 }
 
 core::U32_t core::StackAllocator::getMarker()

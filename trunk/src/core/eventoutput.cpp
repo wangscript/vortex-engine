@@ -19,41 +19,41 @@
 #include <core/vtx_assertions.h>
 #include <sstream>
 
-void core::EventOutput::reportEvent( E_LEVEL level, std::wstring& message )
+void core::EventOutput::reportEvent( E_LEVEL level, std::string& message )
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
 	{
 		this->outputToStream(level, message);
-		//*this->outStream << L": " << message << std::endl;
+		//*this->outStream << ": " << message << std::endl;
 	}
 }
 
-void core::EventOutput::reportEvent( E_LEVEL level, wchar_t* message)
+void core::EventOutput::reportEvent( E_LEVEL level, char* message)
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
 	{
-		std::wstring msg(message);
+		std::string msg(message);
 		this->outputToStream(level, msg);
 	}
 }
 
-void core::EventOutput::reportMethodFailedEvent( E_LEVEL level, std::wstring& method, core::U32_t errorCode)
+void core::EventOutput::reportMethodFailedEvent( E_LEVEL level, std::string& method, core::U32_t errorCode)
 {
 	ASSERT(level >= 0 && level <= E_LEVEL_FATAL);
 	if(this->reportLevel <= level)
 	{
-		std::wstringstream strstream;
+		std::stringstream strstream;
 		strstream << "Method '"	 << method << "' failed (" << errorCode << ")" << std::endl;
-		std::wstring msg(strstream.str());
+		std::string msg(strstream.str());
 		this->outputToStream(level, msg);
 	}
 }
 
-void core::EventOutput::outputToStream( E_LEVEL level, std::wstring& message )
+void core::EventOutput::outputToStream( E_LEVEL level, std::string& message )
 {
-	*this->outStream << L": " << message << std::endl;
+	*this->outStream << ": " << message << std::endl;
 }
 
 void core::EventOutput::setOutputLevel( E_LEVEL level )
@@ -61,10 +61,10 @@ void core::EventOutput::setOutputLevel( E_LEVEL level )
 	this->reportLevel = level;
 }
 
-void core::EventOutput::setOutput( std::wostream *out )
+void core::EventOutput::setOutput( std::ostream *out )
 {
 	if(!out)
-		this->outStream = &std::wcerr;
+		this->outStream = &std::cerr;
 	else
 		this->outStream = out;
 }

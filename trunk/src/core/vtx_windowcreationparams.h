@@ -47,7 +47,7 @@ namespace core
 		bool isFullscreen;
 		core::Vector2<core::U32_t> windowPosition;
 		core::Vector2<core::U32_t> windowSize;
-		std::wstring windowTitle;
+		std::string windowTitle;
 		E_WINDOWSTYLE styleFlags;
 		core::WINDOW windowHandle;
 #if defined(VTX_PLATFORM_WIN32)

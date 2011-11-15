@@ -14,14 +14,20 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "gtest/gtest.h"
-#include <content/vtx_resource.h>
-#include <core/vtx_vortex.h>
+#ifndef VTX_STRINGUTIL_H
+#define VTX_STRINGUTIL_H
 
-TEST(ConcurrentQueue, EnqueueDequeue)
+#include <string>
+#include <vector>
+
+
+namespace text
 {
-	core::Root root;
-	content::ResourceManager *rmanager = new content::ResourceManager(root);
-	//rmanager->setPackage(
-	//ConcurrentQueue queue();
+	class StringUtil
+	{
+	public:
+		static void utf8to16Vector(const std::string &in, std::vector<wchar_t> &out);
+	};
 }
+
+#endif

@@ -17,10 +17,11 @@
 #include <io/vtx_filesystem.h>
 #ifdef WIN32
 #include <Windows.h>
+#include <text\vtx_stringutil.h>
 #endif
 
 
-io::File::File(std::wstring *path)
+io::File::File(std::string *path)
 {
 	this->path = *path;
 }
@@ -34,15 +35,18 @@ io::File::ErrorCode io::File::exists(void)
 	return io::File::exists(&this->path);
 }
 
-io::File::ErrorCode io::File::exists(std::wstring *path)
+io::File::ErrorCode io::File::exists(std::string *path)
 {
 	io::File::ErrorCode ret;
 #ifdef WIN32
 	WIN32_FIND_DATAW data;
 
+	std::vector<wchar_t> widePath;
+	text::StringUtil::utf8to16Vector(*path, widePath);
+
 	// TODO: FindFirstFile accepts wildcards in the pathname.
 	// Perhaps it would be wise to make sure there are none.
-	if(::FindFirstFileW(path->c_str(), &data) == INVALID_HANDLE_VALUE)
+	if(::FindFirstFileW(&widePath.front(), &data) == INVALID_HANDLE_VALUE)
 	{
 		DWORD err = GetLastError();
 		if(err == ERROR_FILE_NOT_FOUND)
@@ -63,12 +67,16 @@ io::File::ErrorCode io::File::create(bool overwrite)
 	return io::File::create(&this->path, overwrite);
 }
 
-io::File::ErrorCode io::File::create(std::wstring *path, bool overwrite)
+io::File::ErrorCode io::File::create(std::string *path, bool overwrite)
 {
 	io::File::ErrorCode ret;
 #ifdef WIN32
+
+	std::vector<wchar_t> widePath;
+	text::StringUtil::utf8to16Vector(*path, widePath);
+
 	HANDLE handle = CreateFileW(
-		path->c_str(),
+		&widePath.front(),
 		0, // Dont access the file after creation.
 		0, // Dont allow other processes to access the file until we've closed the handle.
 		NULL,
@@ -98,11 +106,15 @@ io::File::ErrorCode io::File::deletefile(void)
 	return io::File::deletefile(&this->path);
 }
 
-io::File::ErrorCode io::File::deletefile(std::wstring *path)
+io::File::ErrorCode io::File::deletefile(std::string *path)
 {
 	io::File::ErrorCode ret;
 #if WIN32
-	BOOL success = DeleteFile(path->c_str());
+	
+	std::vector<wchar_t> widePath;
+	text::StringUtil::utf8to16Vector(*path, widePath);
+
+	BOOL success = DeleteFile(&widePath.front());
 	if(success)
 	{
 		ret = io::File::OK;
@@ -124,7 +136,7 @@ io::File::ErrorCode io::File::deletefile(std::wstring *path)
 	return ret;
 }
 
-std::wstring io::File::getPath()
+std::string io::File::getPath()
 {
 	return this->path;
 }

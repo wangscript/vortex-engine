@@ -46,8 +46,8 @@ TEST(Device, GetDevices)
 
 TEST(File, Exists)
 {
-	std::wstring p(L"c:\\temp\\testidag.png");
-	std::wstring p2(L"c:\\temp\\thisfiledoesnotexist.txt");
+	std::string p("existingimage.png");
+	std::string p2("thisfiledoesnotexist.txt");
 	io::File file(&p);
 	io::File file2(&p2);
 	ASSERT_EQ(file.exists(), io::File::OK);
@@ -57,7 +57,8 @@ TEST(File, Exists)
 
 TEST(File, CreateDelete)
 {
-	std::wstring path(L"c:\\temp\\unittest.txt");
+	
+	std::string path("unittest_createdelete.txt");
 	io::File file(&path);
 	ASSERT_EQ(file.exists(), io::File::FILE_DOES_NOT_EXIST);
 	ASSERT_EQ(file.create(false), io::File::OK);
@@ -69,7 +70,7 @@ TEST(File, CreateDelete)
 TEST(IOStream, Read)
 {
 	io::FileStream stream;
-	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
+	stream.openStream(std::string("input.txt"));
 	
 	core::U8_t *buffer = (core::U8_t*)malloc(2);
 	core::U8_t *destBuffer = (core::U8_t*)malloc(13);
@@ -91,7 +92,7 @@ TEST(IOStream, Read)
 TEST(IOStream, SetPosition)
 {
 	io::FileStream stream;
-	stream.openStream(std::wstring(L"c:\\temp\\outfile.txt"));
+	stream.openStream(std::string("input.txt"));
 
 	core::U8_t *buffer = (core::U8_t*)malloc(7);
 	core::U32_t bytesRead;

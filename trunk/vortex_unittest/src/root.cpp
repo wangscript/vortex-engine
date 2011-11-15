@@ -27,7 +27,7 @@ TEST(Vortex, Init)
 	//params.windowPosition.y = 0;
 	//params.windowSize.x = 400;
 	//params.windowSize.y = 400;
-	//params.windowTitle = std::wstring(L"Unit test window");
+	//params.windowTitle = std::string("Unit test window");
 
 	//RenderCreationParams renderParams;
 	//renderParams.backBufferSize.x = 400;

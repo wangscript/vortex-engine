@@ -82,6 +82,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix_tests.cpp" />
     <ClCompile Include="src\concurrent_queue.cpp" />
+    <ClCompile Include="src\content.cpp" />
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\jobmanager.cpp" />
     <ClCompile Include="src\memory_tests.cpp" />

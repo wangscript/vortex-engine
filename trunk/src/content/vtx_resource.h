@@ -17,12 +17,19 @@
 #ifndef VTX_RESOURCE_H
 #define VTX_RESOURCE_H
 
+#include <core/vtx_atomic.h>
 #include <core/vtx_vortexbase.h>
 #include <string>
+#include <map>
 
 namespace core
 {
 	class Root;
+}
+
+namespace io
+{
+	class FileStream;
 }
 
 namespace content
@@ -30,13 +37,18 @@ namespace content
 
 	class ResourceManager : core::VortexBase
 	{
+	private:
+		 io::FileStream *packageStream;
+		 std::map<core::U32_t, void*> resourceRegistry;
 	public:
 		ResourceManager(core::Root& parent) : core::VortexBase(parent) {}
 		void init(void);
 		void destroy(void);
 
 		template <class T>
-		T load(std::wstring &asset);
+		T load(std::string &asset);
+
+		void setPackage(const std::string &package);
 	};
 
 }

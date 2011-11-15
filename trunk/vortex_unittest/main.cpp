@@ -16,12 +16,33 @@
 
 #include "gtest\gtest.h"
 #include <stdio.h>
+#include <core\vtx_buildconfig.h>
+
+#if defined(VTX_PLATFORM_WIN32)
+#include <Windows.h>
+#elif(VTX_PLATFORM_LINUX)
+#include <unistd.h>
+#endif
 
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
+
+#if defined(VTX_PLATFORM_WIN32)
+	if(SetCurrentDirectory(L"testground") == FALSE)
+	{
+		std::cout << "SetCurrentDirectory failed with: " << GetLastError() << std::endl;
+		return -1;
+	}
+#elif(VTX_PLATFORM_LINUX)
+	// handle returnvalue of chdir.
+	chdir("./testground");
+#endif
+
 	if(RUN_ALL_TESTS() > 0)
 	{
 		getchar();
 	}
+
+	return 0;
 }

@@ -46,14 +46,14 @@ void graphics::RenderManager::init(graphics::RenderCreationParams &params, core:
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating DX10 render");
+		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating DX10 render");
 		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
-		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, L"RenderManager: Creating OpenGL render");	
+		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating OpenGL render");	
 		this->render = new OpenGLRender(VortexBase::engineParent, params, this->window);
 	}
 #endif
