@@ -18,6 +18,7 @@
 #define VTX_VORTEX_H
 
 #include <core/vtx_buildconfig.h>
+#include <core/vtx_atomic.h>
 
 namespace graphics
 {

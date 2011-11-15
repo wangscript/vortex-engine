@@ -21,12 +21,12 @@
 
 #define INIT(init_exp, component) \
 	{ \
-		std::wstring message(L"Initializing "); \
+		std::string message("Initializing "); \
 		message.append(component); \
-		message.append(L"..."); \
+		message.append("..."); \
 		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
 		init_exp \
-		message.insert(0, L"Done "); \
+		message.insert(0, "Done "); \
 		message.erase(message.length() - 3, 3); \
 		this->output->reportEvent(EventOutput::E_LEVEL_VERBOSE, message); \
 	}
@@ -37,7 +37,7 @@
 
 core::Root::Root()
 {
-	std::wstring msg(L"Standard error output!!");
+	std::string msg("Standard error output!!");
 	this->output = new core::EventOutput(core::EventOutput::E_LEVEL_VERBOSE);
 	this->output->reportEvent(core::EventOutput::E_LEVEL_FATAL, msg);
 	this->jobManager = new concurrency::JobManager();
@@ -61,19 +61,19 @@ void core::Root::Run(core::WindowCreationParams &windowParams, graphics::RenderC
 
 void core::Root::init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {
-	INIT(this->jobManager->init();, L"JobManager");
-	INIT(this->resourceManager->init();, L"ResourceManager");
-	INIT(this->renderManager->init(renderParams, windowParams);, L"RenderManager");
-	INIT(this->simulationManager->init(this->renderManager->getRenderObject());, L"SimulationManager");
+	INIT(this->jobManager->init();, "JobManager");
+	INIT(this->resourceManager->init();, "ResourceManager");
+	INIT(this->renderManager->init(renderParams, windowParams);, "RenderManager");
+	INIT(this->simulationManager->init(this->renderManager->getRenderObject());, "SimulationManager");
 }
 
 #if defined(VTX_TOOL_BUILD)
-void core::Root::toolInit(WindowCreationParams &windowParams, RenderCreationParams &renderParams)
+void core::Root::toolInit(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {
 	this->init(windowParams, renderParams);
 }
 
-void core::Root::toolStep(/*platform::F32*/float elapsed)
+void core::Root::toolStep(core::F32_t elapsed)
 {
 	this->simulationManager->step(elapsed);
 }

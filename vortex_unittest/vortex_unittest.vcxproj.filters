@@ -39,6 +39,9 @@
     <ClCompile Include="src\rendermanager_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\content.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\vector3_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

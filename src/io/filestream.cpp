@@ -15,15 +15,20 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <io/vtx_filestream.h>
+#include <text\vtx_stringutil.h>
 
-io::IOStream::ErrorCode io::FileStream::openStream(std::wstring &path)
+io::IOStream::ErrorCode io::FileStream::openStream(const std::string &path)
 {
 	// Open file for reading and writing as binary.
 	core::SYSTEM_HANDLE handle;
 	// TODO: Fix unix variant!
 #ifdef WIN32
+
+	std::vector<wchar_t> widePath;
+	text::StringUtil::utf8to16Vector(path, widePath);
+
 	handle = CreateFileW(
-		(LPCWSTR)path.c_str(),
+		&widePath.front(),
 		GENERIC_READ | GENERIC_WRITE,
 		0,
 		NULL,
@@ -36,6 +41,8 @@ io::IOStream::ErrorCode io::FileStream::openStream(std::wstring &path)
 
 void io::FileStream::closeStream()
 {
+	io::IOStream::closeStream();
+
 #ifdef WIN32
 	CloseHandle(this->handle);
 #endif

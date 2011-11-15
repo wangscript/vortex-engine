@@ -52,19 +52,19 @@ namespace io
 	class File
 	{
 	private:
-		std::wstring path;
+		std::string path;
 	public:
-		File(std::wstring *path);
+		File(std::string *path);
 		~File(void);
 		enum ErrorCode { OK, FILE_DOES_NOT_EXIST, UNAUTHORIZED, FILE_EXISTS, UNKOWN_ERROR };
 		//TODO: Rewrite these IO functions. It should really return a bool, but how to remove need for errorcode?
-		static ErrorCode create(std::wstring *path, bool overwrite);
-		static ErrorCode deletefile(std::wstring *path);
-		static ErrorCode exists(std::wstring *path);
+		static ErrorCode create(std::string *path, bool overwrite);
+		static ErrorCode deletefile(std::string *path);
+		static ErrorCode exists(std::string *path);
 		ErrorCode create(bool overwrite);
 		ErrorCode deletefile(void);
 		ErrorCode exists(void);
-		std::wstring getPath();
+		std::string getPath();
 	};
 
 	class Directory

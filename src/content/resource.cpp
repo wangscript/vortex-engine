@@ -15,8 +15,8 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <content/vtx_resource.h>
-#include <iostream>
 #include <core/vtx_vortex.h>
+#include <io/vtx_filestream.h>
 
 void content::ResourceManager::init()
 {
@@ -27,7 +27,21 @@ void content::ResourceManager::destroy()
 }
 
 template <class T>
-T content::ResourceManager::load(std::wstring &asset)
+T content::ResourceManager::load(std::string &asset)
 {
 	
+}
+
+void content::ResourceManager::setPackage(const std::string &package)
+{
+	if(this->packageStream != NULL && this->packageStream->isOpen())
+	{
+		this->packageStream->closeStream();
+	}
+
+	this->packageStream->openStream(package);
+
+	core::U32_t bytesRead;
+	core::U32_t resourceCount;
+	this->packageStream->readBytes(reinterpret_cast<core::U8_t*>(&resourceCount), sizeof(core::U32_t), &bytesRead);
 }

@@ -31,6 +31,7 @@ namespace io
 	protected:
 		core::SYSTEM_HANDLE handle;
 		core::U64_t position;
+		bool open;
 	public:
 		enum ErrorCode { OK, UNKOWN_ERROR };
 		typedef void (*read_callback)(core::U8_t *buffer, core::U32_t bytesRead);
@@ -43,8 +44,8 @@ namespace io
 		void readBytes_async(core::U8_t *buffer, core::U32_t bytesToRead, read_callback callback);
 		void writeBytes(core::U8_t *buffer, core::U32_t start, core::U32_t length);
 		void writeBytes_async(core::U8_t *buffer, core::U32_t start, core::U32_t length, write_callback);
-		virtual ErrorCode openStream(std::wstring &path) = 0;
 		void closeStream();
+		bool isOpen();
 	};
 
 }

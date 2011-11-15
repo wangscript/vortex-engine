@@ -29,10 +29,12 @@ io::IOStream::ErrorCode io::IOStream::init(core::SYSTEM_HANDLE handle)
 		int err = GetLastError();
 		//TODO: Find out what error codes we can expect here...
 		ret = IOStream::UNKOWN_ERROR;
+		this->open = false;
 	}
 	else
 	{
 		ret = IOStream::OK;
+		this->open = true;
 	}
 #endif
 
@@ -95,4 +97,14 @@ io::IOStream::ErrorCode io::IOStream::readBytes(core::U8_t *buffer, core::U32_t 
 	}
 #endif
 	return ret;
+}
+
+void io::IOStream::closeStream()
+{
+	this->open = false;
+}
+
+bool io::IOStream::isOpen()
+{
+	return this->open;
 }

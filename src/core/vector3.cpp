@@ -100,7 +100,7 @@ void core::Vector3::normalize(void)
 
 #elif defined(VTX_USE_SSE)
 	// Must pad with a trailing 0, to store in 128-bit register
-	ALIGNED_16 platform::F32_t vector[] = {this->x, this->y, this->z, 0};
+	ALIGNED_16 core::F32_t vector[] = {this->x, this->y, this->z, 0};
 	__m128 simdvector;
 	__m128 result;
 	simdvector = _mm_load_ps(vector);

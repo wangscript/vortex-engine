@@ -71,12 +71,12 @@ graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreatio
 		XErrorEvent *event = NativeWindow::getLastXError(outputWindow->win);
 		if(event == NULL)
 		{
-			std::wstring message(L"glXMakeContextCurrent failed with no XErrorEvent");
+			std::string message("glXMakeContextCurrent failed with no XErrorEvent");
 			VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
 		}
 		else
 		{
-			std::wstring message(L"glXMakeContextCurrent");
+			std::string message("glXMakeContextCurrent");
 			VortexBase::engineParent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
 		
