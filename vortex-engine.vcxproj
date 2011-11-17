@@ -113,6 +113,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\collections\vtx_binarytree.h" />
     <ClInclude Include="src\concurrency\vtx_concurrent_queue.h" />
     <ClInclude Include="src\concurrency\vtx_job.h" />
     <ClInclude Include="src\concurrency\vtx_jobmanager.h" />
@@ -121,6 +122,7 @@
     <ClInclude Include="src\concurrency\vtx_thread.h" />
     <ClInclude Include="src\content\vtx_contentpackage.h" />
     <ClInclude Include="src\content\vtx_resource.h" />
+    <ClInclude Include="src\core\vtx_allocator.h" />
     <ClInclude Include="src\core\vtx_assertions.h" />
     <ClInclude Include="src\core\vtx_atomic.h" />
     <ClInclude Include="src\core\vtx_buildconfig.h" />
@@ -134,6 +136,7 @@
     <ClInclude Include="src\core\vtx_platform.h" />
     <ClInclude Include="src\core\vtx_simulationmanager.h" />
     <ClInclude Include="src\core\vtx_stack_allocator.h" />
+    <ClInclude Include="src\core\vtx_standardallocator.h" />
     <ClInclude Include="src\core\vtx_timer.h" />
     <ClInclude Include="src\core\vtx_types.h" />
     <ClInclude Include="src\core\vtx_util.h" />
@@ -162,11 +165,13 @@
     <ClInclude Include="src\text\vtx_stringutil.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\collections\binarytree.cpp" />
     <ClCompile Include="src\concurrency\job.cpp" />
     <ClCompile Include="src\concurrency\jobmanager.cpp" />
     <ClCompile Include="src\concurrency\jobprocessor.cpp" />
     <ClCompile Include="src\concurrency\signal.cpp" />
     <ClCompile Include="src\concurrency\thread.cpp" />
+    <ClCompile Include="src\content\contentpackage.cpp" />
     <ClCompile Include="src\content\resource.cpp" />
     <ClCompile Include="src\core\assertions.cpp" />
     <ClCompile Include="src\core\camera3d.cpp" />
@@ -177,6 +182,7 @@
     <ClCompile Include="src\core\matrix.cpp" />
     <ClCompile Include="src\core\simulationmanager.cpp" />
     <ClCompile Include="src\core\stack_allocator.cpp" />
+    <ClCompile Include="src\core\standardallocator.cpp" />
     <ClCompile Include="src\core\timer.cpp" />
     <ClCompile Include="src\core\util.cpp" />
     <ClCompile Include="src\core\vector2.cpp" />

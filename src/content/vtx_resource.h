@@ -19,6 +19,7 @@
 
 #include <core/vtx_atomic.h>
 #include <core/vtx_vortexbase.h>
+#include <core/vtx_stack_allocator.h>
 #include <string>
 #include <map>
 
@@ -34,11 +35,13 @@ namespace io
 
 namespace content
 {
+	class ContentPackage;
 
 	class ResourceManager : core::VortexBase
 	{
 	private:
-		 io::FileStream *packageStream;
+
+		 std::map<std::string, ContentPackage*> packageRegistry;
 		 std::map<core::U32_t, void*> resourceRegistry;
 	public:
 		ResourceManager(core::Root& parent) : core::VortexBase(parent) {}
@@ -48,7 +51,7 @@ namespace content
 		template <class T>
 		T load(std::string &asset);
 
-		void setPackage(const std::string &package);
+		void loadPackage(const std::string &package);
 	};
 
 }
