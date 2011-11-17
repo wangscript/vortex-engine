@@ -15,6 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <core/vtx_stack_allocator.h>
+#include <core/vtx_standardallocator.h>
 #include "gtest/gtest.h"
 #include <core/vtx_vortex.h>
 
@@ -88,4 +89,22 @@ TEST(StackAllocator, NoSpaceInStackTest)
 
 	err = stack.allocate(STACKALLOCATOR_SIZE, &data);
 	ASSERT_EQ(err, core::StackAllocator::NOT_ENOUGH_STACK_SPACE);
+}
+
+TEST(StandardAllocator, AllocateDeallocate)
+{
+	core::StandardAllocator allocator;
+	ASSERT_EQ(allocator.allocatedSize(), 0);
+
+	void *testBlock = allocator.allocate(32);
+	ASSERT_EQ(allocator.allocatedSize(), 36);
+
+	void *testBlock2 = allocator.allocate(16);
+	ASSERT_EQ(allocator.allocatedSize(), 56);
+	
+	allocator.deallocate(testBlock);
+	ASSERT_EQ(allocator.allocatedSize(), 20);
+
+	allocator.deallocate(testBlock2);
+	ASSERT_EQ(allocator.allocatedSize(), 0);
 }
