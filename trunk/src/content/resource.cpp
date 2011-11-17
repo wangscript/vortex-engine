@@ -17,6 +17,7 @@
 #include <content/vtx_resource.h>
 #include <core/vtx_vortex.h>
 #include <io/vtx_filestream.h>
+#include <content/vtx_contentpackage.h>
 
 void content::ResourceManager::init()
 {
@@ -32,16 +33,14 @@ T content::ResourceManager::load(std::string &asset)
 	
 }
 
-void content::ResourceManager::setPackage(const std::string &package)
+void content::ResourceManager::loadPackage(const std::string &path)
 {
-	if(this->packageStream != NULL && this->packageStream->isOpen())
+	std::map<std::string, ContentPackage*>::iterator it = this->packageRegistry.find(path);
+	if(it == this->packageRegistry.end())
 	{
-		this->packageStream->closeStream();
+		io::FileStream *packageStream = new io::FileStream;
+		packageStream->openStream(path);
+		ContentPackage *package = new ContentPackage(packageStream);
+		this->packageRegistry[path] = package;
 	}
-
-	this->packageStream->openStream(package);
-
-	core::U32_t bytesRead;
-	core::U32_t resourceCount;
-	this->packageStream->readBytes(reinterpret_cast<core::U8_t*>(&resourceCount), sizeof(core::U32_t), &bytesRead);
 }

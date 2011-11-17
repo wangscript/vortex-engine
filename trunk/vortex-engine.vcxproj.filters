@@ -159,6 +159,15 @@
     <ClInclude Include="src\io\vtx_iostream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\collections\vtx_binarytree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\vtx_allocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\vtx_standardallocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\matrix.cpp">
@@ -261,6 +270,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\text\stringutil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\collections\binarytree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\content\contentpackage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\standardallocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
