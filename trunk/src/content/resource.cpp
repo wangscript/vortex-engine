@@ -16,15 +16,18 @@
 
 #include <content/vtx_resource.h>
 #include <core/vtx_vortex.h>
+#include <core/vtx_standardallocator.h>
 #include <io/vtx_filestream.h>
 #include <content/vtx_contentpackage.h>
 
 void content::ResourceManager::init()
 {
+	this->allocator = new core::StandardAllocator();
 }
 
 void content::ResourceManager::destroy()
 {
+	delete this->allocator;
 }
 
 template <class T>
@@ -38,7 +41,9 @@ void content::ResourceManager::loadPackage(const std::string &path)
 	std::map<std::string, ContentPackage*>::iterator it = this->packageRegistry.find(path);
 	if(it == this->packageRegistry.end())
 	{
-		io::FileStream *packageStream = new io::FileStream;
+		io::FileStream *packageStream = reinterpret_cast<io::FileStream*>
+			(this->allocator->allocate(sizeof(io::FileStream))); //new io::FileStream;
+
 		packageStream->openStream(path);
 		ContentPackage *package = new ContentPackage(packageStream);
 		this->packageRegistry[path] = package;
