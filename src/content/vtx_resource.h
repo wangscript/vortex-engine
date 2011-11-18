@@ -25,6 +25,7 @@
 
 namespace core
 {
+	class Allocator;
 	class Root;
 }
 
@@ -40,9 +41,9 @@ namespace content
 	class ResourceManager : core::VortexBase
 	{
 	private:
-
-		 std::map<std::string, ContentPackage*> packageRegistry;
-		 std::map<core::U32_t, void*> resourceRegistry;
+		core::Allocator *allocator;
+		std::map<std::string, ContentPackage*> packageRegistry;
+		std::map<core::U32_t, void*> resourceRegistry;
 	public:
 		ResourceManager(core::Root& parent) : core::VortexBase(parent) {}
 		void init(void);

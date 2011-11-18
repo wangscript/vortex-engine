@@ -6,7 +6,7 @@
 
 namespace core
 {
-	class StandardAllocator : Allocator
+	class StandardAllocator : public Allocator
 	{
 	private:
 		core::U32_t totalSize;

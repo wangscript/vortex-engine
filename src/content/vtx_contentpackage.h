@@ -4,6 +4,11 @@
 #include <string>
 #include <core/vtx_atomic.h>
 
+namespace core
+{
+	class Allocator;
+}
+
 namespace io
 {
 	class IOStream;
@@ -14,11 +19,12 @@ namespace content
 	class ContentPackage
 	{
 	private:
+		Allocator &alloc;
 		io::IOStream *stream;
 		core::U32_t resourceCount;
 		core::U32_t *indexTable;
 	public:
-		ContentPackage(io::IOStream *stream);
+		ContentPackage(Allocator& alloc, io::IOStream *stream);
 	};
 }
 
