@@ -15,8 +15,8 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gtest/gtest.h"
-#include <content\vtx_resource.h>
-#include <core\vtx_vortex.h>
+#include <content/vtx_resource.h>
+#include <core/vtx_vortex.h>
 
 TEST(ResourceManager, setPackage)
 {

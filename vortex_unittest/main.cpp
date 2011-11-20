@@ -14,13 +14,13 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "gtest\gtest.h"
+#include "gtest/gtest.h"
 #include <stdio.h>
-#include <core\vtx_buildconfig.h>
+#include <core/vtx_buildconfig.h>
 
 #if defined(VTX_PLATFORM_WIN32)
 #include <Windows.h>
-#elif(VTX_PLATFORM_LINUX)
+#elif defined(VTX_PLATFORM_LINUX)
 #include <unistd.h>
 #endif
 
@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 		std::cout << "SetCurrentDirectory failed with: " << GetLastError() << std::endl;
 		return -1;
 	}
-#elif(VTX_PLATFORM_LINUX)
+#elif defined(VTX_PLATFORM_LINUX)
 	// handle returnvalue of chdir.
 	chdir("./testground");
 #endif
