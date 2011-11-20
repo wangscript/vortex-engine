@@ -27,14 +27,14 @@ namespace core
 	private:
 		core::U32_t stackSize;
 		core::U8_t *data;
-		core::U32_t stackPosition;
+		size_t stackPosition;
 	public:
 		enum ErrorCode{	OK,	NOT_ENOUGH_STACK_SPACE };
 		StackAllocator( core::U32_t stackSize );
 		~StackAllocator();	
 		ErrorCode allocate( core::U32_t size , core::U8_t **allocatedSpace );
-		void freeToMarker( core::U32_t stackPosition );
-		core::U32_t getMarker();
+		void freeToMarker( size_t stackPosition );
+		size_t getMarker();
 	};
 }
 

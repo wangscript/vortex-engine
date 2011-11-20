@@ -20,12 +20,12 @@
 #include <core/vtx_vortexbase.h>
 #include <core/vtx_atomic.h>
 #include <core/vtx_vector4.h>
+#include <graphics/vtx_vbuffer.h> // Only for E_BUFFER_USAGE, perhaps that enum should have its own header?
 
 namespace graphics
 {
 	class VertexPosNormTex;
 	class VertexBuffer;
-	enum E_BUFFER_USAGE;
 
 	enum E_PRIMITIVE_TYPE
 	{

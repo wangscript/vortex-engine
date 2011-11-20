@@ -20,6 +20,7 @@
 #include <xmmintrin.h>
 #include <pmmintrin.h>
 #include <cstring>
+#include <cmath>
 
 
 core::Matrix4x4::Matrix4x4( core::F32_t m[4][4] )
@@ -201,7 +202,7 @@ core::Matrix4x4 *core::Matrix4x4::createProjection(core::F32_t fov, core::F32_t 
 
 	matrix->m[3][0] = 0.0f;
 	matrix->m[3][1] = 0.0f;
-	matrix->m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) near - (core::F64_t) farPlane));
+	matrix->m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) nearPlane - (core::F64_t) farPlane));
 	matrix->m[3][3] = 0.0f;
 
 	return matrix;
@@ -229,6 +230,6 @@ void core::Matrix4x4::createProjection(core::F32_t fov, core::F32_t aspectRatio,
 
 	result.m[3][0] = 0.0f;
 	result.m[3][1] = 0.0f;
-	result.m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) near - (core::F64_t) farPlane));
+	result.m[3][2] = (core::F32_t)((core::F64_t) nearPlane * (core::F64_t) farPlane / ((core::F64_t) nearPlane - (core::F64_t) farPlane));
 	result.m[3][3] = 0.0f;
 }

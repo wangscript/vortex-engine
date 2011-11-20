@@ -16,19 +16,19 @@
 
 // TODO: REMOVE THIS and implement OpenGl for linux
 
+#if defined(VTX_PLATFORM_LINUX)
+#include <GL/glx.h>
+#endif
 
 #include <core/vtx_buildconfig.h>
 #include <graphics/vtx_openglrender.h>
 #include <GL/gl.h>
 #if defined(VTX_PLATFORM_LINUX)
-#include <GL/glxproto.h>
+//#include <GL/glxproto.h>
 #endif
 #include <core/vtx_vortex.h>
 #include <core/vtx_nativewindow.h>
-
-#if defined(VTX_PLATFORM_LINUX)
-#include <GL/glx.h>
-#endif
+#include <core/vtx_eventoutput.h>
 
 graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow) : graphics::RenderAPI(parent)
 {
@@ -68,16 +68,16 @@ graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreatio
 	//Bool b = glXMakeContextCurrent(outputWindow->display, outputWindow->win, outputWindow->win, outputWindow->context);
 	if(!result)
 	{
-		XErrorEvent *event = NativeWindow::getLastXError(outputWindow->win);
+		XErrorEvent *event = core::NativeWindow::getLastXError(outputWindow->win);
 		if(event == NULL)
 		{
 			std::string message("glXMakeContextCurrent failed with no XErrorEvent");
-			VortexBase::engineParent.output->reportEvent(EventOutput::E_LEVEL_FATAL, message);
+			VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 		}
 		else
 		{
 			std::string message("glXMakeContextCurrent");
-			VortexBase::engineParent.output->reportMethodFailedEvent(EventOutput::E_LEVEL_FATAL, message, event->error_code);
+			VortexBase::engineParent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
 		
 	}

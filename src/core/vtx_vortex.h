@@ -24,6 +24,7 @@ namespace graphics
 {
 	class RenderCreationParams;
 	class RenderManager;
+	class OpenGLRender;
 }
 
 namespace concurrency
@@ -59,9 +60,9 @@ namespace core
 		friend class ResourceManager;
 		friend class graphics::RenderManager;
 		friend class NativeWindow;
-		friend class OpenGLRender;
+		friend class graphics::OpenGLRender;
 
-		core::EventOutput			*output;
+		core::EventOutput		*output;
 		concurrency::JobManager		*jobManager;
 		core::SimulationManager		*simulationManager;
 		content::ResourceManager	*resourceManager;

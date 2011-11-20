@@ -19,7 +19,8 @@
 
 #include <emmintrin.h>
 #include <xmmintrin.h>
-#include <intrin.h>
+//#include <intrin.h>
+#include <pmmintrin.h>
 
 
 core::Vector3::Vector3()

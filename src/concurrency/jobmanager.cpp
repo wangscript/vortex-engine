@@ -20,6 +20,7 @@
 #include <core/vtx_atomic.h>
 #include <concurrency/vtx_jobmanager.h>
 #include <concurrency/vtx_jobprocessor.h>
+#include <cstdlib>
 
 void concurrency::JobManager::init()
 {

@@ -1,10 +1,10 @@
-#include <content\vtx_contentpackage.h>
-#include <io\vtx_iostream.h>
+#include <content/vtx_contentpackage.h>
+#include <io/vtx_iostream.h>
 
 namespace content
 {
-	ContentPackage::ContentPackage(io::IOStream *packageStream)
-		: stream(packageStream)
+	ContentPackage::ContentPackage(core::Allocator &allocator, io::IOStream *packageStream)
+		: alloc(allocator), stream(packageStream)
 	{
 		core::U32_t bytesRead;
 		core::U32_t resourceCount;
