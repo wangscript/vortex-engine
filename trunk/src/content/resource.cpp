@@ -45,7 +45,7 @@ void content::ResourceManager::loadPackage(const std::string &path)
 			(this->allocator->allocate(sizeof(io::FileStream))); //new io::FileStream;
 
 		packageStream->openStream(path);
-		ContentPackage *package = new ContentPackage(packageStream);
+		ContentPackage *package = new ContentPackage(*this->allocator, packageStream);
 		this->packageRegistry[path] = package;
 	}
 }

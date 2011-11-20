@@ -19,12 +19,12 @@ namespace content
 	class ContentPackage
 	{
 	private:
-		Allocator &alloc;
+		core::Allocator &alloc;
 		io::IOStream *stream;
 		core::U32_t resourceCount;
 		core::U32_t *indexTable;
 	public:
-		ContentPackage(Allocator& alloc, io::IOStream *stream);
+		ContentPackage(core::Allocator& allocator, io::IOStream *stream);
 	};
 }
 

@@ -25,30 +25,9 @@
 #include <Windows.h>
 #endif
 
-#include <graphics/vtx_vertexposnormtex.h>
-#include <graphics/vtx_vbuffer.h>
-
-#include <D3D10.h>
-#include <D3D10effect.h>
-#include <io/vtx_filestream.h>
-
-graphics::VertexBuffer *vb;
-
 void core::SimulationManager::init(graphics::RenderAPI *render)
 {
 	this->render = render;
-    graphics::VertexPosNormTex verts[] =
-    {
-            graphics::VertexPosNormTex(-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
-            graphics::VertexPosNormTex(0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 0.0f),
-            graphics::VertexPosNormTex(1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f)
-    };
-
-    U32_t stride = sizeof(graphics::VertexPosNormTex);
-    U32_t offset = 0;
-    vb = this->render->createVertexBuffer(verts, 3, graphics::E_BUFFER_USAGE_IMMUTABLE);
-    this->render->bindVertexBuffers(0, 1, &vb, &stride, &offset);
-    this->render->setPrimitiveType(graphics::E_PRIMITIVE_TRIANGLESTRIP);
 }
 
 void core::SimulationManager::destroy()
@@ -103,6 +82,6 @@ void core::SimulationManager::runOneFrame(core::F32_t seconds)
 	this->render->clear();
 	//std::cout << "post clear " << this->frames << std::endl;
 	// DRAW
-	this->render->draw(3, 0);
+	//this->render->draw(3, 0);
 	this->render->swap();
 }

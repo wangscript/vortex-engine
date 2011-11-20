@@ -65,6 +65,7 @@ namespace core
 	typedef float				F32_t;
 	typedef double				F64_t;
 #endif
+
 #if defined(VTX_PLATFORM_LINUX)
 	// Workaround until I find out how to get 64 bit integers on unix with g++.
 	

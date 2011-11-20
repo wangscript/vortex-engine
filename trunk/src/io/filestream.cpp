@@ -15,7 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <io/vtx_filestream.h>
-#include <text\vtx_stringutil.h>
+#include <text/vtx_stringutil.h>
 
 io::IOStream::ErrorCode io::FileStream::openStream(const std::string &path)
 {

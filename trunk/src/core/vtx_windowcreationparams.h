@@ -26,6 +26,7 @@
 #define VWIN_USEDEFAULT		CW_USEDEFAULT
 #endif
 #if defined(VTX_PLATFORM_LINUX)
+#include <X11/Xlib.h>
 #define VWIN_USEDEFAULT		0xF0000000
 #endif
 

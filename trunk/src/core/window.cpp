@@ -32,8 +32,8 @@
 
 #if defined(VTX_PLATFORM_LINUX)
 #include <stdlib.h>
-std::map<platform::WINDOW, XErrorEvent*> *NativeWindow::lastErrorMap;
-bool NativeWindow::isHandlingXErrors = false;
+std::map<core::WINDOW, XErrorEvent*> *core::NativeWindow::lastErrorMap;
+bool core::NativeWindow::isHandlingXErrors = false;
 #endif
 
 core::NativeWindow::NativeWindow(core::Root &parent) : core::VortexBase(parent)
@@ -270,7 +270,7 @@ core::NativeWindow *core::NativeWindow::create(Root &parent, core::WindowCreatio
 		if(visualInfo == NULL)
 		{
 			std::string message("glXChooseVisual failed");
-			parent.output->reportEvent(Ecore::ventOutput::E_LEVEL_FATAL, message);
+			parent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 		}
 
 
@@ -313,9 +313,9 @@ core::WINDOW core::NativeWindow::getHandle(void)
 }
 
 #if defined(VTX_PLATFORM_LINUX)
-XErrorEvent *NativeWindow::getLastXError(platform::WINDOW handle)
+XErrorEvent *core::NativeWindow::getLastXError(core::WINDOW handle)
 {
-	std::map<platform::WINDOW, XErrorEvent*>::iterator it;
+	std::map<core::WINDOW, XErrorEvent*>::iterator it;
 	XErrorEvent *lastError = NULL;
 	
 	it = core::NativeWindow::lastErrorMap->find(handle);

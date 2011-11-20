@@ -15,10 +15,10 @@
 
 
 
-pkgdatadir = $(datadir)/vortex
-pkgincludedir = $(includedir)/vortex
-pkglibdir = $(libdir)/vortex
-pkglibexecdir = $(libexecdir)/vortex
+pkgdatadir = $(datadir)/vortex-engine
+pkgincludedir = $(includedir)/vortex-engine
+pkglibdir = $(libdir)/vortex-engine
+pkglibexecdir = $(libexecdir)/vortex-engine
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -112,7 +112,7 @@ CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g
+CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -134,19 +134,19 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /home/emil/Projects/vortex/trunk/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
-PACKAGE = vortex
-PACKAGE_BUGREPORT = emilnorden at yahoo.se
-PACKAGE_NAME = vortex
-PACKAGE_STRING = vortex 0.1
-PACKAGE_TARNAME = vortex
+PACKAGE = vortex-engine
+PACKAGE_BUGREPORT = emilnorden at yahoo dot se
+PACKAGE_NAME = vortex-engine
+PACKAGE_STRING = vortex-engine 0.1a
+PACKAGE_TARNAME = vortex-engine
 PACKAGE_URL = 
-PACKAGE_VERSION = 0.1
+PACKAGE_VERSION = 0.1a
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1
+VERSION = 0.1a
 XMKMF = 
 abs_builddir = /home/emil/Projects/vortex/trunk
 abs_srcdir = /home/emil/Projects/vortex/trunk
@@ -203,15 +203,15 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --gnu'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --gnu \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign Makefile
+	  $(AUTOMAKE) --gnu Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

@@ -56,7 +56,7 @@ namespace core
 		// X Error handling
 		static bool isHandlingXErrors;
 		static XErrorEvent *getLastXError(core::WINDOW);
-		static std::map<platform::WINDOW, XErrorEvent*> *lastErrorMap;
+		static std::map<core::WINDOW, XErrorEvent*> *lastErrorMap;
 		static int xErrorHandler(Display*, XErrorEvent*);
 #endif
 
