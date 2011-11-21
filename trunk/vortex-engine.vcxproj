@@ -125,6 +125,7 @@
     <ClInclude Include="src\core\vtx_allocator.h" />
     <ClInclude Include="src\core\vtx_assertions.h" />
     <ClInclude Include="src\core\vtx_atomic.h" />
+    <ClInclude Include="src\core\vtx_blob.h" />
     <ClInclude Include="src\core\vtx_buildconfig.h" />
     <ClInclude Include="src\core\vtx_camera.h" />
     <ClInclude Include="src\core\vtx_clock.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="src\content\contentpackage.cpp" />
     <ClCompile Include="src\content\resource.cpp" />
     <ClCompile Include="src\core\assertions.cpp" />
+    <ClCompile Include="src\core\blob.cpp" />
     <ClCompile Include="src\core\camera3d.cpp" />
     <ClCompile Include="src\core\clock.cpp" />
     <ClCompile Include="src\core\concurrent_queue.cpp" />
