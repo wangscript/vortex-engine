@@ -19,6 +19,7 @@
 #include <core/vtx_standardallocator.h>
 #include <io/vtx_filestream.h>
 #include <content/vtx_contentpackage.h>
+#include <core/vtx_blob.h>
 
 void content::ResourceManager::init()
 {
@@ -40,12 +41,15 @@ void content::ResourceManager::loadPackage(const std::string &path)
 {
 	std::map<std::string, ContentPackage*>::iterator it = this->packageRegistry.find(path);
 	if(it == this->packageRegistry.end())
-	{
-		io::FileStream *packageStream = reinterpret_cast<io::FileStream*>
-			(this->allocator->allocate(sizeof(io::FileStream))); //new io::FileStream;
+	{	
+		io::FileStream *packageStream = new (this->allocator->allocate(sizeof(io::FileStream))) io::FileStream;
 
 		packageStream->openStream(path);
-		ContentPackage *package = new ContentPackage(*this->allocator, packageStream);
+
+		ContentPackage *package = new (this->allocator->allocate(sizeof(ContentPackage))) ContentPackage(*this->allocator, packageStream);
 		this->packageRegistry[path] = package;
+
+		core::Blob *blob = package->GetContent(3);
+		void * ptr = blob->getPtr();
 	}
 }

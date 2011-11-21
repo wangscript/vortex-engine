@@ -22,5 +22,7 @@ TEST(ResourceManager, setPackage)
 {
 	core::Root root;
 	content::ResourceManager manager(root);
+	manager.init();
 	manager.loadPackage("WORLD1.pak");
+
 }

@@ -7,6 +7,7 @@
 namespace core
 {
 	class Allocator;
+	class Blob;
 }
 
 namespace io
@@ -25,6 +26,7 @@ namespace content
 		core::U32_t *indexTable;
 	public:
 		ContentPackage(core::Allocator& allocator, io::IOStream *stream);
+		core::Blob *GetContent(core::U32_t identifier);
 	};
 }
 
