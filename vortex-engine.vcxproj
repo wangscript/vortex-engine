@@ -113,7 +113,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\collections\vtx_binarytree.h" />
     <ClInclude Include="src\concurrency\vtx_concurrent_queue.h" />
     <ClInclude Include="src\concurrency\vtx_job.h" />
     <ClInclude Include="src\concurrency\vtx_jobmanager.h" />
@@ -169,7 +168,6 @@
     <ClInclude Include="src\graphics\vtx_effect.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\collections\binarytree.cpp" />
     <ClCompile Include="src\concurrency\job.cpp" />
     <ClCompile Include="src\concurrency\jobmanager.cpp" />
     <ClCompile Include="src\concurrency\jobprocessor.cpp" />
