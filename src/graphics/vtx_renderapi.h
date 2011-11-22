@@ -22,8 +22,15 @@
 #include <core/vtx_vector4.h>
 #include <graphics/vtx_vbuffer.h> // Only for E_BUFFER_USAGE, perhaps that enum should have its own header?
 
+namespace core
+{
+	class Allocator;
+	class Blob;
+}
+
 namespace graphics
 {
+	class Effect;
 	class VertexPosNormTex;
 	class VertexBuffer;
 
@@ -53,6 +60,7 @@ namespace graphics
 		core::Vector4 *getClearColor();
 
 		virtual VertexBuffer *createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, graphics::E_BUFFER_USAGE usage) = 0;
+		virtual Effect *createEffect(core::Allocator &allocator, core::Blob &blob) = 0;
 		virtual void bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, graphics::VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets) = 0;
 		virtual void draw(core::U32_t verticeCount, core::U32_t startVertex) = 0;
 		virtual void setPrimitiveType(graphics::E_PRIMITIVE_TYPE type) = 0;

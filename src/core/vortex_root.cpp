@@ -15,7 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <core/vtx_eventoutput.h>
-#include <content/vtx_resource.h>
+#include <content/vtx_resourcemanager.h>
 #include <graphics/vtx_rendermanager.h>
 #include <core/vtx_simulationmanager.h>
 

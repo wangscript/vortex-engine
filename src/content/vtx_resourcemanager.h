@@ -49,8 +49,12 @@ namespace content
 		void init(void);
 		void destroy(void);
 
-		template <class T>
-		T load(std::string &asset);
+		template <class TResource>
+		TResource load(core::U32_t identifier);
+
+		// TODO: FIX THIS!
+		// If all content derives from a base class that somehow accepts a blob for initialization, the resourcemanager could be agnostic about what type of content it is actually creating.
+		//Effect *loadEffect(core::U32_t identifier);
 
 		void loadPackage(const std::string &package);
 	};

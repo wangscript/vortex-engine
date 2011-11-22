@@ -14,7 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include <content/vtx_resource.h>
+#include <content/vtx_resourcemanager.h>
 #include <core/vtx_vortex.h>
 #include <core/vtx_standardallocator.h>
 #include <io/vtx_filestream.h>
@@ -31,10 +31,11 @@ void content::ResourceManager::destroy()
 	delete this->allocator;
 }
 
-template <class T>
-T content::ResourceManager::load(std::string &asset)
+template <class TResource>
+TResource content::ResourceManager::load(core::U32_t identifier)
 {
-	
+	typedef typename TResource::value_type T;
+
 }
 
 void content::ResourceManager::loadPackage(const std::string &path)
@@ -50,6 +51,6 @@ void content::ResourceManager::loadPackage(const std::string &path)
 		this->packageRegistry[path] = package;
 
 		core::Blob *blob = package->GetContent(3);
-		void * ptr = blob->getPtr();
+		const void * ptr = blob->getPtr();
 	}
 }

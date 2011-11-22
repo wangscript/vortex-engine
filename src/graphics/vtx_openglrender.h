@@ -22,6 +22,7 @@
 
 namespace core
 {
+	class Allocator;
 	class NativeWindow;
 }
 
@@ -45,6 +46,7 @@ namespace graphics
 		virtual void swap(void);
 		virtual void clear(void);
 		virtual VertexBuffer *createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, graphics::E_BUFFER_USAGE usage);
+		virtual Effect *createEffect(core::Allocator &allocator, core::Blob &blob);
 		virtual void bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, graphics::VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets);
 		virtual void draw(core::U32_t verticeCount, core::U32_t startVertex);
 		virtual void setPrimitiveType(graphics::E_PRIMITIVE_TYPE type);
