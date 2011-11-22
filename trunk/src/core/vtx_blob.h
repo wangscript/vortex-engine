@@ -8,11 +8,11 @@ namespace core
 	class Blob
 	{
 	private:
-		void *ptr;
+		const void *ptr;
 		core::U64_t size;
 	public:
-		Blob(void *pointer, core::U64_t dataSize);
-		void *getPtr();
+		Blob(const void *pointer, core::U64_t dataSize);
+		const void *getPtr();
 		core::U64_t getSize();
 	};
 }

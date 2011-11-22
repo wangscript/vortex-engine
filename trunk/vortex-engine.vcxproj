@@ -120,8 +120,9 @@
     <ClInclude Include="src\concurrency\vtx_jobprocessor.h" />
     <ClInclude Include="src\concurrency\vtx_signal.h" />
     <ClInclude Include="src\concurrency\vtx_thread.h" />
+    <ClInclude Include="src\content\vtx_content.h" />
     <ClInclude Include="src\content\vtx_contentpackage.h" />
-    <ClInclude Include="src\content\vtx_resource.h" />
+    <ClInclude Include="src\content\vtx_resourcemanager.h" />
     <ClInclude Include="src\core\vtx_allocator.h" />
     <ClInclude Include="src\core\vtx_assertions.h" />
     <ClInclude Include="src\core\vtx_atomic.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="src\core\vtx_vortex.h" />
     <ClInclude Include="src\core\vtx_vortexbase.h" />
     <ClInclude Include="src\core\vtx_windowcreationparams.h" />
+    <ClInclude Include="src\graphics\vtx_dx10effect.h" />
     <ClInclude Include="src\graphics\vtx_d3d10vertexbuffer.h" />
     <ClInclude Include="src\graphics\vtx_dx10render.h" />
     <ClInclude Include="src\graphics\vtx_openglrender.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="src\text\utf8\core.h" />
     <ClInclude Include="src\text\utf8\unchecked.h" />
     <ClInclude Include="src\text\vtx_stringutil.h" />
+    <ClInclude Include="src\graphics\vtx_effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\collections\binarytree.cpp" />
@@ -172,8 +175,10 @@
     <ClCompile Include="src\concurrency\jobprocessor.cpp" />
     <ClCompile Include="src\concurrency\signal.cpp" />
     <ClCompile Include="src\concurrency\thread.cpp" />
+    <ClCompile Include="src\content\content.cpp" />
     <ClCompile Include="src\content\contentpackage.cpp" />
-    <ClCompile Include="src\content\resource.cpp" />
+    <ClCompile Include="src\content\resourcemanager.cpp" />
+    <ClCompile Include="src\content\effect.cpp" />
     <ClCompile Include="src\core\assertions.cpp" />
     <ClCompile Include="src\core\blob.cpp" />
     <ClCompile Include="src\core\camera3d.cpp" />
@@ -193,6 +198,7 @@
     <ClCompile Include="src\core\vortex_root.cpp" />
     <ClCompile Include="src\core\window.cpp" />
     <ClCompile Include="src\core\windowcreationparams.cpp" />
+    <ClCompile Include="src\graphics\dx10effect.cpp" />
     <ClCompile Include="src\graphics\dx10render.cpp" />
     <ClCompile Include="src\graphics\openglrender.cpp" />
     <ClCompile Include="src\graphics\render.cpp" />

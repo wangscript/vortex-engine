@@ -15,13 +15,16 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define ASSERTIONS_ENABLED 1
+#include <core/vtx_allocator.h>
 #include <core/vtx_buildconfig.h>
 #include <graphics/vtx_dx10render.h>
 #include <core/vtx_assertions.h>
 #include <graphics/vtx_rendercreationparams.h>
 #include <graphics/vtx_d3d10vertexbuffer.h>
+#include <graphics/vtx_dx10effect.h>
 #include <core/vtx_nativewindow.h>
 #include <graphics/vtx_vertexposnormtex.h>
+#include <core/vtx_blob.h>
 
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
@@ -147,6 +150,21 @@ graphics::VertexBuffer *graphics::DX10Render::createVertexBuffer(graphics::Verte
 	ASSERT(result == S_OK);
 
 	return new DX10VertexBuffer(vertexBuffer);
+}
+
+graphics::Effect *graphics::DX10Render::createEffect(core::Allocator &allocator, core::Blob &blob)
+{
+	// TODO: Investigate effectpools and their opengl equivalent.
+	graphics::DX10Effect *effect = NULL;
+	ID3D10Effect *d3dEffect;
+	// TODO: Investigate if theres anyway to supply a custom allocator to D3D.
+	HRESULT result = D3D10CreateEffectFromMemory(const_cast<void*>(blob.getPtr()), blob.getSize(), 0, this->device, NULL, &d3dEffect);
+	if(SUCCEEDED(result))
+	{
+		effect = new (allocator.allocate(sizeof(graphics::DX10Effect))) graphics::DX10Effect(*d3dEffect);
+	}
+
+	return effect;
 }
 
 void graphics::DX10Render::bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, graphics::VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets)

@@ -118,6 +118,11 @@ graphics::VertexBuffer *graphics::OpenGLRender::createVertexBuffer(graphics::Ver
 	return NULL;
 }
 
+graphics::Effect *graphics::OpenGLRender::createEffect(core::Allocator &allocator, core::Blob &blob)
+{
+	return NULL;
+}
+
 void graphics::OpenGLRender::bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets)
 {
 

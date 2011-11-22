@@ -47,6 +47,7 @@ namespace core
 	class Root
 	{
 	public:
+		graphics::RenderManager		*renderManager;
 		Root(void);
 		void Run(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
 #if defined(VTX_TOOL_BUILD)
@@ -61,12 +62,12 @@ namespace core
 		friend class graphics::RenderManager;
 		friend class NativeWindow;
 		friend class graphics::OpenGLRender;
-
-		core::EventOutput		*output;
+		
+		core::EventOutput			*output;
 		concurrency::JobManager		*jobManager;
 		core::SimulationManager		*simulationManager;
 		content::ResourceManager	*resourceManager;
-		graphics::RenderManager		*renderManager;
+		
 
 		void init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
 	};

@@ -1,12 +1,12 @@
 #include <core/vtx_blob.h>
 
-core::Blob::Blob(void *pointer, core::U64_t dataSize)
+core::Blob::Blob(const void *pointer, core::U64_t dataSize)
 {
 	this->ptr = pointer;
 	this->size = dataSize;
 }
 
-void *core::Blob::getPtr()
+const void *core::Blob::getPtr()
 {
 	return this->ptr;
 }
