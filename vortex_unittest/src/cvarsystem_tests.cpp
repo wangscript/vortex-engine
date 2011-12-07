@@ -24,7 +24,7 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 
 	core::CVarSystem system(allocator);
 
-	core::CVarNode *cvar, *cvar2;
+	core::CVar *cvar, *cvar2;
 	cvar = system.getCVar("c_Test", "Test Cvar #1", 3.14f);
 	EXPECT_TRUE(cvar != NULL);
 
@@ -43,7 +43,7 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 
 	core::CVarSystem system(allocator);
 
-	core::CVarNode *cvar, *cvar2;
+	core::CVar *cvar, *cvar2;
 
 	// Get first CVar
 	cvar = system.getCVar("c_Test", "Test CVar #1",  "Foo");

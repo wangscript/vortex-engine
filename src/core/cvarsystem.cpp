@@ -2,7 +2,7 @@
 #include <core/vtx_allocator.h>
 #include <string>
 
-core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const char *description, const bool value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const bool value)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
@@ -15,7 +15,7 @@ core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const cha
 	this->value.boolValue = value;
 	this->flags = CVAR_FLAG_BOOL;
 }
-core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const char *description, const float value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const float value)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
@@ -28,7 +28,7 @@ core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const cha
 	this->flags = CVAR_FLAG_BOOL;
 }
 
-core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const char *description, const char *value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const char *value)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
@@ -42,19 +42,19 @@ core::CVarNode::CVarNode(core::Allocator &allocator, const char *name, const cha
 	this->flags = CVAR_FLAG_STRING;
 }
 
-void core::CVarNode::setBool(const bool value)
+void core::CVar::setBool(const bool value)
 {
 	this->value.boolValue = value;
 	this->flags |= CVAR_FLAG_MODIFIED;
 }
 
-void core::CVarNode::setFloat(const float value)
+void core::CVar::setFloat(const float value)
 {
 	this->value.floatValue = value; 
 	this->flags |= CVAR_FLAG_MODIFIED;
 }
 
-void core::CVarNode::setString(const char *value) 
+void core::CVar::setString(const char *value) 
 {
 	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value))); 
 	strcpy(this->value.stringValue, this->value.stringValue); 
@@ -68,9 +68,9 @@ core::CVarSystem::CVarSystem(core::Allocator &allocator)
 }
 
 
-core::CVarNode *core::CVarSystem::getCVarInternal(const char *name)
+core::CVar *core::CVarSystem::getCVarInternal(const char *name)
 {
-	CVarNode *p = this->cvarList;
+	CVar *p = this->cvarList;
 
 	while(p && strcmp(name, p->getName()))
 	{
@@ -91,9 +91,9 @@ core::CVarNode *core::CVarSystem::getCVarInternal(const char *name)
 //	return cvar;
 //}
 
-core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const bool defaultValue)
+core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const bool defaultValue)
 {
-	CVarNode *cvar = this->getCVarInternal(name);
+	CVar *cvar = this->getCVarInternal(name);
 	if(!cvar)
 	{
 		cvar = this->insertCVar(name, defaultDescription, defaultValue);
@@ -101,9 +101,9 @@ core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultD
 
 	return cvar;
 }
-core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const float defaultValue)
+core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const float defaultValue)
 {
-	CVarNode *cvar = this->getCVarInternal(name);
+	CVar *cvar = this->getCVarInternal(name);
 	if(!cvar)
 	{
 		cvar = this->insertCVar(name, defaultDescription, defaultValue);
@@ -111,9 +111,9 @@ core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultD
 
 	return cvar;
 }
-core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const char *defaultValue)
+core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const char *defaultValue)
 {
-	CVarNode *cvar = this->getCVarInternal(name);
+	CVar *cvar = this->getCVarInternal(name);
 	if(!cvar)
 	{
 		cvar = this->insertCVar(name, defaultDescription, defaultValue);
@@ -130,25 +130,25 @@ core::CVarNode *core::CVarSystem::getCVar(const char *name, const char *defaultD
 //	return node;
 //}
 
-core::CVarNode* core::CVarSystem::insertCVar(const char *name, const char *description, const bool value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const bool value)
 {
-	core::CVarNode *node = new (this->alloc.allocate(sizeof(core::CVarNode))) core::CVarNode(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
 }
 
-core::CVarNode* core::CVarSystem::insertCVar(const char *name, const char *description, const float value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const float value)
 {
-	core::CVarNode *node = new (this->alloc.allocate(sizeof(core::CVarNode))) core::CVarNode(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
 }
 
-core::CVarNode* core::CVarSystem::insertCVar(const char *name, const char *description, const char *value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const char *value)
 {
-	core::CVarNode *node = new (this->alloc.allocate(sizeof(core::CVarNode))) core::CVarNode(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
@@ -156,7 +156,7 @@ core::CVarNode* core::CVarSystem::insertCVar(const char *name, const char *descr
 
 void core::CVarSystem::update()
 {
-	CVarNode *p = this->cvarList;
+	CVar *p = this->cvarList;
 
 	// Clear the modified flag for all CVars modified this frame.
 	while(p)

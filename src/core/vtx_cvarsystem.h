@@ -17,12 +17,12 @@ namespace core
 		CVAR_FLAG_MODIFIED		= 8,
 	};
 
-	class CVarNode
+	class CVar
 	{
 		friend class CVarSystem;
 	private:
 		core::Allocator &alloc;
-		CVarNode *next;
+		CVar *next;
 
 		core::U32_t flags;
 		char *name;
@@ -35,9 +35,9 @@ namespace core
 		} value;
 
 	public:
-		CVarNode(Allocator &allocator, const char *name, const char *description, const bool value);
-		CVarNode(Allocator &allocator, const char *name, const char *description, const float value);
-		CVarNode(Allocator &allocator, const char *name, const char *description, const char *value);
+		CVar(Allocator &allocator, const char *name, const char *description, const bool value);
+		CVar(Allocator &allocator, const char *name, const char *description, const float value);
+		CVar(Allocator &allocator, const char *name, const char *description, const char *value);
 		const char *getDescription() { return this->description; }
 		const core::U32_t getFlags() { return this->flags; }
 		const char *getName() { return this->name; }
@@ -56,18 +56,18 @@ namespace core
 	{
 	private:
 		Allocator &alloc;
-		CVarNode* cvarList;
-		CVarNode *getCVarInternal(const char *name);
+		CVar* cvarList;
+		CVar *getCVarInternal(const char *name);
 		//CVarNode* insertCVar(const char *name);
-		CVarNode* insertCVar(const char *name, const char *description, const bool value);
-		CVarNode* insertCVar(const char *name, const char *description, const float value);
-		CVarNode* insertCVar(const char *name, const char *description, const char *value);
+		CVar* insertCVar(const char *name, const char *description, const bool value);
+		CVar* insertCVar(const char *name, const char *description, const float value);
+		CVar* insertCVar(const char *name, const char *description, const char *value);
 	public:
 		CVarSystem(Allocator &allocator);
 		//CVarNode *getCVar(const char *name);
-		CVarNode *getCVar(const char *name, const char *description, const bool defaultValue);
-		CVarNode *getCVar(const char *name, const char *description, const float defaultValue);
-		CVarNode *getCVar(const char *name, const char *description, const char *defaultValue);
+		CVar *getCVar(const char *name, const char *description, const bool defaultValue);
+		CVar *getCVar(const char *name, const char *description, const float defaultValue);
+		CVar *getCVar(const char *name, const char *description, const char *defaultValue);
 
 		// Called each frame
 		void update();
