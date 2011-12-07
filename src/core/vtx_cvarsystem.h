@@ -38,6 +38,8 @@ namespace core
 		CVar(Allocator &allocator, const char *name, const char *description, const bool value);
 		CVar(Allocator &allocator, const char *name, const char *description, const float value);
 		CVar(Allocator &allocator, const char *name, const char *description, const char *value);
+		~CVar();
+		
 		const char *getDescription() { return this->description; }
 		const core::U32_t getFlags() { return this->flags; }
 		const char *getName() { return this->name; }
@@ -64,6 +66,7 @@ namespace core
 		CVar* insertCVar(const char *name, const char *description, const char *value);
 	public:
 		CVarSystem(Allocator &allocator);
+		~CVarSystem();
 		//CVarNode *getCVar(const char *name);
 		CVar *getCVar(const char *name, const char *description, const bool defaultValue);
 		CVar *getCVar(const char *name, const char *description, const float defaultValue);
