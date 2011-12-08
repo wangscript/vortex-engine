@@ -22,7 +22,7 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 {
 	core::StandardAllocator allocator;
 
-	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	// Run test in a more narrow scope, so that the CVarSystem instance is automatically disposed before we assert for no memory leaks.
 	{
 		core::CVarSystem system(allocator);
 		float value;
@@ -40,7 +40,10 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 		ASSERT_TRUE(result);
 		EXPECT_EQ(value, 3.14f);
 		
-		cvar->setFloat(2.0f);
+		result = cvar->setFloat(2.0f);
+
+		ASSERT_TRUE(result);
+
 		result = cvar->getFloat(&value);
 
 		ASSERT_TRUE(result);
@@ -53,7 +56,7 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 {
 	core::StandardAllocator allocator;
 
-	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	// Run test in a more narrow scope, so that the CVarSystem instance is automatically disposed before we assert for no memory leaks.
 	{
 		core::CVarSystem system(allocator);
 		const char *text;
@@ -115,7 +118,7 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 TEST(CVarSystem, ModifyCVar)
 {
 	core::StandardAllocator allocator;
-	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	// Run test in a more narrow scope, so that the CVarSystem instance is automatically disposed before we assert for no memory leaks.
 	{
 		core::CVarSystem system(allocator);
 		const char *text;
@@ -130,13 +133,40 @@ TEST(CVarSystem, ModifyCVar)
 		EXPECT_STREQ(text, "Foo");
 		EXPECT_FALSE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
 
-		cvar->setString("Bar");
+		result = cvar->setString("Bar");
+
+		ASSERT_TRUE(result);
 
 		result = cvar->getString(&text);
+
 		ASSERT_TRUE(result);
 		EXPECT_STREQ(text, "Bar");
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
 
+	}
+	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
+}
+
+TEST(CVarSystem, CVarInvalidSetCall)
+{
+	core::StandardAllocator allocator;
+	// Run test in a more narrow scope, so that the CVarSystem instance is automatically disposed before we assert for no memory leaks.
+	{
+		core::CVarSystem system(allocator);
+
+		core::CVar *cvar = system.insertCVar("MyCVar", "I cant find my cat!", 123.5f);
+
+		ASSERT_TRUE(cvar->isFloat());
+		ASSERT_FALSE(cvar->isString());
+		ASSERT_FALSE(cvar->isBool());
+
+		ASSERT_FALSE(cvar->setString("Foo"));
+
+		ASSERT_FALSE(cvar->isString());
+
+		float value;
+		ASSERT_TRUE(cvar->getFloat(&value));
+		ASSERT_EQ(value, 123.5f);
 	}
 	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }
