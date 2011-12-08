@@ -59,18 +59,15 @@ namespace core
 	private:
 		Allocator &alloc;
 		CVar* cvarList;
-		CVar *getCVarInternal(const char *name);
 		//CVarNode* insertCVar(const char *name);
-		CVar* insertCVar(const char *name, const char *description, const bool value);
-		CVar* insertCVar(const char *name, const char *description, const float value);
-		CVar* insertCVar(const char *name, const char *description, const char *value);
 	public:
 		CVarSystem(Allocator &allocator);
 		~CVarSystem();
 		//CVarNode *getCVar(const char *name);
-		CVar *getCVar(const char *name, const char *description, const bool defaultValue);
-		CVar *getCVar(const char *name, const char *description, const float defaultValue);
-		CVar *getCVar(const char *name, const char *description, const char *defaultValue);
+		CVar *getCVar(const char *name);
+		CVar* insertCVar(const char *name,const char *description, const bool value);
+		CVar* insertCVar(const char *name, const char *description, const float value);
+		CVar* insertCVar(const char *name, const char *description, const char *value);
 
 		// Called each frame
 		void update();

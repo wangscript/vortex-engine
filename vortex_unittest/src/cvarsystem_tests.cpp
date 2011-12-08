@@ -22,60 +22,89 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 {
 	core::StandardAllocator allocator;
 
-	core::CVarSystem system(allocator);
-
-	core::CVar *cvar, *cvar2;
-	cvar = system.getCVar("c_Test", "Test Cvar #1", 3.14f);
-	EXPECT_TRUE(cvar != NULL);
-
-	EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
-
-	EXPECT_EQ(cvar->getFloat(), 3.14f);
-	
-	cvar->setFloat(2.0f);
-
-	EXPECT_EQ(cvar->getFloat(), 2.0f);
+	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	{
+		core::CVarSystem system(allocator);
+		
+		core::CVar *cvar;
+		cvar = system.getCVar("c_Test");
+		EXPECT_TRUE(cvar == NULL);
+		
+		cvar = system.insertCVar("c_Test", "This is a test", 3.14f);
+		ASSERT_TRUE(cvar != NULL);
+		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
+		
+		EXPECT_EQ(cvar->getFloat(), 3.14f);
+		
+		cvar->setFloat(2.0f);
+		
+		EXPECT_EQ(cvar->getFloat(), 2.0f);
+	}
+	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }
 
 TEST(CVarSystem, MultipleInsertAndRetrieval)
 {
 	core::StandardAllocator allocator;
 
-	core::CVarSystem system(allocator);
+	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	{
+		core::CVarSystem system(allocator);
+		core::CVar *cvar, *cvar2, *cvar3;
+		cvar = system.getCVar("c_Test");
+		EXPECT_TRUE(cvar == NULL);
+		
+		cvar = system.insertCVar("c_Test", "This is a test", 3.14f);
+		ASSERT_TRUE(cvar != NULL);
+		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
+		EXPECT_EQ(cvar->getFloat(), 3.14f);
 
-	core::CVar *cvar, *cvar2;
+		cvar2 = system.getCVar("c_Test");
+		EXPECT_EQ(cvar, cvar2);
 
-	// Get first CVar
-	cvar = system.getCVar("c_Test", "Test CVar #1",  "Foo");
-	ASSERT_TRUE(cvar != NULL);
+		system.insertCVar("c_1", "Description #1", true);
+		system.insertCVar("c_2", "Description #2", false);
+		system.insertCVar("c_3", "Description #3", "Foo");
 
-	// Assert name and description of CVar.
-	EXPECT_STRCASEEQ(cvar->getName(), "c_Test");
-	EXPECT_STRCASEEQ(cvar->getDescription(), "Test CVar #1");
+		cvar = system.getCVar("c_1");
+		cvar2 = system.getCVar("c_2");
+		cvar3 = system.getCVar("c_3");
 
-	// Get second CVar
-	cvar2 = system.getCVar("c_Test2", "Test CVar #2", "Bar");
-	ASSERT_TRUE(cvar2 != NULL);
-	ASSERT_NE(cvar, cvar2);
+		EXPECT_EQ(cvar->getName(), "c_1");
+		EXPECT_EQ(cvar->getDescription(), "Description #1");
+		EXPECT_EQ(cvar->getFlags(), core::CVAR_FLAG_BOOL);
+		EXPECT_EQ(cvar->getBool(), true);
 
-	// -- Assert data integrity of first CVar
-	EXPECT_STRCASEEQ(cvar->getName(), "c_Test");
-	EXPECT_STRCASEEQ(cvar->getDescription(), "Test CVar #1");
-	
-	// Assert name and description of CVar
-	ASSERT_STRCASEEQ(cvar2->getName(), "c_Test2");
-	ASSERT_STRCASEEQ(cvar2->getDescription(), "Test CVar #2");
+		EXPECT_EQ(cvar2->getName(), "c_2");
+		EXPECT_EQ(cvar2->getDescription(), "Description #2");
+		EXPECT_EQ(cvar2->getFlags(), core::CVAR_FLAG_BOOL);
+		EXPECT_EQ(cvar2->getBool(), false);
 
-	// Get first CVar again, this time there will be no insertion in the internal linked list.
-	cvar2 = system.getCVar("c_Test", "", "Test");
-	EXPECT_TRUE(cvar2 != NULL);
-	ASSERT_EQ(cvar, cvar2);
-	
-	// Assert data integrity of first CVar
-	// No data should have been altered since there was no insertion in the last command
-	// Altough this wouldnt be a thourough test if I didnt assume that **** can happen! :)
-	EXPECT_STRCASEEQ(cvar2->getName(), "c_Test");
-	EXPECT_STRCASEEQ(cvar2->getDescription(), "Test CVar #1");
+		EXPECT_EQ(cvar3->getName(), "c_3");
+		EXPECT_EQ(cvar3->getDescription(), "Description #3");
+		EXPECT_EQ(cvar3->getFlags(), core::CVAR_FLAG_STRING);
+		EXPECT_EQ(cvar3->getString(), "Foo");		
+	}
+	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
+}
 
+TEST(CVarSystem, ModifyCVar)
+{
+	core::StandardAllocator allocator;
+	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
+	{
+		core::CVarSystem system(allocator);
 
+		core::CVar *cvar = system.insertCVar("MyCVar", "Im new here!", "Foo");
+		ASSERT_TRUE(cvar != NULL);
+		EXPECT_EQ(cvar->getString(), "Foo");
+		EXPECT_FALSE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
+
+		cvar->setString("Bar");
+
+		EXPECT_EQ(cvar->getString(), "Bar");
+		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
+
+	}
+	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }

@@ -5,10 +5,10 @@
 core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const bool value)
 	: alloc(allocator)
 {
-	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
+	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
 	strcpy(this->name, name);
 
-	this->description = static_cast<char*>(this->alloc.allocate(strlen(description)));
+	this->description = static_cast<char*>(this->alloc.allocate(strlen(description) + 1));
 	strcpy(this->description, description);
 
 
@@ -18,10 +18,10 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const float value)
 	: alloc(allocator)
 {
-	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
+	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
 	strcpy(this->name, name);
 
-	this->description = static_cast<char*>(this->alloc.allocate(strlen(description)));
+	this->description = static_cast<char*>(this->alloc.allocate(strlen(description) + 1));
 	strcpy(this->description, description);
 
 	this->value.floatValue = value;
@@ -31,13 +31,13 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const char *value)
 	: alloc(allocator)
 {
-	this->name = static_cast<char*>(this->alloc.allocate(strlen(name)));
+	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
 	strcpy(this->name, name);
 
-	this->description = static_cast<char*>(this->alloc.allocate(strlen(description)));
+	this->description = static_cast<char*>(this->alloc.allocate(strlen(description) + 1));
 	strcpy(this->description, description);
 
-	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value)));
+	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value) + 1));
 	strcpy(this->value.stringValue, value);
 	this->flags = CVAR_FLAG_STRING;
 }
@@ -65,8 +65,8 @@ void core::CVar::setFloat(const float value)
 void core::CVar::setString(const char *value) 
 {
 	this->alloc.deallocate(this->value.stringValue);
-	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value))); 
-	strcpy(this->value.stringValue, this->value.stringValue); 
+	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value) + 1)); 
+	strcpy(this->value.stringValue, value); 
 	this->flags |= CVAR_FLAG_MODIFIED;
 }
 
@@ -91,7 +91,7 @@ core::CVarSystem::~CVarSystem()
 }
 
 
-core::CVar *core::CVarSystem::getCVarInternal(const char *name)
+core::CVar *core::CVarSystem::getCVar(const char *name)
 {
 	CVar *p = this->cvarList;
 
@@ -113,37 +113,6 @@ core::CVar *core::CVarSystem::getCVarInternal(const char *name)
 //
 //	return cvar;
 //}
-
-core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const bool defaultValue)
-{
-	CVar *cvar = this->getCVarInternal(name);
-	if(!cvar)
-	{
-		cvar = this->insertCVar(name, defaultDescription, defaultValue);
-	}
-
-	return cvar;
-}
-core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const float defaultValue)
-{
-	CVar *cvar = this->getCVarInternal(name);
-	if(!cvar)
-	{
-		cvar = this->insertCVar(name, defaultDescription, defaultValue);
-	}
-
-	return cvar;
-}
-core::CVar *core::CVarSystem::getCVar(const char *name, const char *defaultDescription, const char *defaultValue)
-{
-	CVar *cvar = this->getCVarInternal(name);
-	if(!cvar)
-	{
-		cvar = this->insertCVar(name, defaultDescription, defaultValue);
-	}
-
-	return cvar;
-}
 
 //core::CVarNode *core::CVarSystem::insertCVar(const char *name)
 //{
