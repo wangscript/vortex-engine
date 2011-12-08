@@ -25,7 +25,7 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 	strcpy(this->description, description);
 
 	this->value.floatValue = value;
-	this->flags = CVAR_FLAG_BOOL;
+	this->flags = CVAR_FLAG_FLOAT;
 }
 
 core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const char *value)
@@ -83,24 +83,42 @@ bool core::CVar::getString(const char **value)
 	return true;
 }
 
-void core::CVar::setBool(const bool value)
+bool core::CVar::setBool(const bool value)
 {
+	if(!(this->flags & CVAR_FLAG_BOOL))
+	{
+		return false;
+	}
+
 	this->value.boolValue = value;
 	this->flags |= CVAR_FLAG_MODIFIED;
+	return true;
 }
 
-void core::CVar::setFloat(const float value)
+bool core::CVar::setFloat(const float value)
 {
+	if(!(this->flags & CVAR_FLAG_FLOAT))
+	{
+		return false;
+	}
+
 	this->value.floatValue = value; 
 	this->flags |= CVAR_FLAG_MODIFIED;
+	return true;
 }
 
-void core::CVar::setString(const char *value) 
+bool core::CVar::setString(const char *value) 
 {
+	if(!(this->flags & CVAR_FLAG_STRING))
+	{
+		return false;
+	}
+
 	this->alloc.deallocate(this->value.stringValue);
 	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value) + 1)); 
 	strcpy(this->value.stringValue, value); 
 	this->flags |= CVAR_FLAG_MODIFIED;
+	return true;
 }
 
 core::CVarSystem::CVarSystem(core::Allocator &allocator)

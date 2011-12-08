@@ -52,9 +52,9 @@ namespace core
 		bool isFloat() { return this->flags & CVAR_FLAG_FLOAT; }
 		bool isString() { return this->flags & CVAR_FLAG_STRING; }
 
-		void setBool(const bool value);
-		void setFloat(const float value);
-		void setString(const char *value);
+		bool setBool(const bool value);
+		bool setFloat(const float value);
+		bool setString(const char *value);
 		
 	};
 
