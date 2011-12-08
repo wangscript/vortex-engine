@@ -50,6 +50,39 @@ core::CVar::~CVar()
 		this->alloc.deallocate(this->value.stringValue);
 }
 
+bool core::CVar::getBool(bool *value)
+{
+	if(!(this->flags & CVAR_FLAG_BOOL))
+	{
+		return false;
+	}
+
+	*value = this->value.boolValue;
+	return true;
+}
+
+bool core::CVar::getFloat(float* value)
+{
+	if(!(this->flags & CVAR_FLAG_FLOAT))
+	{
+		return false;
+	}
+
+	*value = this->value.floatValue;
+	return true;
+}
+
+bool core::CVar::getString(const char **value)
+{ 
+	if(!(this->flags & CVAR_FLAG_STRING))
+	{
+		return false;
+	}
+	
+	*value = this->value.stringValue;
+	return true;
+}
+
 void core::CVar::setBool(const bool value)
 {
 	this->value.boolValue = value;

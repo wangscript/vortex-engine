@@ -44,9 +44,13 @@ namespace core
 		const core::U32_t getFlags() { return this->flags; }
 		const char *getName() { return this->name; }
 
-		const bool getBool() { return this->value.boolValue; }
-		const float getFloat() { return this->value.floatValue; }
-		const char *getString() { return this->value.stringValue; }
+		bool getBool(bool *value);
+		bool getFloat(float* value);
+		bool getString(const char **value);
+
+		bool isBool() { return this->flags & CVAR_FLAG_BOOL; }
+		bool isFloat() { return this->flags & CVAR_FLAG_FLOAT; }
+		bool isString() { return this->flags & CVAR_FLAG_STRING; }
 
 		void setBool(const bool value);
 		void setFloat(const float value);
