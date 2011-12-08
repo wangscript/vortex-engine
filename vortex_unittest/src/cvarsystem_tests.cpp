@@ -87,8 +87,8 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		cvar2 = system.getCVar("c_2");
 		cvar3 = system.getCVar("c_3");
 
-		EXPECT_EQ(cvar->getName(), "c_1");
-		EXPECT_EQ(cvar->getDescription(), "Description #1");
+		EXPECT_STREQ(cvar->getName(), "c_1");
+		EXPECT_STREQ(cvar->getDescription(), "Description #1");
 		EXPECT_EQ(cvar->getFlags(), core::CVAR_FLAG_BOOL);
 
 		result = cvar->getBool(&boolValue);
@@ -96,8 +96,8 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		ASSERT_TRUE(result);
 		EXPECT_EQ(boolValue, true);
 
-		EXPECT_EQ(cvar2->getName(), "c_2");
-		EXPECT_EQ(cvar2->getDescription(), "Description #2");
+		EXPECT_STREQ(cvar2->getName(), "c_2");
+		EXPECT_STREQ(cvar2->getDescription(), "Description #2");
 		EXPECT_EQ(cvar2->getFlags(), core::CVAR_FLAG_BOOL);
 
 		result = cvar2->getBool(&boolValue);
@@ -105,8 +105,8 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		ASSERT_TRUE(result);
 		EXPECT_EQ(boolValue, false);
 
-		EXPECT_EQ(cvar3->getName(), "c_3");
-		EXPECT_EQ(cvar3->getDescription(), "Description #3");
+		EXPECT_STREQ(cvar3->getName(), "c_3");
+		EXPECT_STREQ(cvar3->getDescription(), "Description #3");
 		EXPECT_EQ(cvar3->getFlags(), core::CVAR_FLAG_STRING);
 		result = cvar3->getString(&text);
 		ASSERT_TRUE(result);
