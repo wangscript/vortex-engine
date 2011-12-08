@@ -25,7 +25,8 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
 	{
 		core::CVarSystem system(allocator);
-		
+		float value;
+		bool result;
 		core::CVar *cvar;
 		cvar = system.getCVar("c_Test");
 		EXPECT_TRUE(cvar == NULL);
@@ -34,11 +35,16 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 		ASSERT_TRUE(cvar != NULL);
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
 		
-		EXPECT_EQ(cvar->getFloat(), 3.14f);
+		result = cvar->getFloat(&value);
+
+		ASSERT_TRUE(result);
+		EXPECT_EQ(value, 3.14f);
 		
 		cvar->setFloat(2.0f);
-		
-		EXPECT_EQ(cvar->getFloat(), 2.0f);
+		result = cvar->getFloat(&value);
+
+		ASSERT_TRUE(result);
+		EXPECT_EQ(value, 2.0f);
 	}
 	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }
@@ -50,14 +56,22 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
 	{
 		core::CVarSystem system(allocator);
+		const char *text;
+		bool boolValue;
+		bool result;
 		core::CVar *cvar, *cvar2, *cvar3;
+
 		cvar = system.getCVar("c_Test");
 		EXPECT_TRUE(cvar == NULL);
 		
 		cvar = system.insertCVar("c_Test", "This is a test", 3.14f);
 		ASSERT_TRUE(cvar != NULL);
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
-		EXPECT_EQ(cvar->getFloat(), 3.14f);
+
+		float value;
+		result = cvar->getFloat(&value);
+		ASSERT_TRUE(result);
+		EXPECT_EQ(value, 3.14f);
 
 		cvar2 = system.getCVar("c_Test");
 		EXPECT_EQ(cvar, cvar2);
@@ -73,17 +87,27 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		EXPECT_EQ(cvar->getName(), "c_1");
 		EXPECT_EQ(cvar->getDescription(), "Description #1");
 		EXPECT_EQ(cvar->getFlags(), core::CVAR_FLAG_BOOL);
-		EXPECT_EQ(cvar->getBool(), true);
+
+		result = cvar->getBool(&boolValue);
+		
+		ASSERT_TRUE(result);
+		EXPECT_EQ(boolValue, true);
 
 		EXPECT_EQ(cvar2->getName(), "c_2");
 		EXPECT_EQ(cvar2->getDescription(), "Description #2");
 		EXPECT_EQ(cvar2->getFlags(), core::CVAR_FLAG_BOOL);
-		EXPECT_EQ(cvar2->getBool(), false);
+
+		result = cvar2->getBool(&boolValue);
+
+		ASSERT_TRUE(result);
+		EXPECT_EQ(boolValue, false);
 
 		EXPECT_EQ(cvar3->getName(), "c_3");
 		EXPECT_EQ(cvar3->getDescription(), "Description #3");
 		EXPECT_EQ(cvar3->getFlags(), core::CVAR_FLAG_STRING);
-		EXPECT_EQ(cvar3->getString(), "Foo");		
+		result = cvar3->getString(&text);
+		ASSERT_TRUE(result);
+		EXPECT_STREQ(text, "Foo");		
 	}
 	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }
@@ -94,15 +118,23 @@ TEST(CVarSystem, ModifyCVar)
 	// Run test in a tighter scope, so that the CVarSystem instance is automatically disposed in the end.
 	{
 		core::CVarSystem system(allocator);
+		const char *text;
+		bool result;
 
 		core::CVar *cvar = system.insertCVar("MyCVar", "Im new here!", "Foo");
 		ASSERT_TRUE(cvar != NULL);
-		EXPECT_EQ(cvar->getString(), "Foo");
+
+		result = cvar->getString(&text);
+
+		ASSERT_STREQ(text, "Foo");
+		EXPECT_STREQ(text, "Foo");
 		EXPECT_FALSE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
 
 		cvar->setString("Bar");
 
-		EXPECT_EQ(cvar->getString(), "Bar");
+		result = cvar->getString(&text);
+		ASSERT_TRUE(result);
+		EXPECT_STREQ(text, "Bar");
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_MODIFIED);
 
 	}
