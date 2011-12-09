@@ -31,7 +31,7 @@ TEST(CVarSystem, SingleInsertAndRetrieval)
 		cvar = system.getCVar("c_Test");
 		EXPECT_TRUE(cvar == NULL);
 		
-		cvar = system.insertCVar("c_Test", "This is a test", 3.14f);
+		cvar = system.insertCVar("c_Test", "This is a test", 3.14f, false, false);
 		ASSERT_TRUE(cvar != NULL);
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
 		
@@ -67,7 +67,7 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		cvar = system.getCVar("c_Test");
 		EXPECT_TRUE(cvar == NULL);
 		
-		cvar = system.insertCVar("c_Test", "This is a test", 3.14f);
+		cvar = system.insertCVar("c_Test", "This is a test", 3.14f, false, false);
 		ASSERT_TRUE(cvar != NULL);
 		EXPECT_TRUE(cvar->getFlags() & core::CVAR_FLAG_FLOAT);
 
@@ -79,9 +79,9 @@ TEST(CVarSystem, MultipleInsertAndRetrieval)
 		cvar2 = system.getCVar("c_Test");
 		EXPECT_EQ(cvar, cvar2);
 
-		system.insertCVar("c_1", "Description #1", true);
-		system.insertCVar("c_2", "Description #2", false);
-		system.insertCVar("c_3", "Description #3", "Foo");
+		system.insertCVar("c_1", "Description #1", true, false, false);
+		system.insertCVar("c_2", "Description #2", false, false, false);
+		system.insertCVar("c_3", "Description #3", "Foo", false, false);
 
 		cvar = system.getCVar("c_1");
 		cvar2 = system.getCVar("c_2");
@@ -124,7 +124,7 @@ TEST(CVarSystem, ModifyCVar)
 		const char *text;
 		bool result;
 
-		core::CVar *cvar = system.insertCVar("MyCVar", "Im new here!", "Foo");
+		core::CVar *cvar = system.insertCVar("MyCVar", "Im new here!", "Foo", false, false);
 		ASSERT_TRUE(cvar != NULL);
 
 		result = cvar->getString(&text);
@@ -154,7 +154,7 @@ TEST(CVarSystem, CVarInvalidSetCall)
 	{
 		core::CVarSystem system(allocator);
 
-		core::CVar *cvar = system.insertCVar("MyCVar", "I cant find my cat!", 123.5f);
+		core::CVar *cvar = system.insertCVar("MyCVar", "I cant find my cat!", 123.5f, false, false);
 
 		ASSERT_TRUE(cvar->isFloat());
 		ASSERT_FALSE(cvar->isString());
@@ -167,6 +167,14 @@ TEST(CVarSystem, CVarInvalidSetCall)
 		float value;
 		ASSERT_TRUE(cvar->getFloat(&value));
 		ASSERT_EQ(value, 123.5f);
+
+		cvar = system.insertCVar("ImmutableCVar", "Im too old to change!", "Foo", false, true);
+		ASSERT_TRUE(cvar != NULL);
+
+		ASSERT_TRUE(cvar->isString());
+
+		ASSERT_FALSE(cvar->setString("Bar"));
+
 	}
 	ASSERT_EQ(allocator.allocatedSize(), 0.0f);
 }

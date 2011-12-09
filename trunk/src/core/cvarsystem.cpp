@@ -2,7 +2,7 @@
 #include <core/vtx_allocator.h>
 #include <string>
 
-core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const bool value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const bool value, bool persistent, bool immutable)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
@@ -14,8 +14,12 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 
 	this->value.boolValue = value;
 	this->flags = CVAR_FLAG_BOOL;
+	if(persistent)
+		this->flags |= CVAR_FLAG_PERSISTENT;
+	if(immutable)
+		this->flags |= CVAR_FLAG_IMMUTABLE;
 }
-core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const float value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const float value, bool persistent, bool immutable)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
@@ -26,9 +30,14 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 
 	this->value.floatValue = value;
 	this->flags = CVAR_FLAG_FLOAT;
+	if(persistent)
+		this->flags |= CVAR_FLAG_PERSISTENT;
+	if(immutable)
+		this->flags |= CVAR_FLAG_IMMUTABLE;
+
 }
 
-core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const char *value)
+core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const char *value, bool persistent, bool immutable)
 	: alloc(allocator)
 {
 	this->name = static_cast<char*>(this->alloc.allocate(strlen(name) + 1));
@@ -40,6 +49,10 @@ core::CVar::CVar(core::Allocator &allocator, const char *name, const char *descr
 	this->value.stringValue = static_cast<char*>(this->alloc.allocate(strlen(value) + 1));
 	strcpy(this->value.stringValue, value);
 	this->flags = CVAR_FLAG_STRING;
+	if(persistent)
+		this->flags |= CVAR_FLAG_PERSISTENT;
+	if(immutable)
+		this->flags |= CVAR_FLAG_IMMUTABLE;
 }
 
 core::CVar::~CVar()
@@ -52,7 +65,7 @@ core::CVar::~CVar()
 
 bool core::CVar::getBool(bool *value)
 {
-	if(!(this->flags & CVAR_FLAG_BOOL))
+	if(~this->flags & CVAR_FLAG_BOOL)
 	{
 		return false;
 	}
@@ -63,7 +76,7 @@ bool core::CVar::getBool(bool *value)
 
 bool core::CVar::getFloat(float* value)
 {
-	if(!(this->flags & CVAR_FLAG_FLOAT))
+	if(~this->flags & CVAR_FLAG_FLOAT)
 	{
 		return false;
 	}
@@ -74,7 +87,7 @@ bool core::CVar::getFloat(float* value)
 
 bool core::CVar::getString(const char **value)
 { 
-	if(!(this->flags & CVAR_FLAG_STRING))
+	if(~this->flags & CVAR_FLAG_STRING)
 	{
 		return false;
 	}
@@ -85,7 +98,7 @@ bool core::CVar::getString(const char **value)
 
 bool core::CVar::setBool(const bool value)
 {
-	if(!(this->flags & CVAR_FLAG_BOOL))
+	if((this->flags & CVAR_FLAG_IMMUTABLE) || (~this->flags & CVAR_FLAG_BOOL))
 	{
 		return false;
 	}
@@ -97,7 +110,7 @@ bool core::CVar::setBool(const bool value)
 
 bool core::CVar::setFloat(const float value)
 {
-	if(!(this->flags & CVAR_FLAG_FLOAT))
+	if((this->flags & CVAR_FLAG_IMMUTABLE) || (~this->flags & CVAR_FLAG_FLOAT))
 	{
 		return false;
 	}
@@ -109,7 +122,7 @@ bool core::CVar::setFloat(const float value)
 
 bool core::CVar::setString(const char *value) 
 {
-	if(!(this->flags & CVAR_FLAG_STRING))
+	if((this->flags & CVAR_FLAG_IMMUTABLE) || (~this->flags & CVAR_FLAG_STRING))
 	{
 		return false;
 	}
@@ -173,25 +186,25 @@ core::CVar *core::CVarSystem::getCVar(const char *name)
 //	return node;
 //}
 
-core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const bool value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const bool value, bool persistent, bool immutable)
 {
-	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value, persistent, immutable);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
 }
 
-core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const float value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const float value, bool persistent, bool immutable)
 {
-	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value, persistent, immutable);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
 }
 
-core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const char *value)
+core::CVar* core::CVarSystem::insertCVar(const char *name, const char *description, const char *value, bool persistent, bool immutable)
 {
-	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value);
+	core::CVar *node = new (this->alloc.allocate(sizeof(core::CVar))) core::CVar(this->alloc, name, description, value, persistent, immutable);
 	node->next = this->cvarList;
 	this->cvarList = node;
 	return node;
