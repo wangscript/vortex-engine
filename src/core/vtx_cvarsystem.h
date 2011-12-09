@@ -15,6 +15,8 @@ namespace core
 		CVAR_FLAG_STRING		= 2,
 		CVAR_FLAG_BOOL			= 4,
 		CVAR_FLAG_MODIFIED		= 8,
+		CVAR_FLAG_PERSISTENT	= 16,
+		CVAR_FLAG_IMMUTABLE		= 32
 	};
 
 	class CVar
@@ -35,9 +37,9 @@ namespace core
 		} value;
 
 	public:
-		CVar(Allocator &allocator, const char *name, const char *description, const bool value);
-		CVar(Allocator &allocator, const char *name, const char *description, const float value);
-		CVar(Allocator &allocator, const char *name, const char *description, const char *value);
+		CVar(Allocator &allocator, const char *name, const char *description, const bool value, bool persistent, bool immutable);
+		CVar(Allocator &allocator, const char *name, const char *description, const float value, bool persistent, bool immutable);
+		CVar(Allocator &allocator, const char *name, const char *description, const char *value, bool persistent, bool immutable);
 		~CVar();
 		
 		const char *getDescription() { return this->description; }
@@ -69,9 +71,9 @@ namespace core
 		~CVarSystem();
 		//CVarNode *getCVar(const char *name);
 		CVar *getCVar(const char *name);
-		CVar* insertCVar(const char *name,const char *description, const bool value);
-		CVar* insertCVar(const char *name, const char *description, const float value);
-		CVar* insertCVar(const char *name, const char *description, const char *value);
+		CVar* insertCVar(const char *name,const char *description, const bool value, bool persistent, bool immutable);
+		CVar* insertCVar(const char *name, const char *description, const float value, bool persistent, bool immutable);
+		CVar* insertCVar(const char *name, const char *description, const char *value, bool persistent, bool immutable);
 
 		// Called each frame
 		void update();
