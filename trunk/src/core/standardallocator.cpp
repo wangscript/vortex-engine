@@ -43,10 +43,14 @@ namespace core
 
 	void *StandardAllocator::reallocate(void *ptr, core::U32_t size)
 	{
+		core::U32_t blockSize = size + sizeof(core::U32_t);
 		core::U32_t *iptr = static_cast<core::U32_t*>(ptr);
+		core::U32_t originalSize = *--iptr;
 
-		iptr = static_cast<core::U32_t*>(realloc(iptr - 1, size));
-		*iptr++ = size;
+		iptr = static_cast<core::U32_t*>(realloc(iptr, blockSize));
+		*iptr++ = blockSize;
+
+		this->totalSize += blockSize - originalSize;
 
 		return iptr;
 	}
