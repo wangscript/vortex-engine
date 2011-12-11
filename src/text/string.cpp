@@ -5,31 +5,34 @@
 text::String::String(core::Allocator &allocator, const core::U8_t *string)
 	: alloc(allocator)
 {
-	core::U32_t stringLength = strlen(reinterpret_cast<const char*>(string)) + 1;
-	this->data = static_cast<core::U8_t*>(this->alloc.allocate(stringLength));
-	memcpy(this->data, string, stringLength);
+
+	this->bufferSize = strlen(reinterpret_cast<const char*>(string)) + 1;
+	this->buffer = static_cast<core::U8_t*>(this->alloc.allocate(this->bufferSize));
+	memcpy(this->buffer, string, this->bufferSize);
 }
 
 text::String::String(core::Allocator &allocator, const core::U8_t *string , core::U32_t length)
 	: alloc(allocator)
 {
-	this->data = static_cast<core::U8_t*>(this->alloc.allocate(length + 1));
-	memcpy(this->data, string, length);
-	this->data[length] = '\0';
+	this->bufferSize = length + 1;
+	this->buffer = static_cast<core::U8_t*>(this->alloc.allocate(this->bufferSize));
+	memcpy(this->buffer, string, length);
+	this->buffer[length] = '\0';
 	
 }
 
 text::String::~String()
 {
-	this->alloc.deallocate(this->data);
+	this->alloc.deallocate(this->buffer);
 }
 
 const core::U8_t *text::String::getU8Data()
 {
-	return this->data;
+	return this->buffer;
 }
 
 const char *text::String::getCharData()
 {
-	return reinterpret_cast<char*>(this->data);
+	return reinterpret_cast<char*>(this->buffer);
 }
+
