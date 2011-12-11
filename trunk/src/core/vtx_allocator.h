@@ -8,8 +8,10 @@ namespace core
 	{
 	public:
 		virtual void *allocate(core::U32_t size) = 0;
-		virtual void deallocate(void *p) = 0;
 		virtual core::U32_t allocatedSize() = 0;
+		virtual void deallocate(void *p) = 0;
+		virtual void *reallocate(void *p, core::U32_t size) = 0;
+
 
 
 

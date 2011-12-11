@@ -14,8 +14,10 @@ namespace core
 	public:
 		StandardAllocator();
 		void *allocate(core::U32_t size);
-		void deallocate(void *p);
 		core::U32_t allocatedSize();
+		void deallocate(void *p);
+		
+		void *reallocate(void *ptr, core::U32_t size);
 	};
 }
 
