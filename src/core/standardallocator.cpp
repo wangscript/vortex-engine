@@ -40,4 +40,14 @@ namespace core
 	{
 		return this->totalSize;
 	}
+
+	void *StandardAllocator::reallocate(void *ptr, core::U32_t size)
+	{
+		core::U32_t *iptr = static_cast<core::U32_t*>(ptr);
+
+		iptr = static_cast<core::U32_t*>(realloc(iptr - 1, size));
+		*iptr++ = size;
+
+		return iptr;
+	}
 }
