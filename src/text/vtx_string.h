@@ -19,6 +19,7 @@ namespace text
 		core::U8_t *buffer;
 		core::U32_t bufferSize;
 	public:
+		String(core::Allocator &allocator);
 		String(core::Allocator &allocator, const core::U8_t *string);
 		String(core::Allocator &allocator, const core::U8_t *string , core::U32_t length);
 		~String();
@@ -38,8 +39,11 @@ namespace text
 			if(size != this->bufferSize)
 			{
 				this->buffer = static_cast<core::U8_t*>(this->alloc.reallocate(this->buffer, size));
+				this->bufferSize = size;
 			}
 			memcpy(this->buffer, value, size);
+
+			return *this;
 		}
 		
 		String& operator =(const char *value)

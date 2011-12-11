@@ -1,6 +1,14 @@
 #include <core/vtx_allocator.h>
 #include <text/vtx_string.h>
 
+#define DEFAULT_SIZE	16
+
+text::String::String(core::Allocator &allocator)
+	: alloc(allocator)
+{
+	this->bufferSize = DEFAULT_SIZE;
+	this->buffer = static_cast<core::U8_t*>(this->alloc.allocate(this->bufferSize));
+}
 
 text::String::String(core::Allocator &allocator, const core::U8_t *string)
 	: alloc(allocator)
