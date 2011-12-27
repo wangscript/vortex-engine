@@ -29,37 +29,47 @@
 #include <core/vtx_eventoutput.h>
 #include <graphics/vtx_rendercreationparams.h>
 
+#include <core/vtx_standardallocator.h>
+
 namespace core
 {
 	class WindowCreationParams;
 }
 
-graphics::RenderManager::RenderManager(core::Root& parent) : VortexBase(parent)
+graphics::RenderManager *graphics::renderMgr;
+
+void graphics::InitRenderMgr(core::Allocator &allocator, graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams)
 {
-	this->render = NULL;
+	core::StandardAllocator *renderMgrAlloc = new (allocator.allocate(sizeof(core::StandardAllocator))) core::StandardAllocator;
+	graphics::renderMgr = new (allocator.allocate(sizeof(graphics::RenderManager))) graphics::RenderManager(*renderMgrAlloc, params, windowParams);
 }
 
-void graphics::RenderManager::init(graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams)
+graphics::RenderManager::RenderManager(core::Allocator &allocator, graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams)
+	: alloc(allocator)
 {
-	this->window = core::NativeWindow::create(VortexBase::engineParent, windowParams);
+	this->render = NULL;
+	
+	this->window = core::NativeWindow::create(windowParams);
 	//this->createWindow(windowParams);
 #if defined(VTX_COMPILE_WITH_DX10)
 	if(params.rapi == E_RAPI_DX10)
 	{
-		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating DX10 render");
-		this->render = new DX10Render(VortexBase::engineParent, params, this->window);
+		//core::VortexBase::engine.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating DX10 render");
+		this->render = new DX10Render(params, this->window);
 	}
 #endif
 #if defined(VTX_COMPILE_WITH_OPENGL)
 	if(this->render == NULL && params.rapi == E_RAPI_OPENGL)
 	{
-		core::VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating OpenGL render");	
-		this->render = new OpenGLRender(VortexBase::engineParent, params, this->window);
+		//core::VortexBase::engine.output->reportEvent(core::EventOutput::E_LEVEL_VERBOSE, "RenderManager: Creating OpenGL render");	
+		this->render = new OpenGLRender(params, this->window);
 	}
 #endif
+
+	ASSERT(this->render != NULL);
 }
 
-void graphics::RenderManager::destroy(void)
+graphics::RenderManager::~RenderManager()
 {
 	this->window->destroy();
 }

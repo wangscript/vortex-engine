@@ -1,4 +1,4 @@
-//Copyright (C) 2011 Emil Nord�n
+﻿//Copyright (C) 2011 Emil Nordén
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -26,15 +26,16 @@
 #include <graphics/vtx_vertexposnormtex.h>
 #include <core/vtx_blob.h>
 
+//#include <D3DX10core.h>
+ID3DX10Font *font;
 #if defined(VTX_PLATFORM_WIN32) && defined(VTX_COMPILE_WITH_DX10)
 
-graphics::DX10Render::DX10Render(core::Root &parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow) : graphics::RenderAPI(parent)
+graphics::DX10Render::DX10Render(graphics::RenderCreationParams &params, core::NativeWindow *outputWindow)
 {
 	HRESULT result;
 	DXGI_SWAP_CHAIN_DESC swapChainDesc;
 	//IDXGIFactory *dxfactory;
 	ID3D10Texture2D *backBuffer, *depthStencilBuffer;
-
 	//HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&dxfactory);
 
 	//result = (D3D10CreateDevice(NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &this->device));
@@ -110,17 +111,35 @@ graphics::DX10Render::DX10Render(core::Root &parent, graphics::RenderCreationPar
 	vp.TopLeftY = 0;
 	device->RSSetViewports( 1, &vp );
 
+	
+	HRESULT hr = D3DX10CreateFont(device, 0, 0, FW_BOLD, 1, false, DEFAULT_CHARSET /* 65001 */, OUT_TT_ONLY_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Arial", &font);
 }
+
+
 
 void graphics::DX10Render::clear()
 {
+	
 	this->device->ClearRenderTargetView(this->renderTargetView, this->clearColor.values);
+	RECT r;
+	r.bottom = 50;
+	r.left = 10;
+	r.right = 640;
+	r.top = 100;
+	D3DXCOLOR color(0.0f, 0.0f, 0.4f, 1.0f);
+	INT res = font->DrawTextW(NULL, L"LḑK!", -1, &r, DT_SINGLELINE | DT_NOCLIP, color);
+	ASSERT(res > 0);
 }
 
 void graphics::DX10Render::swap(void)
 {
 	HRESULT result = this->swapChain->Present(0, 0);
 	ASSERT(result == S_OK);
+}
+
+ID3D10Device *graphics::DX10Render::getDevice() const
+{
+	return this->device;
 }
 
 graphics::VertexBuffer *graphics::DX10Render::createVertexBuffer(graphics::VertexPosNormTex *vertices, core::U32_t noVertices, graphics::E_BUFFER_USAGE usage)
@@ -158,10 +177,11 @@ graphics::Effect *graphics::DX10Render::createEffect(core::Allocator &allocator,
 	graphics::DX10Effect *effect = NULL;
 	ID3D10Effect *d3dEffect;
 	// TODO: Investigate if theres anyway to supply a custom allocator to D3D.
-	HRESULT result = D3D10CreateEffectFromMemory(const_cast<void*>(blob.getPtr()), blob.getSize(), 0, this->device, NULL, &d3dEffect);
+	HRESULT result = D3D10CreateEffectFromMemory(const_cast<void*>(blob.getPtr()), static_cast<SIZE_T>(blob.getSize()), 0, this->device, NULL, &d3dEffect);
 	if(SUCCEEDED(result))
 	{
-		effect = new (allocator.allocate(sizeof(graphics::DX10Effect))) graphics::DX10Effect(*d3dEffect);
+
+		//effect = new (allocator.allocate(sizeof(graphics::DX10Effect))) graphics::DX10Effect(VortexBase::engine, *d3dEffect);
 	}
 
 	return effect;

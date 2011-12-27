@@ -2,6 +2,7 @@
 #include <io/vtx_iostream.h>
 #include <core/vtx_allocator.h>
 #include <core/vtx_blob.h>
+#include <io/vtx_filestream.h>
 
 namespace content
 {
@@ -14,6 +15,13 @@ namespace content
 		this->indexTable = reinterpret_cast<core::U32_t*>(allocator.allocate(resourceCount * 2 * sizeof(core::U32_t)));
 		packageStream->readBytes(reinterpret_cast<core::U8_t*>(this->indexTable), resourceCount * 2 * sizeof(core::U32_t), &bytesRead);
 
+	}
+
+	ContentPackage::~ContentPackage()
+	{
+		this->alloc.deallocate(this->indexTable);
+		if(this->stream->isOpen())
+			this->stream->closeStream();
 	}
 
 	core::Blob *ContentPackage::GetContent(core::U32_t identifier)

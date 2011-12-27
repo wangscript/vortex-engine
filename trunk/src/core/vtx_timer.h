@@ -17,16 +17,48 @@
 #ifndef VTX_TIMER_H
 #define VTX_TIMER_H
 
+#include <core/vtx_buildconfig.h>
 #include <core/vtx_atomic.h>
+#include <core/vtx_assertions.h>
+
+#if defined(VTX_PLATFORM_WIN32)
+#include <Windows.h>
+#endif
 
 namespace core
 {
-class Timer
-{
-public:
-	static U64_t readHighResolutionTimer(void);
-	static U64_t readHighResolutionTimerFrequency(void);
-};
+	class Timer
+	{
+	public:
+		static U64_t readHighResolutionTimer()
+					{
+
+			core::U64_t result;
+#if defined(VTX_PLATFORM_WIN32)
+			LARGE_INTEGER value;
+			BOOL success = QueryPerformanceCounter(&value);
+			ASSERT(success);
+			result = value.QuadPart;
+#elif defined(VTX_PLATFORM_LINUX)
+			result = 0; // PLACEHOLDER FOR LINUX VARIANT
+#endif
+			return result;
+		}
+
+		static inline U64_t readHighResolutionTimerFrequency()
+		{
+			core::U64_t result;
+#if defined(VTX_PLATFORM_WIN32)
+			LARGE_INTEGER value;
+			BOOL success = QueryPerformanceFrequency(&value);
+			ASSERT(success)
+			result = value.QuadPart;
+#elif defined(VTX_PLATFORM_LINUX)
+			result = 0; // PLACEHOLDER FOR LINUX VARIANT
+#endif
+			return result;
+		}
+	};
 }
 
 #endif

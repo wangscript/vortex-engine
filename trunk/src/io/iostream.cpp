@@ -15,6 +15,8 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <io/vtx_iostream.h>
+#include <core/vtx_assertions.h>
+#include <core/vtx_buildconfig.h>
 #ifdef WIN32
 #include <Windows.h>
 #endif
@@ -23,7 +25,7 @@ io::IOStream::ErrorCode io::IOStream::init(core::SYSTEM_HANDLE handle)
 {
 	IOStream::ErrorCode ret;
 	// Should not use these preprocessor #ifs here but there is something wrong with my INVALID_SYSTEM_HANDLE define.
-#ifdef WIN32
+#ifdef VTX_PLATFORM_WIN32
 	if(handle == INVALID_HANDLE_VALUE)
 	{
 		int err = GetLastError();
@@ -52,7 +54,7 @@ core::U64_t io::IOStream::getPosition()
 io::IOStream::ErrorCode io::IOStream::setPosition(core::U64_t position)
 {
 	io::IOStream::ErrorCode ret;
-#ifdef WIN32
+#ifdef VTX_PLATFORM_WIN32
 	LARGE_INTEGER pos;
 	pos.HighPart = (position & 0xFFFFFFFF00000000) >> 32;
 	pos.LowPart = (DWORD)(position & 0x00000000FFFFFFFFF);
@@ -77,10 +79,20 @@ io::IOStream::ErrorCode io::IOStream::setPosition(core::U64_t position)
 	return ret;
 }
 
+io::IOStream::ErrorCode io::IOStream::readByte(core::U8_t *byte)
+{
+	core::U32_t bytesRead;
+	IOStream::ErrorCode errorCode = this->readBytes(byte, 1, &bytesRead);
+	if(errorCode == IOStream::ErrorCode::OK && bytesRead == 0)
+		errorCode = IOStream::ErrorCode::END_OF_FILE;
+
+	return errorCode;
+}
+
 io::IOStream::ErrorCode io::IOStream::readBytes(core::U8_t *buffer, core::U32_t bytesToRead, core::U32_t *bytesRead)
 {
 	IOStream::ErrorCode ret;
-#ifdef WIN32
+#ifdef VTX_PLATFORM_WIN32
 	if(ReadFile(
 		this->handle,
 		(LPVOID)buffer,
@@ -93,6 +105,7 @@ io::IOStream::ErrorCode io::IOStream::readBytes(core::U8_t *buffer, core::U32_t 
 	}
 	else
 	{
+		DWORD err = GetLastError();
 		ret = IOStream::UNKOWN_ERROR;
 	}
 #endif
@@ -101,7 +114,16 @@ io::IOStream::ErrorCode io::IOStream::readBytes(core::U8_t *buffer, core::U32_t 
 
 void io::IOStream::closeStream()
 {
-	this->open = false;
+	if(this->open)
+	{
+#ifdef VTX_PLATFORM_WIN32
+		if(!CloseHandle(this->handle))
+		{
+			// TODO: report error. I really need to implement the engine console.
+		}
+#endif
+		this->open = false;
+	}
 }
 
 bool io::IOStream::isOpen()

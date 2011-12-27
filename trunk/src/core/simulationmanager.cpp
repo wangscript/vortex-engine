@@ -25,32 +25,52 @@
 #include <Windows.h>
 #endif
 
-void core::SimulationManager::init(graphics::RenderAPI *render)
+
+#include <graphics/vtx_rendermanager.h>
+
+#include <core/vtx_standardallocator.h>
+
+core::SimulationManager *core::simulationMgr;
+
+void core::InitSimulationMgr(core::Allocator &allocator)
 {
-	this->render = render;
+	core::StandardAllocator *simulationMgrAlloc = new (allocator.allocate(sizeof(core::StandardAllocator))) core::StandardAllocator;
+	core::simulationMgr = new (allocator.allocate(sizeof(core::SimulationManager))) core::SimulationManager(*simulationMgrAlloc);
 }
 
-void core::SimulationManager::destroy()
+core::SimulationManager::SimulationManager(core::Allocator &allocator)
+	: alloc(allocator)
 {
+
 }
 
 void core::SimulationManager::run()
 {
+	this->render = graphics::renderMgr->getRenderObject();
 	core::Clock gameClock, frameClock;
-	core::Vector4 color(0.0f, 0.0f, 0.5f, 1.0f);
+	core::Vector4 color(1.0f, 1.0f, 1.0f, 1.0f);
 	this->render->setClearColor(color);
 	gameClock.reset();
 	frameClock.reset();
 	core::F32_t elapsed;
-	
-	while(true)
+
+	bool isRunning = true;
+	while(isRunning)
 	{
 		
 		// Message pump. Win32 only.
 #if defined(VTX_PLATFORM_WIN32)
 		MSG msg;
+
+		
 		while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
+			switch(msg.message)
+			{
+			case WM_QUIT:
+				isRunning = false;
+				break;
+			}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}

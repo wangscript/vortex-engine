@@ -85,4 +85,6 @@
 #define VTX_USE_SSE 1
 //#define VTX_USE_AVX 1
 
+#define VTX_ASSERTIONS_ENABLED
+
 #endif

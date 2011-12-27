@@ -59,7 +59,7 @@ namespace graphics
 		IDXGISwapChain *swapChain;
 		ID3D10RenderTargetView *renderTargetView;
 	public:
-		DX10Render(core::Root &parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
+		DX10Render(graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
 		virtual void swap(void);
 		virtual void clear(void);
 		virtual VertexBuffer *createVertexBuffer(VertexPosNormTex *vertices, core::U32_t noVertices, E_BUFFER_USAGE usage);
@@ -67,6 +67,7 @@ namespace graphics
 		virtual void bindVertexBuffers(core::U32_t slot, core::U32_t bufferCount, VertexBuffer **buffers, const core::U32_t *strides, const core::U32_t *offsets);
 		virtual void draw(core::U32_t verticeCount, core::U32_t startVertex);
 		virtual void setPrimitiveType(E_PRIMITIVE_TYPE type);
+		ID3D10Device *getDevice() const;
 	};
 
 }

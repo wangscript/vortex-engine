@@ -28,9 +28,9 @@ namespace io
 	class FileStream : public IOStream
 	{
 	public:
+		~FileStream();
 		void foo();
 		virtual IOStream::ErrorCode openStream(const std::string &path);
-		virtual void closeStream();
 	private:
 	};
 

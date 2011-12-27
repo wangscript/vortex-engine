@@ -22,7 +22,16 @@
 #if defined(VTX_PLATFORM_WIN32)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return DefWindowProc(hWnd, message, wParam, lParam);
+	switch(message)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+		break;
+	}
 }
 #endif
 
@@ -31,12 +40,12 @@ core::WindowCreationParams::WindowCreationParams()
 	this->windowHandle = 0;
 	this->isFullscreen = false;
 	this->styleFlags = (WindowCreationParams::E_WINDOWSTYLE)0;
-	this->windowPosition.x = VWIN_USEDEFAULT;
-	this->windowPosition.y = VWIN_USEDEFAULT;
-	this->windowSize.x = VWIN_USEDEFAULT;
-	this->windowSize.y = VWIN_USEDEFAULT;
+	this->windowPosition.x = 0;
+	this->windowPosition.y = 0;
+	this->windowSize.x = 800;
+	this->windowSize.y = 600;
 #if defined(VTX_PLATFORM_WIN32)
-	this->wndProc = WndProc;
+	this->wndProc =WndProc;
 #endif
 #if defined(VTX_PLATFORM_LINUX)
 	this->displayX11 = NULL;

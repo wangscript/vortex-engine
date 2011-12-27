@@ -30,7 +30,7 @@
 #include <core/vtx_nativewindow.h>
 #include <core/vtx_eventoutput.h>
 
-graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow) : graphics::RenderAPI(parent)
+graphics::OpenGLRender::OpenGLRender(graphics::RenderCreationParams &params, core::NativeWindow *outputWindow)
 {
 	this->window = outputWindow;
 #if defined(VTX_PLATFORM_WIN32)
@@ -72,12 +72,12 @@ graphics::OpenGLRender::OpenGLRender(core::Root& parent, graphics::RenderCreatio
 		if(event == NULL)
 		{
 			std::string message("glXMakeContextCurrent failed with no XErrorEvent");
-			VortexBase::engineParent.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
+			VortexBase::engine.output->reportEvent(core::EventOutput::E_LEVEL_FATAL, message);
 		}
 		else
 		{
 			std::string message("glXMakeContextCurrent");
-			VortexBase::engineParent.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, event->error_code);
+			VortexBase::engine.output->reportMethodFailedEvent(core::EventOutput::E_LEVEL_FATAL, message, event->error_code);
 		}
 		
 	}

@@ -20,7 +20,7 @@
 #include <core/vtx_buildconfig.h>
 
 void reportAssertionFailure(const char *expr, const char *file, long line);
-#if defined(ASSERTIONS_ENABLED)
+#if defined(VTX_ASSERTIONS_ENABLED)
 #if defined(VTX_PLATFORM_WIN32)
 	#define debugBreak() __asm { int 3 }
 #endif

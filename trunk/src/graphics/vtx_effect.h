@@ -20,11 +20,11 @@ namespace graphics
 	class Effect : public content::Content
 	{
 	public:
-		Effect(void)
+		Effect(core::Blob &effectBlob, core::U32_t effectIdentifier) : content::Content(effectBlob, effectIdentifier)
 		{
 		}
 
-		virtual void init(core::Root &root, core::Blob &blob) = 0;
+		void init(core::Blob &blob);
 	};
 
 }

@@ -4,8 +4,8 @@
 #include <graphics/vtx_rendermanager.h>
 #include <graphics/vtx_renderapi.h>
 
-void graphics::DX10Effect::init(core::Root &root, core::Blob &blob)
+void graphics::DX10Effect::init(core::Blob &blob)
 {
-	graphics::RenderAPI *renderAPI = root.renderManager->getRenderObject();
-	//renderAPI->createEffect(
+	//graphics::RenderAPI *renderAPI = VortexBase::engine.renderManager->getRenderObject();
+
 }

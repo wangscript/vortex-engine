@@ -22,24 +22,35 @@
 #include <concurrency/vtx_jobprocessor.h>
 #include <cstdlib>
 
-void concurrency::JobManager::init()
+#include <core/vtx_standardallocator.h>
+
+concurrency::JobManager *concurrency::jobMgr;
+
+void concurrency::InitJobMgr(core::Allocator &allocator)
+{
+	core::StandardAllocator *jobMgrAlloc = new (allocator.allocate(sizeof(core::StandardAllocator))) core::StandardAllocator;
+	concurrency::jobMgr = new (allocator.allocate(sizeof(concurrency::JobManager))) concurrency::JobManager(*jobMgrAlloc);
+}
+
+concurrency::JobManager::JobManager(core::Allocator &allocator)
+	: alloc(allocator)
 {
 	core::U32_t affinity = this->getCurrentProcessAffinityMask();
 	this->noJobProcessors = core::Utilities::getSetBitCount(affinity);
 	// Can not use C++ dynamic array allocation since that requires a default parameterless constructor.
-	this->processors = (JobProcessor**)malloc(sizeof(JobProcessor*) * this->noJobProcessors);
+	this->processors = static_cast<JobProcessor**>(this->alloc.allocate(sizeof(JobProcessor*) * this->noJobProcessors));
 	this->initJobProcessors(affinity);
 }
 
-void concurrency::JobManager::destroy()
+concurrency::JobManager::~JobManager()
 {
 	for(core::U32_t i = 0; i < this->noJobProcessors; i++)
 	{
-		delete this->processors[i];
+		this->processors[i]->~JobProcessor();
+		this->alloc.deallocate(this->processors[i]);
 	}
-	free(this->processors);
+	this->alloc.deallocate(this->processors);
 }
-
 
 void concurrency::JobManager::initJobProcessors(core::U32_t processAffinity)
 {
@@ -49,11 +60,12 @@ void concurrency::JobManager::initJobProcessors(core::U32_t processAffinity)
 		while(!(processAffinity & bit))
 			bit <<= 1;
 		
-		this->processors[i] = new JobProcessor(bit);
+		this->processors[i] = new (this->alloc.allocate(sizeof(JobProcessor))) JobProcessor(bit);
 		this->processors[i]->start();
 		bit <<= 1;
 	}
 }
+
 core::U32_t concurrency::JobManager::getCurrentProcessAffinityMask(void)
 {
 	core::U32_t processAffinity;

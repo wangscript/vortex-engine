@@ -24,8 +24,8 @@ namespace text
 		String(core::Allocator &allocator, const core::U8_t *string , core::U32_t length);
 		~String();
 
-		const core::U8_t *getU8Data();
-		const char *getCharData();
+		const core::U8_t *getU8Data() { return this->buffer; }
+		const char *getCharData() { return reinterpret_cast<const char*>(this->buffer); }
 
 		const core::U8_t inline operator [] (int index)
 		{

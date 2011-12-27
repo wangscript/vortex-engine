@@ -21,11 +21,13 @@ namespace content
 	{
 	private:
 		core::Allocator &alloc;
-		io::IOStream *stream;
 		core::U32_t resourceCount;
 		core::U32_t *indexTable;
 	public:
+		io::IOStream *stream;
+
 		ContentPackage(core::Allocator& allocator, io::IOStream *stream);
+		~ContentPackage();
 		core::Blob *GetContent(core::U32_t identifier);
 	};
 }

@@ -37,17 +37,17 @@ namespace core
 
 	class WindowCreationParams;
 
-	class NativeWindow : VortexBase
+	class NativeWindow
 	{
 	private:
 		core::WINDOW handle;
 		bool manageWindow;
 		core::WindowCreationParams *params;
-		NativeWindow(Root &parent);
+		NativeWindow();
 	public:
 		void destroy(void);
 		core::WINDOW getHandle(void);
-		static NativeWindow *create(core::Root &parent, core::WindowCreationParams &params);
+		static NativeWindow *create(core::WindowCreationParams &params);
 
 #if defined(VTX_PLATFORM_LINUX)
 		Display *display;
