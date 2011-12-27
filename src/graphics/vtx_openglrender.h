@@ -41,7 +41,7 @@ namespace graphics
 		HGLRC renderContext;
 #endif
 	public:
-		OpenGLRender(core::Root& parent, graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
+		OpenGLRender(graphics::RenderCreationParams &params, core::NativeWindow *outputWindow);
 		~OpenGLRender(void);
 		virtual void swap(void);
 		virtual void clear(void);

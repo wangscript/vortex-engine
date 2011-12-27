@@ -14,8 +14,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+
 #include <core/vtx_eventoutput.h>
-#include <content/vtx_resourcemanager.h>
+#include <content/vtx_ResourceSystem.h>
 #include <graphics/vtx_rendermanager.h>
 #include <core/vtx_simulationmanager.h>
 
@@ -37,34 +38,38 @@
 
 core::Root::Root()
 {
-	std::string msg("Standard error output!!");
-	this->output = new core::EventOutput(core::EventOutput::E_LEVEL_VERBOSE);
-	this->output->reportEvent(core::EventOutput::E_LEVEL_FATAL, msg);
-	this->jobManager = new concurrency::JobManager();
-	this->resourceManager = new content::ResourceManager(*this);
-	this->renderManager = new graphics::RenderManager(*this);
-	this->simulationManager = new core::SimulationManager();
+	////this->cvarSystem = new core::CVarSystem(*(new core::StandardAllocator));
+	//this->output = new core::EventOutput(core::EventOutput::E_LEVEL_VERBOSE);
+	//this->jobManager = new concurrency::JobManager();
+	//this->ResourceSystem = new content::ResourceSystem(*this);
+	//this->renderManager = new graphics::RenderManager(*this);
+	//this->simulationManager = new core::SimulationManager();
 }
 
 void core::Root::Run(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {	
-	this->init(windowParams, renderParams);
+	//this->init(windowParams, renderParams);
 
-	this->simulationManager->run();
+	//this->simulationManager->run();
 
-	this->jobManager->destroy();
-	this->simulationManager->destroy();
-	this->renderManager->destroy();
-	this->resourceManager->destroy();
+	//this->jobManager->destroy();
+	//this->simulationManager->destroy();
+	//this->renderManager->destroy();
+	//this->ResourceSystem->destroy();
 
 }
 
+void core::Root::readConfig(std::string& path)
+{
+}
+
+
 void core::Root::init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams)
 {
-	INIT(this->jobManager->init();, "JobManager");
-	INIT(this->resourceManager->init();, "ResourceManager");
-	INIT(this->renderManager->init(renderParams, windowParams);, "RenderManager");
-	INIT(this->simulationManager->init(this->renderManager->getRenderObject());, "SimulationManager");
+	//INIT(this->jobManager->init();, "JobManager");
+	//INIT(this->ResourceSystem->init();, "ResourceSystem");
+	//INIT(this->renderManager->init(renderParams, windowParams);, "RenderManager");
+	//INIT(this->simulationManager->init(this->renderManager->getRenderObject());, "SimulationManager");
 }
 
 #if defined(VTX_TOOL_BUILD)
@@ -83,6 +88,6 @@ void core::Root::toolDestroy(void)
 	this->jobManager->destroy();
 	this->simulationManager->destroy();
 	this->renderManager->destroy();
-	this->resourceManager->destroy();
+	this->ResourceSystem->destroy();
 }
 #endif

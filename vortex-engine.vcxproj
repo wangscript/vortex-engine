@@ -21,7 +21,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v100</PlatformToolset>
@@ -53,6 +53,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>D:\Projects\Vortex\src;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)\Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tool-debug|Win32'">
     <IncludePath>D:\Projects\Vortex\src;D:\Projects\Boost\boost_1_47_0\boost_1_47_0;D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
@@ -68,10 +69,13 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>D3DX10.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tool-debug|Win32'">
@@ -121,7 +125,7 @@
     <ClInclude Include="src\concurrency\vtx_thread.h" />
     <ClInclude Include="src\content\vtx_content.h" />
     <ClInclude Include="src\content\vtx_contentpackage.h" />
-    <ClInclude Include="src\content\vtx_resourcemanager.h" />
+    <ClInclude Include="src\content\vtx_resourcesystem.h" />
     <ClInclude Include="src\core\vtx_allocator.h" />
     <ClInclude Include="src\core\vtx_assertions.h" />
     <ClInclude Include="src\core\vtx_atomic.h" />
@@ -129,6 +133,7 @@
     <ClInclude Include="src\core\vtx_buildconfig.h" />
     <ClInclude Include="src\core\vtx_camera.h" />
     <ClInclude Include="src\core\vtx_clock.h" />
+    <ClInclude Include="src\core\vtx_cvarsystem.h" />
     <ClInclude Include="src\core\vtx_double_stack_allocator.h" />
     <ClInclude Include="src\core\vtx_eventoutput.h" />
     <ClInclude Include="src\core\vtx_math.h" />
@@ -159,11 +164,14 @@
     <ClInclude Include="src\graphics\vtx_vertexposnormtex.h" />
     <ClInclude Include="src\io\vtx_filestream.h" />
     <ClInclude Include="src\io\vtx_filesystem.h" />
+    <ClInclude Include="src\io\vtx_inireader.h" />
     <ClInclude Include="src\io\vtx_iostream.h" />
+    <ClInclude Include="src\io\vtx_textreader.h" />
     <ClInclude Include="src\text\utf8.h" />
     <ClInclude Include="src\text\utf8\checked.h" />
     <ClInclude Include="src\text\utf8\core.h" />
     <ClInclude Include="src\text\utf8\unchecked.h" />
+    <ClInclude Include="src\text\vtx_string.h" />
     <ClInclude Include="src\text\vtx_stringutil.h" />
     <ClInclude Include="src\graphics\vtx_effect.h" />
   </ItemGroup>
@@ -175,12 +183,13 @@
     <ClCompile Include="src\concurrency\thread.cpp" />
     <ClCompile Include="src\content\content.cpp" />
     <ClCompile Include="src\content\contentpackage.cpp" />
-    <ClCompile Include="src\content\resourcemanager.cpp" />
     <ClCompile Include="src\content\effect.cpp" />
+    <ClCompile Include="src\content\resourcesystem.cpp" />
     <ClCompile Include="src\core\assertions.cpp" />
     <ClCompile Include="src\core\blob.cpp" />
     <ClCompile Include="src\core\camera3d.cpp" />
     <ClCompile Include="src\core\clock.cpp" />
+    <ClCompile Include="src\core\cvarsystem.cpp" />
     <ClCompile Include="src\core\concurrent_queue.cpp" />
     <ClCompile Include="src\core\eventoutput.cpp" />
     <ClCompile Include="src\core\math.cpp" />
@@ -196,6 +205,7 @@
     <ClCompile Include="src\core\vortex_root.cpp" />
     <ClCompile Include="src\core\window.cpp" />
     <ClCompile Include="src\core\windowcreationparams.cpp" />
+    <ClCompile Include="src\core\winmain.cpp" />
     <ClCompile Include="src\graphics\dx10effect.cpp" />
     <ClCompile Include="src\graphics\dx10render.cpp" />
     <ClCompile Include="src\graphics\openglrender.cpp" />
@@ -206,7 +216,10 @@
     <ClCompile Include="src\io\file.cpp" />
     <ClCompile Include="src\io\filestream.cpp" />
     <ClCompile Include="src\io\filesystem.cpp" />
+    <ClCompile Include="src\io\inireader.cpp" />
     <ClCompile Include="src\io\iostream.cpp" />
+    <ClCompile Include="src\io\textreader.cpp" />
+    <ClCompile Include="src\text\string.cpp" />
     <ClCompile Include="src\text\stringutil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

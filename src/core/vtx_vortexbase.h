@@ -24,9 +24,11 @@ namespace core
 	class VortexBase
 	{
 	protected:
-		Root &engineParent;
-	public:
-		VortexBase(Root &parent) : engineParent(parent) {}
+		Root &engine;
+		VortexBase(Root &engine) 
+			: engine(engine)
+		{
+		}
 
 	};
 

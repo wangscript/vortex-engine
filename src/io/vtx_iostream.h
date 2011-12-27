@@ -33,15 +33,16 @@ namespace io
 		core::U64_t position;
 		bool open;
 	public:
-		enum ErrorCode { OK, UNKOWN_ERROR };
+		enum ErrorCode { OK, UNKOWN_ERROR, END_OF_FILE };
 		typedef void (*read_callback)(core::U8_t *buffer, core::U32_t bytesRead);
 		typedef void (*write_callback)(void);
 
 		ErrorCode init(core::SYSTEM_HANDLE handle);
 		core::U64_t getPosition();
-		ErrorCode setPosition(core::U64_t position);
+		ErrorCode readByte(core::U8_t *byte);
 		ErrorCode readBytes(core::U8_t *buffer, core::U32_t bytesToRead, core::U32_t *bytesRead);
 		void readBytes_async(core::U8_t *buffer, core::U32_t bytesToRead, read_callback callback);
+		ErrorCode setPosition(core::U64_t position);
 		void writeBytes(core::U8_t *buffer, core::U32_t start, core::U32_t length);
 		void writeBytes_async(core::U8_t *buffer, core::U32_t start, core::U32_t length, write_callback);
 		void closeStream();

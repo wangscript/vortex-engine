@@ -19,13 +19,21 @@
 
 #include <core/vtx_atomic.h>
 
+namespace core
+{
+	class Allocator;
+}
+
 namespace concurrency
 {
 	class JobProcessor;
 
+	void InitJobMgr(core::Allocator &allocator);
+
 	class JobManager
 	{
 	private:
+		core::Allocator &alloc;
 		core::U32_t promotionIncrement;
 		core::U32_t noJobProcessors;
 		core::U32_t getCurrentProcessAffinityMask(void);
@@ -33,12 +41,13 @@ namespace concurrency
 		void initJobProcessors(core::U32_t processAffinity);
 		JobProcessor **processors;
 	public:
-		void init(void);
-		void destroy(void);
+		JobManager(core::Allocator &allocator);
+		~JobManager();
 		void setPromotionIncrement(core::U32_t value);
 		core::U32_t getPromotionIncrement(void);
 	};
 
+	extern JobManager *jobMgr;
 }
 
 #endif

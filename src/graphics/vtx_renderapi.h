@@ -47,11 +47,10 @@ namespace graphics
 		E_PRIMITIVE_TRIANGLESTRIP_ADJ
 	};
 
-	class RenderAPI : protected core::VortexBase
+	class RenderAPI
 	{
 	protected:
 		core::Vector4 clearColor;
-		RenderAPI(core::Root& parent) : core::VortexBase(parent) {} //Empty constructor
 	public:
 		static RenderAPI *createDX10(void);
 		virtual void swap(void) = 0;

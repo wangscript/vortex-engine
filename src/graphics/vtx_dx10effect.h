@@ -20,12 +20,12 @@ namespace graphics
 	{
 	public:
 		ID3D10Effect &d3dEffect;
-		DX10Effect(ID3D10Effect &effect)
-			: d3dEffect(effect)
+		DX10Effect(ID3D10Effect &effect, core::Blob &blob, core::U32_t effectIdentifier) : Effect(blob, effectIdentifier),
+			d3dEffect(effect)
 		{
 		}
 
-		virtual void init(core::Root &root, core::Blob &blob);
+		virtual void init(core::Blob &blob);
 	};
 }
 

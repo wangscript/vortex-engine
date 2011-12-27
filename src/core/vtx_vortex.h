@@ -34,11 +34,12 @@ namespace concurrency
 
 namespace content
 {
-	class ResourceManager;
+	class ResourceSystem;
 }
 
 namespace core
 {
+	class CVarSystem;
 	class EventOutput;
 	class NativeWindow;
 	class SimulationManager;
@@ -58,17 +59,18 @@ namespace core
 	private:
 		friend class JobManager;
 		friend class SimulationManager;
-		friend class ResourceManager;
+		friend class ResourceSystem;
 		friend class graphics::RenderManager;
 		friend class NativeWindow;
 		friend class graphics::OpenGLRender;
 		
+		//core::CVarSystem			*cvarSystem;
 		core::EventOutput			*output;
 		concurrency::JobManager		*jobManager;
 		core::SimulationManager		*simulationManager;
-		content::ResourceManager	*resourceManager;
-		
+		content::ResourceSystem	*ResourceSystem;
 
+		void readConfig(std::string& path);
 		void init(core::WindowCreationParams &windowParams, graphics::RenderCreationParams &renderParams);
 	};
 

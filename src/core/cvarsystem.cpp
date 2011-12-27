@@ -2,6 +2,16 @@
 #include <core/vtx_allocator.h>
 #include <string>
 
+#include <core/vtx_standardallocator.h>
+
+core::CVarSystem *core::cvarSys;
+
+void core::InitCVarSystem(core::Allocator &allocator)
+{
+	core::Allocator *cvarSysAlloc = new (allocator.allocate(sizeof(core::StandardAllocator))) core::StandardAllocator;
+	core::cvarSys = new (allocator.allocate(sizeof(core::CVarSystem))) core::CVarSystem(*cvarSysAlloc);
+}
+
 core::CVar::CVar(core::Allocator &allocator, const char *name, const char *description, const bool value, bool persistent, bool immutable)
 	: alloc(allocator)
 {

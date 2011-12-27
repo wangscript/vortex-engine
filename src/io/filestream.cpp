@@ -14,8 +14,14 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include <core/vtx_buildconfig.h>
 #include <io/vtx_filestream.h>
 #include <text/vtx_stringutil.h>
+
+io::FileStream::~FileStream()
+{
+	this->closeStream();
+}
 
 io::IOStream::ErrorCode io::FileStream::openStream(const std::string &path)
 {
@@ -37,13 +43,4 @@ io::IOStream::ErrorCode io::FileStream::openStream(const std::string &path)
 		NULL);
 #endif
 	return this->init(handle);
-}
-
-void io::FileStream::closeStream()
-{
-	io::IOStream::closeStream();
-
-#ifdef WIN32
-	CloseHandle(this->handle);
-#endif
 }

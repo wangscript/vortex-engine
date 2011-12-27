@@ -19,7 +19,7 @@
 
 void core::Clock::reset(void)
 {
-	this->startTime = Timer::readHighResolutionTimer();
+	this->startTime = core::Timer::readHighResolutionTimer();
 }
 
 core::F32_t core::Clock::getElapsedSeconds(void)

@@ -33,14 +33,3 @@ text::String::~String()
 {
 	this->alloc.deallocate(this->buffer);
 }
-
-const core::U8_t *text::String::getU8Data()
-{
-	return this->buffer;
-}
-
-const char *text::String::getCharData()
-{
-	return reinterpret_cast<char*>(this->buffer);
-}
-

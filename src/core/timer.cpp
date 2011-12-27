@@ -13,37 +13,3 @@
 //You should have received a copy of the GNU General Public License
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-#include <core/vtx_buildconfig.h>
-#include <core/vtx_timer.h>
-#if defined(VTX_PLATFORM_WIN32)
-#include <Windows.h>
-#endif
-
-core::U64_t core::Timer::readHighResolutionTimer(void)
-{
-	core::U64_t result;
-#if defined(VTX_PLATFORM_WIN32)
-	LARGE_INTEGER value;
-	BOOL res = QueryPerformanceCounter(&value);
-	//TODO: Handle res here.
-	result = value.QuadPart;
-#elif defined(VTX_PLATFORM_LINUX)
-	result = 0; // PLACEHOLDER FOR LINUX VARIANT
-#endif
-	return result;
-}
-
-core::U64_t core::Timer::readHighResolutionTimerFrequency(void)
-{
-	core::U64_t result;
-#if defined(VTX_PLATFORM_WIN32)
-	LARGE_INTEGER value;
-	BOOL res = QueryPerformanceFrequency(&value);
-	//TODO: Handle res here.
-	result = value.QuadPart;
-#elif defined(VTX_PLATFORM_LINUX)
-	result = 0; // PLACEHOLDER FOR LINUX VARIANT
-#endif
-	return result;
-}

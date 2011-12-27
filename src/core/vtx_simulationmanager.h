@@ -27,20 +27,25 @@ namespace graphics
 
 namespace core
 {
+	class Allocator;
+	void InitSimulationMgr(Allocator &allocator);
 
 	class SimulationManager
 	{
 	public:
 		core::U32_t frames;
-		void init(graphics::RenderAPI *render);
-		void destroy(void);
+		
+		SimulationManager(Allocator &allocator);
 		void run(void);
 		void step(core::F32_t elapsed);
 	private:
+		core::Allocator &alloc;
 		core::Clock gameClock;
 		graphics::RenderAPI *render;
 		void runOneFrame(core::F32_t seconds);
 	};
+
+	extern SimulationManager *simulationMgr;
 
 }
 

@@ -9,6 +9,8 @@ namespace core
 {
 	class Allocator;
 
+	void InitCVarSystem(Allocator &allocator);
+
 	enum CVAR_FLAGS
 	{
 		CVAR_FLAG_FLOAT			= 1,
@@ -79,7 +81,7 @@ namespace core
 		void update();
 	};
 
-
+	extern CVarSystem *cvarSys;
 }
 
 #endif

@@ -28,27 +28,30 @@ namespace graphics
 
 namespace core
 {
+	class Allocator;
 	class WindowCreationParams;
 	class NativeWindow;
 }
 
 namespace graphics
 {
+	void InitRenderMgr(core::Allocator &allocator, graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams);
 
-	class RenderManager : core::VortexBase
+	class RenderManager
 	{
 	public:
-		RenderManager(core::Root&);
-		void init(graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams);
-		void destroy(void);
+		RenderManager(core::Allocator &allocator, graphics::RenderCreationParams &params, core::WindowCreationParams &windowParams);
+		~RenderManager();
 		graphics::RenderAPI *getRenderObject(void);
 	private:
+		core::Allocator &alloc;
 		void createWindow(core::WindowCreationParams &params);
 		core::NativeWindow *window;
 		bool manageWindow;
 		graphics::RenderAPI *render;
 	};
 
+	extern RenderManager *renderMgr;
 }
 
 #endif
